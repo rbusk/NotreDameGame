@@ -1,0 +1,10 @@
+John Rocha, Mary Connolly, Ryan Busk
+
+1) Draw out a simplified hierarchy for the four mini-games, one for each year in the game (10 points)
+
+2) Create and compile beginning game menu (10 points)
+	a) put images on screen and create usable buttons
+
+3) have each group member spend 4-6 hours making progress on SDL tutorials (15 points)
+
+4) Name the game (5 points)
