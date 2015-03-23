@@ -27,7 +27,8 @@ set path = ( $path )
 
 #*****************************************************
 #       ADDED BY JOHN ROCHA FOR NOTREDAMEGAME PROJECT SDL
-#       CAN BE REMOVED IF NO LONGER NEEDED
+#       CAN BE REMOVED IF NO LONGER NEEDED OR IF IT CAUSES
+# 	UNFORESEEN PROBLEMS
 setenv PATH /afs/nd.edu/user14/csesoft/new/bin:$PATH
 setenv LD_LIBRARY_PATH /afs/nd.edu/user14/csesoft/new/lib
 #*****************************************************
