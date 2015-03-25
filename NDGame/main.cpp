@@ -27,7 +27,7 @@ int main(int argc, const char * argv[]) {
         // Opening Screen (screenState 0)
 	    bg.loadFromFile("resources/dome2.jpg", mySDL.myRenderer);
 
-	    TTF_Font *font=TTF_OpenFont("OpenSans-Bold.ttf", 40);
+	    TTF_Font *font=TTF_OpenFont("resources/OpenSans-Bold.ttf", 40);
 
 	    SDL_Color textColor={255, 255, 255};
 
