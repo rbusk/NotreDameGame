@@ -46,7 +46,7 @@ int main(int argc, const char * argv[]) {
         font = TTF_OpenFont("resources/OpenSans-Bold.ttf", 20);
         SDL_Color endTextColor={0,0,0};
         
-        endText.loadFromRenderedText("YOU GRADUATED!", endTextColor, font, mySDL.myRenderer, mySDL.getW()/2, mySDL.getH()/20);
+        endText.loadFromRenderedText("YOU GRADUATED!", endTextColor, font, mySDL.myRenderer, mySDL.getW()/2.8, mySDL.getH()/25);
         
 	    bool quit=false;
 
