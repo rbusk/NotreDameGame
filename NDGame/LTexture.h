@@ -20,7 +20,7 @@ public:
     bool loadFromFile(string path, SDL_Renderer*& gRenderer); //load image
     bool loadFromRenderedText(string textureText, SDL_Color textColor, TTF_Font*& gFont, SDL_Renderer*& gRenderer, int xIn, int yIn);
     void free(); //deallocate texture
-    void render(int x, int y, SDL_Renderer *& gRenderer); //renders texture at given point
+    void render(SDL_Renderer *& gRenderer); //renders texture at given point
     int getWidth(); //gets image dimensions
     int getHeight();
     int getX();

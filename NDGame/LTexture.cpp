@@ -123,7 +123,7 @@ void LTexture::free()
     }
 }
 
-void LTexture::render(int x, int y, SDL_Renderer*& gRenderer)
+void LTexture::render(SDL_Renderer*& gRenderer)
 {
     //Set rendering space and render to screen
     SDL_Rect renderQuad = {x,y,mWidth,mHeight};

@@ -51,7 +51,7 @@ void SDLClass::renderTextures(vector<LTexture*> textures)
 {
 	for (int i=0; i<textures.size() ; i++)
 	{
-		textures[i]->render(textures[i]->getX(), textures[i]->getY(), myRenderer);
+		textures[i]->render(myRenderer);
 	}
 }
 
