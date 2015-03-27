@@ -16,15 +16,19 @@ class LTexture
 {
 public:
     LTexture(); //initializes variables
-    ~LTexture(); //deallocates memory
     bool loadFromFile(string path, SDL_Renderer*& gRenderer); //load image
     bool loadFromRenderedText(string textureText, SDL_Color textColor, TTF_Font*& gFont, SDL_Renderer*& gRenderer, int xIn, int yIn);
     void free(); //deallocate texture
     void render(SDL_Renderer *& gRenderer); //renders texture at given point
     int getWidth(); //gets image dimensions
     int getHeight();
+    void setWidth(int w);
+    void setHeight(int h);
+    void setTexture(SDL_Texture* t);
     int getX();
     int getY();
+    void setX(int n);
+    void setY(int n);
     
 private:
     SDL_Texture* mTexture;

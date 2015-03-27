@@ -37,11 +37,6 @@ int SDLClass::getH()
 	return h;
 }
 
-SDL_Renderer* SDLClass::getRenderer()
-{
-	return myRenderer;
-}
-
 void SDLClass::clear()
 {
 	SDL_RenderClear(myRenderer);
@@ -125,6 +120,82 @@ bool SDLClass::loadMedia()
     return 1;
 }
 
+LTexture SDLClass::loadFromFile(string path)
+{
+	LTexture newLTexture; //final LTexture
+	SDL_Texture* newTexture=NULL; //final texture
+
+	SDL_Surface* loadedSurface=IMG_Load(path.c_str());
+
+	if(loadedSurface==NULL)
+	{
+		cout << "Unable to load image! Error: " << IMG_GetError();
+	}
+
+	else
+	{
+		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
+
+		//create texture from surface pixels
+		
+		newTexture=SDL_CreateTextureFromSurface(myRenderer, loadedSurface);
+		if (newTexture==NULL)
+		{
+			cout << "Unable to create texture. SDL Error: " << SDL_GetError();
+		}
+
+		else //set image dimensions
+		{
+			newLTexture.setWidth(loadedSurface->w);
+			newLTexture.setHeight(loadedSurface->h);
+		}
+
+		SDL_FreeSurface(loadedSurface);
+	}
+
+	newLTexture.setTexture(newTexture);
+
+	return newLTexture;
+}
+
+LTexture SDLClass::loadFromText(string textureText, SDL_Color textColor, TTF_Font *& gFont, int xIn, int yIn)
+{
+	LTexture newLTexture;
+	SDL_Texture *newTexture;
+
+	SDL_Surface* textSurface=TTF_RenderText_Solid(gFont, textureText.c_str(), textColor);
+
+	if (textSurface==NULL)
+	{
+		cout << "Unable to render text surface. SDL_ttf error: " << TTF_GetError() << endl;
+	}
+
+	else
+	{
+		//create texture from surface pixels
+		newTexture=SDL_CreateTextureFromSurface(myRenderer, textSurface);
+
+		if (newTexture==NULL)
+		{
+			cout << "Unable to create texture from rendered text. SDL Error: " << SDL_GetError() << endl;
+		}
+
+		else
+		{
+			newLTexture.setWidth(textSurface->w);
+			newLTexture.setHeight(textSurface->h);
+			newLTexture.setX(xIn);
+			newLTexture.setY(yIn);
+		}
+
+		SDL_FreeSurface(textSurface);
+	}
+
+	newLTexture.setTexture(newTexture);
+
+	return newLTexture;
+}
+	
 SDL_Texture* SDLClass::loadTexture(string path)
 {
     SDL_Texture* newTexture = NULL; //final texture

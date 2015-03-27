@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Mary. All rights reserved.
 //
 
-#ifndef __NotreDameGame__SDLClass__
-#define __NotreDameGame__SDLClass__
+#ifndef SDLCLASS_H
+#define SDLCLASS_H
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
@@ -28,19 +28,18 @@ public:
     void clear();
     void renderTextures(vector<LTexture*>);
     void update();
-    SDL_Renderer* getRenderer();
     int getW();
     int getH();
-    SDL_Renderer *myRenderer;
+    LTexture loadFromFile(string path);
+    LTexture loadFromText(string textureText, SDL_Color textColor, TTF_Font *& gFont, int xIn, int yIn);
     
 private:
     SDL_Window *myWindow;
-    //SDL_Renderer *myRenderer;
+    SDL_Renderer *myRenderer;
     vector <LTexture*> textures;
     int h;
     int w;
     
 };
 
-
-#endif /* defined(__NotreDameGame__SDLClass__) */
+#endif

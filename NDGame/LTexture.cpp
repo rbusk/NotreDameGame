@@ -23,11 +23,6 @@ LTexture::LTexture()
     y=0;
 }
 
-LTexture::~LTexture()
-{
-    free();
-}
-
 int LTexture::getX()
 {
 	return x;
@@ -36,6 +31,16 @@ int LTexture::getX()
 int LTexture::getY()
 {
 	return y;
+}
+
+void LTexture::setX(int n)
+{
+	x=n;
+}
+
+void LTexture::setY(int n)
+{
+	y=n;
 }
 
 bool LTexture::loadFromRenderedText(string textureText, SDL_Color textColor, TTF_Font*& gFont, SDL_Renderer*& gRenderer, int xIn, int yIn)
@@ -112,6 +117,18 @@ bool LTexture::loadFromFile(string path, SDL_Renderer*& gRenderer)
     return newTexture!=NULL;
 }
 
+/*bool LTexture::loadFromFile(string path, SDLClass &mySDL)
+{
+	SDL_Texture *newTexture;
+
+	free();
+
+	newTexture=mySDL.loadTexture(path);
+
+	myWidth=new
+*/
+	
+
 void LTexture::free()
 {
     if (mTexture!=NULL)
@@ -138,4 +155,19 @@ int LTexture::getWidth()
 int LTexture::getHeight()
 {
     return mHeight;
+}
+
+void LTexture::setWidth(int w)
+{
+	mWidth=w;
+}
+
+void LTexture::setHeight(int h)
+{
+	mHeight=h;
+}
+
+void LTexture::setTexture(SDL_Texture* t)
+{
+	mTexture=t;
 }

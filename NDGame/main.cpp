@@ -18,28 +18,30 @@ int main(int argc, const char * argv[]) {
 	LTexture bg, text1, text2, bg2, endText; //background
 
 	// Opening Screen (screenState 0)
-	bg.loadFromFile("resources/dome2.jpg", mySDL.myRenderer);
+
+	bg=mySDL.loadFromFile("resources/dome2.jpg");
 
 	TTF_Font *font=TTF_OpenFont("resources/OpenSans-Bold.ttf", 40);
 
 	SDL_Color textColor={255, 255, 255};
 
-	text1.loadFromRenderedText("Really awesome game", textColor, font, mySDL.myRenderer, mySDL.getW()/30, mySDL.getH()/8);
+	
+	text1=mySDL.loadFromText("Really awesome game", textColor, font, mySDL.getW()/30, mySDL.getH()/8);
 
 	font=TTF_OpenFont("resources/OpenSans-Regular.ttf", 14);
-	text2.loadFromRenderedText("Press any key to continue", textColor, font, mySDL.myRenderer, mySDL.getW()/30, mySDL.getH()/4);
+
+	text2=mySDL.loadFromText("Press any key to continue", textColor, font,  mySDL.getW()/30, mySDL.getH()/4);
 
 	textures.push_back(&bg);
 	textures.push_back(&text1);
 	textures.push_back(&text2);
 
 	// screenState 1
-	bg2.loadFromFile("resources/diploma.jpg", mySDL.myRenderer);
-
+	bg2=mySDL.loadFromFile("resources/diploma.jpg");
 	font = TTF_OpenFont("resources/OpenSans-Bold.ttf", 20);
 	SDL_Color endTextColor={0,0,0};
 
-	endText.loadFromRenderedText("YOU GRADUATED!", endTextColor, font, mySDL.myRenderer, mySDL.getW()/2.8, mySDL.getH()/25);
+	endText=mySDL.loadFromText("YOU GRADUATED!", endTextColor, font, mySDL.getW()/2.8, mySDL.getH()/25);
 
 	bool quit=false;
 
