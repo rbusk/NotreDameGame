@@ -16,10 +16,10 @@
 
 SDLClass :: SDLClass()
 {
-    myWindow=NULL;
-    myRenderer=NULL;
     w=640;
     h=480;
+
+    init();
 }
 
 SDLClass::~SDLClass()
