@@ -6,43 +6,25 @@
 #include <vector>
 #include "LTexture.h"
 #include "SDLClass.h"
+#include "StaticScreen.h"
+#include "OpeningScreen.h"
+#include "GraduatingScreen.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    
+  
+
 	SDLClass mySDL;
 
-	vector<LTexture*> textures;
-    
-	int screenState = 0;
-	LTexture bg, text1, text2, bg2, endText; //background
+	OpeningScreen myOpening(mySDL);
+	GraduatingScreen myGraduating(mySDL);
 
-	// Opening Screen (screenState 0)
+	StaticScreen *screenPtr;
 
-	bg=mySDL.loadFromFile("resources/dome2.jpg");
+	screenPtr=&myOpening;
 
-	TTF_Font *font=TTF_OpenFont("resources/OpenSans-Bold.ttf", 40);
-
-	SDL_Color textColor={255, 255, 255};
-
+	int screenState=0;
 	
-	text1=mySDL.loadFromText("Really awesome game", textColor, font, mySDL.getW()/30, mySDL.getH()/8);
-
-	font=TTF_OpenFont("resources/OpenSans-Regular.ttf", 14);
-
-	text2=mySDL.loadFromText("Press any key to continue", textColor, font,  mySDL.getW()/30, mySDL.getH()/4);
-
-	textures.push_back(&bg);
-	textures.push_back(&text1);
-	textures.push_back(&text2);
-
-	// screenState 1
-	bg2=mySDL.loadFromFile("resources/diploma.jpg");
-	font = TTF_OpenFont("resources/OpenSans-Bold.ttf", 20);
-	SDL_Color endTextColor={0,0,0};
-
-	endText=mySDL.loadFromText("YOU GRADUATED!", endTextColor, font, mySDL.getW()/2.8, mySDL.getH()/25);
-
 	bool quit=false;
 
 	SDL_Event e; //event handler
@@ -65,18 +47,15 @@ int main(int argc, const char * argv[]) {
 		switch (screenState) {
 			case 0:
 				break;
+				
 			case 1:
-				textures.clear();
-				textures.push_back(&bg2);
-				textures.push_back(&endText);
+				screenPtr=&myGraduating;
 				break;
 			default:
 				quit=true;
 		}
 
-		mySDL.clear();
-		mySDL.renderTextures(textures);
-		mySDL.update();
+		screenPtr->draw();
 	}
 
     return 0;

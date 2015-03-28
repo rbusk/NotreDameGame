@@ -1,8 +1,8 @@
 #Object files:
-OBJ = LTexture.o SDLClass.o main.o
+OBJ = LTexture.o SDLClass.o OpeningScreen.o StaticScreen.o GraduatingScreen.o main.o
 
 # Header files:
-HDR = LTexture.h SDLClass.h
+HDR = LTexture.h SDLClass.h OpeningScreen.h StaticScreen.h GraduatingScreen.h
 
 # Libraries
 LIBS = -L/usr/local/lib -lSDL2 -lSDL2_image -lSDL2_ttf

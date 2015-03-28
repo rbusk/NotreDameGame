@@ -42,11 +42,11 @@ void SDLClass::clear()
 	SDL_RenderClear(myRenderer);
 }
 
-void SDLClass::renderTextures(vector<LTexture*> textures)
+void SDLClass::renderTextures(vector<LTexture> textures)
 {
 	for (int i=0; i<textures.size() ; i++)
 	{
-		textures[i]->render(myRenderer);
+		textures[i].render(myRenderer);
 	}
 }
 

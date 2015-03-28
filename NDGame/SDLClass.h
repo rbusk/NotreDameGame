@@ -26,7 +26,7 @@ public:
     void close();
     SDL_Texture* loadTexture(string path);
     void clear();
-    void renderTextures(vector<LTexture*>);
+    void renderTextures(vector<LTexture>);
     void update();
     int getW();
     int getH();
