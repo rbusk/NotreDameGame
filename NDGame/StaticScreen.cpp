@@ -8,6 +8,22 @@ StaticScreen::StaticScreen(SDLClass &myC)
 	mySDL=&myC;
 }
 
+//destructor calls function destroyScreen
+StaticScreen::~StaticScreen()
+{
+	destroyScreen();
+}
+
+//destroy Screen frees the textures in the vector
+void StaticScreen::destroyScreen()
+{
+	for (int i; i<textures.size(); i++)
+	{
+		textures[i].free();
+	}
+
+}
+
 //update screen
 void StaticScreen::draw()
 {

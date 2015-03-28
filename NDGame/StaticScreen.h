@@ -19,6 +19,8 @@ class StaticScreen {
 
 	public: 
 		StaticScreen(SDLClass &myC);
+		~StaticScreen();
+		void destroyScreen();
 		void draw(); //update screen
 		void loadFromFile(string path); //add texture from file
 		void loadFromText(string textureText, SDL_Color textColor, TTF_Font*& gFont, int xIn, int yIn);
