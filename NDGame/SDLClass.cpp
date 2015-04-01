@@ -95,7 +95,7 @@ bool SDLClass::init()
         else
         {
             //create renderer for window
-            myRenderer = SDL_CreateRenderer(myWindow, -1, SDL_RENDERER_ACCELERATED);
+            myRenderer = SDL_CreateRenderer(myWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
             if (myRenderer == NULL)
             {
                 cout << "Renderer could not be created. SDL Error: " << SDL_GetError();
