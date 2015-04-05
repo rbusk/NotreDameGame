@@ -26,10 +26,15 @@ class StaticScreen {
 		void loadFromText(string textureText, SDL_Color textColor, TTF_Font*& gFont, int xIn, int yIn);
 		int getSize();
 		SDLClass * getSDL();
+		void setIsScrolling(int x);
+		void setIsScrollingScreen(int x);
 
 	private:
 		vector<LTexture> textures;
 		SDLClass *mySDL;
+		int isScrollingScreen; //indicates if scrolling screen
+		int isScrolling; //indicates if scrolling screen is scrolling
+		int scrollingOffset;
 };
 
 #endif

@@ -26,10 +26,24 @@ void StaticScreen::destroyScreen()
 
 //update screen
 void StaticScreen::draw()
-{
-	mySDL->clear();
-	mySDL->renderTextures(textures);
+{	
+	if (isScrollingScreen && isScrolling)
+	{
+		scrollingOffset--;
+
+		mySDL->clear();
+		textures[0].setX(scrollingOffset);
+		mySDL->renderTextures(textures);
+		textures[0].setX(scrollingOffset + textures[0].getWidth());
+		mySDL->renderTextures(textures);
+	}
+
+	else
+	{
+		mySDL->clear();
+		mySDL->renderTextures(textures);
 	//mySDL->update();
+	}	
 }
 
 //load new texture and add it to textures
@@ -55,4 +69,14 @@ int StaticScreen::getSize()
 SDLClass * StaticScreen::getSDL()
 {
 	return mySDL;
+}
+
+void StaticScreen::setIsScrolling(int x)
+{
+	isScrolling=x;
+}
+
+void StaticScreen::setIsScrollingScreen(int x)
+{
+	isScrollingScreen=x;
 }
