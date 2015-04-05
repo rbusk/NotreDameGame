@@ -35,11 +35,11 @@ class Sprite {
 		vector<SDL_Rect> spriteClips;	
 		int numOfClips;
 		int currentClip;
-		SDLClass *mySDL;
 		int xPos;
 		int yPos;
 		int height;
 		int width;
+		SDLClass *mySDL;
 };
 
 #endif

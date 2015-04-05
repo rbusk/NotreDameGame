@@ -10,12 +10,12 @@ Sprite::Sprite(SDLClass &myC)
 	xPos = 0;
 	yPos = 0;
 	mySDL=&myC;
-	spriteSheet=mySDL->loadFromFile("resources/manSpriteSheet.jpg");
+	setTextureClips("resources/manSpriteSheet.jpg");
 }
 
 Sprite::~Sprite()
 {
-//	destroySprite();
+	//destroySprite();
 }
 
 
@@ -25,14 +25,20 @@ void Sprite::setTextureClips(string path)
 	   Will probably be a virtual function because each version of 
 	   this will be very specific to the sprite's sprite sheet
 	 */
-	//spriteSheet=mySDL->loadFromFile(path);
-	//for (int cntr = 0; cntr < n; cntr++) {
-	//	runSpriteClips.push_back(SDL_Rect());
-	//	runSpriteClips[cntr].x = cntr*newTexture.getWidth()/n;
-	//	runSpriteClips[cntr].y = 0;
-	//	runSpriteClips[cntr].w = newTexture.getWidth();
-	//	runSpriteClips[cntr].h = newTexture.getHeight();
-	//}
+	
+	spriteSheet=mySDL->loadFromFile(path);
+
+	numOfClips = 4;
+
+	for(int i = 0; i < numOfClips; i++ ) {
+		spriteClips.push_back(SDL_Rect());
+		spriteClips[i].x = 194*i;
+		spriteClips[i].y = 0;
+		spriteClips[i].w = 194;
+		spriteClips[i].h = 198;
+	}
+
+	currentClip = 0;
 }
 
 //update screen
@@ -59,21 +65,18 @@ void Sprite::draw()
 
 	//mySDL->renderTextures(spriteSheet);
 	//mySDL->update();
-
-	SDL_Rect frame;
-	frame.x = 0;
-	frame.y = 0;
-	frame.w = 194;
-	frame.h = 198;
-	SDL_Rect* currentClip = &frame;
-	mySDL->renderSprite(spriteSheet,100,100,currentClip);
+	SDL_Rect* thisClip = &spriteClips[currentClip/numOfClips];
+	mySDL->renderSprite(spriteSheet,100,100,thisClip);
+	currentClip++;
+	if (currentClip / 4 >= numOfClips)
+		currentClip = 0;
 	//mySDL->update();
 }
 
 void destroySprite() 
 {
-//	spriteSheet.free();
-//	spriteClips.clear();
+	//spriteSheet.free();
+	//spriteClips.clear();
 }
 
 int Sprite::getX() 
