@@ -4,6 +4,9 @@
 OpeningScreen::OpeningScreen(SDLClass &myC) 
 : StaticScreen(myC)
 {
+	setIsScrollingScreen(0);
+	setIsScrolling(0);
+
 	loadFromFile("resources/dome2.jpg");
 
 	TTF_Font *font=TTF_OpenFont("resources/OpenSans-Bold.ttf", 40);

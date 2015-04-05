@@ -11,6 +11,7 @@
 #include "GraduatingScreen.h"
 #include "Sprite.h"
 #include "Player.h"
+#include "Background.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -20,6 +21,7 @@ int main(int argc, const char * argv[]) {
 
 	OpeningScreen myOpening(mySDL);
 	GraduatingScreen myGraduating(mySDL);
+	Background myScrolling(mySDL);
 
 	Player simpleMan(mySDL);
 
@@ -56,6 +58,9 @@ int main(int argc, const char * argv[]) {
 				
 			case 1:
 				screenPtr=&myGraduating;
+				break;
+			case 2:
+				screenPtr=&myScrolling;
 				break;
 			default:
 				quit=true;
