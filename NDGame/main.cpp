@@ -10,6 +10,7 @@
 #include "OpeningScreen.h"
 #include "GraduatingScreen.h"
 #include "Sprite.h"
+#include "Player.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -20,13 +21,13 @@ int main(int argc, const char * argv[]) {
 	OpeningScreen myOpening(mySDL);
 	GraduatingScreen myGraduating(mySDL);
 
-	Sprite simpleMan(mySDL);
+	Player simpleMan(mySDL);
 
 	StaticScreen *screenPtr;
-	Sprite *spritePtr;
+	Player *playerPtr;
 
 	screenPtr=&myOpening;
-	spritePtr=&simpleMan;
+	playerPtr=&simpleMan;
 
 	int screenState=0;
 	
@@ -61,7 +62,7 @@ int main(int argc, const char * argv[]) {
 		}
 
 		screenPtr->draw();
-		spritePtr->draw();
+		playerPtr->draw();
 		mySDL.update();		// not included in draw() b/c only need one update at the end
 	}
 
