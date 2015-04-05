@@ -24,18 +24,6 @@ void Sprite::loadFromFile(string path)
 //update screen
 void Sprite::draw()
 {
-	/*
-		Steps to possibly create this function:
-		1. Create new render function in LTexture that also takes in x, y, and clip
-		   proportions as seen in Lazy Foo tutorial #11 possible called renderClip()
-
-		2. Then create new wrapper function in SDLClass similar to renderTextures()
-		   that will be specific to the above LTexture function. Possible called renderSprites()
-
-		3. After all of that is working and we can render a still-sprite, then we can finally 
-		   implement this function such that it will cycle through clips will bool isAnimated = true
-		   with the class variables currentClip, numOfClips, etc.
-	*/
 	
 	SDL_Rect* thisClip = &spriteClips[currentClip/numOfClips];
 	mySDL->renderSprite(spriteSheet,xPos,yPos,thisClip);

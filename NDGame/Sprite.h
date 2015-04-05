@@ -32,7 +32,6 @@ class Sprite {
 		void addClip(int, int, int, int);
 		void setCurrentClip(int);
 		bool isAnimated;
-		// add more as necessary once can render
 
 	private:
 		LTexture spriteSheet;	
