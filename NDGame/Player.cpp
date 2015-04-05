@@ -16,8 +16,5 @@ void Player::setTextureClips(string path)
 	for(int i = 0; i < totalClips; i++ ) 	// sets clips
 		addClip( 194*i, 0, 194, 198);
 	
-	setCurrentClip(0);	// starting clip
-	isAnimated = true;	// starting animated?
-
 	setPos(100,100); 	// starting position
 }

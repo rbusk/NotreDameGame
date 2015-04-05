@@ -13,6 +13,12 @@
 #include "SDLClass.h"
 using namespace std;
 
+enum SpriteStates {
+	isResting,
+	isWalking,
+	isJumping
+};
+
 class Sprite {
 	
 	public:
@@ -31,7 +37,7 @@ class Sprite {
 		void setNumClips(int);
 		void addClip(int, int, int, int);
 		void setCurrentClip(int);
-		bool isAnimated;
+		void setState(int);
 
 	private:
 		LTexture spriteSheet;	
@@ -43,6 +49,7 @@ class Sprite {
 		int yPos;
 		int height;
 		int width;
+		int state; // isResting, isWalking, or isJumping
 		SDLClass *mySDL;
 };
 

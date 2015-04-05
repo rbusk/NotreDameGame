@@ -55,14 +55,11 @@ int main(int argc, const char * argv[]) {
 						if (screenState==2)
 						{
 							playerPtr->setState(isWalking);
-							screenPtr->setIsScrolling(1);
 						}
 						break;
 
 						//user presses space -- switch screenState
 					case SDLK_SPACE:
-						screenState++;
-
 						switch (screenState) {
 							case 0:
 								break;
@@ -84,12 +81,18 @@ int main(int argc, const char * argv[]) {
 			}
 		}
 
+		switch (screenState) {
+			case 2:
+				break;
+
+			default:
+				break;
+		}
+
 		screenPtr->draw();
 		if (playerPtr!=NULL)
 		{
 			playerPtr->draw();
-			playerPtr->setState(isResting);
-			screenPtr->setIsScrolling(0);
 		}
 
 		mySDL.update();		// not included in draw() b/c only need one update at the end

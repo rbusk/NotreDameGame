@@ -6,6 +6,7 @@
 StaticScreen::StaticScreen(SDLClass &myC)
 {
 	mySDL=&myC;
+	setIsScrolling(0);
 }
 
 //destructor calls function destroyScreen
@@ -27,9 +28,13 @@ void StaticScreen::destroyScreen()
 //update screen
 void StaticScreen::draw()
 {	
-	if (isScrollingScreen && isScrolling)
+	if (isScrollingScreen)
 	{
-		scrollingOffset--;
+		if (isScrolling)
+		{
+			scrollingOffset-=2;
+		}
+
 		if (scrollingOffset < -textures[0].getWidth())
 		{
 			scrollingOffset=0;

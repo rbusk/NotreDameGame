@@ -4,7 +4,6 @@
 OpeningScreen::OpeningScreen(SDLClass &myC) 
 : StaticScreen(myC)
 {
-	setIsScrollingScreen(0);
 	setIsScrolling(0);
 
 	loadFromFile("resources/dome2.jpg");
@@ -16,5 +15,5 @@ OpeningScreen::OpeningScreen(SDLClass &myC)
 
 	font=TTF_OpenFont("resources/OpenSans-Regular.ttf", 14);
 
-	loadFromText("Press any key to continue", textColor, font, getSDL()->getW()/30, getSDL()->getH()/4);
+	loadFromText("Press space to continue", textColor, font, getSDL()->getW()/30, getSDL()->getH()/4);
 }

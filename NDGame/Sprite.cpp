@@ -9,12 +9,15 @@ Sprite::Sprite(SDLClass &myC)
 	width = 0;
 	xPos = 0;
 	yPos = 0;
+	currentClip=0;
+	//setCurrentClip(0);
+	state = isResting;
 	mySDL=&myC;
 }
 
 Sprite::~Sprite()
 {
-	//destroySprite();
+	destroySprite();
 }
 
 void Sprite::loadFromFile(string path)
@@ -28,7 +31,7 @@ void Sprite::draw()
 	SDL_Rect* thisClip = &spriteClips[currentClip/numOfClips];
 	mySDL->renderSprite(spriteSheet,xPos,yPos,thisClip);
 
-	if (isAnimated)
+	if (state==isWalking)
 		currentClip++;
 
 	if (currentClip / numOfClips >= numOfClips)
@@ -36,10 +39,10 @@ void Sprite::draw()
 	
 }
 
-void destroySprite() 
+void Sprite::destroySprite() 
 {
-	//spriteSheet.free();
-	//spriteClips.clear();
+	spriteSheet.free();
+	spriteClips.clear();
 }
 
 int Sprite::getX() 
@@ -94,3 +97,7 @@ void Sprite::setCurrentClip(int n)
 	currentClip = n;
 }
 
+void Sprite::setState(int n)
+{
+	state=n;
+}

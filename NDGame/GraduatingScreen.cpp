@@ -4,7 +4,6 @@
 GraduatingScreen::GraduatingScreen(SDLClass &myC)
 	: StaticScreen(myC)
 {
-	setIsScrolling(0);
 	setIsScrollingScreen(0);
 
 	loadFromFile("resources/diploma.jpg");
