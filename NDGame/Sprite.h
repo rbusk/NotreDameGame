@@ -16,9 +16,9 @@ using namespace std;
 class Sprite {
 	
 	public:
-		Sprite();
+		Sprite(SDLClass &myC);
 		~Sprite();
-		void setTextureClips();
+		void setTextureClips(string path);
 		void draw();
 		void destroySprite();
 		int getX();

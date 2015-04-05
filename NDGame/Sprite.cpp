@@ -3,30 +3,29 @@
 #include "Sprite.h"
 
 //constructor assigns pointer to SDLClass
-Sprite::Sprite()
+Sprite::Sprite(SDLClass &myC)
 {
 	height = 0;
 	width = 0;
 	xPos = 0;
 	yPos = 0;
-	
+	mySDL=&myC;
+	spriteSheet=mySDL->loadFromFile("resources/manSpriteSheet.jpg");
 }
 
 Sprite::~Sprite()
 {
-	destroySprite();
+//	destroySprite();
 }
 
 
-void Sprite::setTextureClips()
+void Sprite::setTextureClips(string path)
 {
 	/* 
 	   Will probably be a virtual function because each version of 
 	   this will be very specific to the sprite's sprite sheet
 	 */
-
-	//LTexture newTexture;
-	//newTexture=mySDL->loadFromFile(path); //load new texture
+	//spriteSheet=mySDL->loadFromFile(path);
 	//for (int cntr = 0; cntr < n; cntr++) {
 	//	runSpriteClips.push_back(SDL_Rect());
 	//	runSpriteClips[cntr].x = cntr*newTexture.getWidth()/n;
@@ -60,12 +59,21 @@ void Sprite::draw()
 
 	//mySDL->renderTextures(spriteSheet);
 	//mySDL->update();
+
+	SDL_Rect frame;
+	frame.x = 0;
+	frame.y = 0;
+	frame.w = 194;
+	frame.h = 198;
+	SDL_Rect* currentClip = &frame;
+	mySDL->renderSprite(spriteSheet,100,100,currentClip);
+	//mySDL->update();
 }
 
 void destroySprite() 
 {
-	spriteSheet.free();
-	spriteClips.clear();
+//	spriteSheet.free();
+//	spriteClips.clear();
 }
 
 int Sprite::getX() 
@@ -81,7 +89,7 @@ int Sprite::getY()
 void Sprite::setPos(int x, int y)
 {
 	xPos = x;
-	yPos = y
+	yPos = y;
 }
 
 int Sprite::getH()
@@ -94,7 +102,7 @@ int Sprite::getW()
 	return width;
 }
 
-int Sprite::setSize(int w, int h)
+void Sprite::setSize(int w, int h)
 {
 	width = w;
 	height = h;

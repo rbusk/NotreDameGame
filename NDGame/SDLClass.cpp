@@ -50,6 +50,11 @@ void SDLClass::renderTextures(vector<LTexture> textures)
 	}
 }
 
+void SDLClass::renderSprite(LTexture texture, int x, int y, SDL_Rect* clip)
+{
+    texture.renderClip(myRenderer,x,y,clip);
+}
+
 void SDLClass::update()
 {
 	SDL_RenderPresent(myRenderer);

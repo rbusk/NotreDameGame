@@ -20,6 +20,7 @@ public:
     bool loadFromRenderedText(string textureText, SDL_Color textColor, TTF_Font*& gFont, SDL_Renderer*& gRenderer, int xIn, int yIn);
     void free(); //deallocate texture
     void render(SDL_Renderer *& gRenderer); //renders texture at given point
+    void renderClip(SDL_Renderer *& gRenderer, int, int, SDL_Rect* clip); //render clip from texture
     int getWidth(); //gets image dimensions
     int getHeight();
     void setWidth(int w);

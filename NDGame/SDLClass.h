@@ -27,6 +27,7 @@ public:
     SDL_Texture* loadTexture(string path);
     void clear();
     void renderTextures(vector<LTexture>);
+    void renderSprite(LTexture, int, int, SDL_Rect* clip);
     void update();
     int getW();
     int getH();

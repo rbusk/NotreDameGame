@@ -1,8 +1,8 @@
 #Object files:
-OBJ =  main.o LTexture.o SDLClass.o OpeningScreen.o StaticScreen.o GraduatingScreen.o
+OBJ =  main.o LTexture.o SDLClass.o OpeningScreen.o StaticScreen.o GraduatingScreen.o Sprite.o
 
 # Header files:
-HDR = LTexture.h SDLClass.h OpeningScreen.h StaticScreen.h GraduatingScreen.h
+HDR = LTexture.h SDLClass.h OpeningScreen.h StaticScreen.h GraduatingScreen.h Sprite.h
 
 # Libraries
 LIBS = `pkg-config --cflags --libs sdl2 SDL2_image SDL2_ttf`

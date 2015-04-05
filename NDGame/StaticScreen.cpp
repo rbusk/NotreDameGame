@@ -29,7 +29,7 @@ void StaticScreen::draw()
 {
 	mySDL->clear();
 	mySDL->renderTextures(textures);
-	mySDL->update();
+	//mySDL->update();
 }
 
 //load new texture and add it to textures
