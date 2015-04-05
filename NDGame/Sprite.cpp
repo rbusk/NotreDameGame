@@ -10,7 +10,6 @@ Sprite::Sprite(SDLClass &myC)
 	xPos = 0;
 	yPos = 0;
 	mySDL=&myC;
-	setTextureClips("resources/manSpriteSheet.jpg");
 }
 
 Sprite::~Sprite()
@@ -18,29 +17,10 @@ Sprite::~Sprite()
 	//destroySprite();
 }
 
-
-void Sprite::setTextureClips(string path)
+void Sprite::loadFromFile(string path)
 {
-	/* 
-	   Will probably be a virtual function because each version of 
-	   this will be very specific to the sprite's sprite sheet
-	 */
-	
-	spriteSheet=mySDL->loadFromFile(path);
-
-	numOfClips = 4;
-
-	for(int i = 0; i < numOfClips; i++ ) {
-		spriteClips.push_back(SDL_Rect());
-		spriteClips[i].x = 194*i;
-		spriteClips[i].y = 0;
-		spriteClips[i].w = 194;
-		spriteClips[i].h = 198;
-	}
-
-	currentClip = 0;
+	spriteSheet = mySDL->loadFromFile(path);
 }
-
 //update screen
 void Sprite::draw()
 {
@@ -56,21 +36,16 @@ void Sprite::draw()
 		   implement this function such that it will cycle through clips will bool isAnimated = true
 		   with the class variables currentClip, numOfClips, etc.
 	*/
-	//mySDL->clear();
-	//while (currentClip < 4){
-	//	SDL_Rect* currentClip = &spriteClips[frame/numOfRunFrames];
-	//	runSpriteSheet.render(myRenderer,x,y,currentClip);
-	//	mySDL->update();
-	//}
-
-	//mySDL->renderTextures(spriteSheet);
-	//mySDL->update();
+	
 	SDL_Rect* thisClip = &spriteClips[currentClip/numOfClips];
-	mySDL->renderSprite(spriteSheet,100,100,thisClip);
-	currentClip++;
-	if (currentClip / 4 >= numOfClips)
+	mySDL->renderSprite(spriteSheet,xPos,yPos,thisClip);
+
+	if (isAnimated)
+		currentClip++;
+
+	if (currentClip / numOfClips >= numOfClips)
 		currentClip = 0;
-	//mySDL->update();
+	
 }
 
 void destroySprite() 
@@ -109,5 +84,25 @@ void Sprite::setSize(int w, int h)
 {
 	width = w;
 	height = h;
+}
+
+void Sprite::setNumClips(int total)
+{
+	numOfClips = total;
+}
+
+void Sprite::addClip(int cx, int cy, int cw, int ch)
+{
+	spriteClips.push_back(SDL_Rect());
+	int index = spriteClips.size() - 1;
+	spriteClips[index].x = cx;
+	spriteClips[index].y = cy;
+	spriteClips[index].w = cw;
+	spriteClips[index].h = ch;
+}
+
+void Sprite::setCurrentClip(int n) 
+{
+	currentClip = n;
 }
 

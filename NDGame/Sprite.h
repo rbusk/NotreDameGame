@@ -18,7 +18,8 @@ class Sprite {
 	public:
 		Sprite(SDLClass &myC);
 		~Sprite();
-		void setTextureClips(string path);
+		virtual void setTextureClips(string path)=0;
+		void loadFromFile(string path);
 		void draw();
 		void destroySprite();
 		int getX();
@@ -27,12 +28,16 @@ class Sprite {
 		int getH();
 		int getW();
 		void setSize(int w, int h);
+		void setNumClips(int);
+		void addClip(int, int, int, int);
+		void setCurrentClip(int);
 		bool isAnimated;
 		// add more as necessary once can render
 
 	private:
 		LTexture spriteSheet;	
-		vector<SDL_Rect> spriteClips;	
+		vector<SDL_Rect> spriteClips;
+		string texturePath;	
 		int numOfClips;
 		int currentClip;
 		int xPos;
