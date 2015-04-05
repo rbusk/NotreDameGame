@@ -30,6 +30,10 @@ void StaticScreen::draw()
 	if (isScrollingScreen && isScrolling)
 	{
 		scrollingOffset--;
+		if (scrollingOffset < -textures[0].getWidth())
+		{
+			scrollingOffset=0;
+		}
 
 		mySDL->clear();
 		textures[0].setX(scrollingOffset);
