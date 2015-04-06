@@ -12,7 +12,9 @@ Sprite::Sprite(SDLClass &myC)
 	currentClip=0;
 	state = isResting;
 	jumpingState = isNotJumping;
+	facingRight=1;
 	mySDL=&myC;
+	stopScreen=0;
 }
 
 Sprite::~Sprite()
@@ -20,10 +22,38 @@ Sprite::~Sprite()
 	destroySprite();
 }
 
-void Sprite::loadFromFile(string path)
+void Sprite::loadSheetFromFile(string path)
 {
 	spriteSheet = mySDL->loadFromFile(path);
 }
+
+void Sprite::loadFlippedSheetFromFile(string path)
+{
+	flippedSheet = mySDL->loadFromFile(path);
+}
+
+void Sprite::update()
+{
+	//if facing left, stop screen
+	if (!facingRight && xPos>=4)
+	{
+		stopScreen=1;
+	}
+
+	//if facing right but position is too far left, stop screen
+	else if (facingRight && xPos<getHalfOfScreen())
+	{
+		stopScreen=1;
+	}
+
+	//otherwise screen should scroll
+	else
+	{
+		stopScreen=0;
+	}
+
+}
+
 //update screen
 void Sprite::draw()
 {
@@ -31,11 +61,13 @@ void Sprite::draw()
 	{
 		case isJumpingUp:
 			yPos-=4;
+
 			if (yPos<maxHeight)
 			{
 				jumpingState=isJumpingDown;
 			}
 			break;
+
 		case isJumpingDown:
 			yPos+=4;
 			if (yPos>minHeight)
@@ -45,14 +77,41 @@ void Sprite::draw()
 			break;
 		default:
 			break;
+	}
+
+	//if sprite is facing right
+	if (facingRight==1)
+	{
+		SDL_Rect* thisClip = &spriteClips[currentClip/numOfClips];
+		mySDL->renderSprite(spriteSheet,xPos,yPos,thisClip);
+	}
+
+	//if sprite is facing left
+	else
+	{
+		SDL_Rect* thisClip = &flippedClips[currentClip/numOfClips];
+		mySDL->renderSprite(flippedSheet,xPos,yPos,thisClip);
+	}
+
+	//if isWalking, increment clip
+	if (state==isWalking)
+	{
+		currentClip++;
+
+		//if facing left, character must move left (rather than the screen scrolling)
+		//but also can't let character fall of screen
+		if (!facingRight && xPos>=4)
+		{
+			xPos-=4;
+		}
+
+		//if facing right but position is too far left, increment x position
+		else if (facingRight && xPos<getHalfOfScreen())
+		{
+			xPos+=4;
+		}
 
 	}
-	
-	SDL_Rect* thisClip = &spriteClips[currentClip/numOfClips];
-	mySDL->renderSprite(spriteSheet,xPos,yPos,thisClip);
-
-	if (state==isWalking)
-		currentClip++;
 
 	if (currentClip / numOfClips >= numOfClips)
 		currentClip = 0;
@@ -112,6 +171,16 @@ void Sprite::addClip(int cx, int cy, int cw, int ch)
 	spriteClips[index].h = ch;
 }
 
+void Sprite::addFlippedClip(int cx, int cy, int cw, int ch)
+{
+	flippedClips.push_back(SDL_Rect());
+	int index = flippedClips.size() - 1;
+	flippedClips[index].x = cx;
+	flippedClips[index].y = cy;
+	flippedClips[index].w = cw;
+	flippedClips[index].h = ch;
+}
+
 void Sprite::setCurrentClip(int n) 
 {
 	currentClip = n;
@@ -145,4 +214,19 @@ int Sprite::getJumpingState()
 void Sprite::setJumpingState(int n)
 {
 	jumpingState=n;
+}
+
+void Sprite::setFacingRight(int n)
+{
+	facingRight=n;
+}
+
+int Sprite::getHalfOfScreen()
+{
+	return mySDL->getW()/2;
+}
+
+int Sprite::getStopScreen()
+{
+	return stopScreen;
 }

@@ -17,7 +17,7 @@ class Player : public Sprite {
 
 	public: 
 		Player(SDLClass &myC);
-		void setTextureClips(string path);
+		void setTextureClips(string path1, string path2);
 };
 
 #endif

@@ -26,8 +26,9 @@ class Sprite {
 	public:
 		Sprite(SDLClass &myC);
 		~Sprite();
-		virtual void setTextureClips(string path)=0;
-		void loadFromFile(string path);
+		virtual void setTextureClips(string path1, string path2)=0;
+		void loadSheetFromFile(string path);
+		void loadFlippedSheetFromFile(string path);
 		void draw();
 		void destroySprite();
 		int getX();
@@ -38,6 +39,7 @@ class Sprite {
 		void setSize(int w, int h);
 		void setNumClips(int);
 		void addClip(int, int, int, int);
+		void addFlippedClip(int, int, int, int);
 		void setCurrentClip(int);
 		void setState(int);
 		void setMaxHeight(int);
@@ -45,10 +47,16 @@ class Sprite {
 		int getState();
 		int getJumpingState();
 		void setJumpingState(int);
+		void setFacingRight(int);
+		int getHalfOfScreen(); //return halfway point of screen in x direction
+		int getStopScreen();
+		void update(); //update if screen should be scrolling
 
 	private:
 		LTexture spriteSheet;	
+		LTexture flippedSheet; //for when character walks the other way
 		vector<SDL_Rect> spriteClips;
+		vector<SDL_Rect> flippedClips; //for when character walks the other way
 		string texturePath;	
 		int numOfClips;
 		int currentClip;
@@ -60,7 +68,9 @@ class Sprite {
 		int width;
 		int state; // isResting, isWalking, or isJumping
 		int jumpingState; //3 states- not, up, down
+		bool facingRight; //1 if walking right, 0 if walking left
 		SDLClass *mySDL;
+		int stopScreen; //when character is walking, indicates if screen should be scrolling
 };
 
 #endif

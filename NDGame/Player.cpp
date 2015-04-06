@@ -3,20 +3,24 @@
 
 Player::Player(SDLClass &myC) : Sprite(myC)
 {
-	setTextureClips("resources/manSpriteSheet.jpg");
+	setTextureClips("resources/manSpriteSheet.jpg", "resources/manSpriteSheet2.jpg");
 }
 
-void Player::setTextureClips(string path)
+void Player::setTextureClips(string path1, string path2)
 {
-	loadFromFile(path);
+	loadSheetFromFile(path1);
+	loadFlippedSheetFromFile(path2);
 
 	int totalClips = 4;		// enter number of sprites on sheet
 	setNumClips(totalClips);
 
-	for(int i = 0; i < totalClips; i++ ) 	// sets clips
+	for(int i = 0; i < totalClips; i++ )
+	{	// sets clips
 		addClip( 194*i, 0, 194, 198);
+		addFlippedClip(194*i, 0, 194, 198);
+	}
 	
-	setPos(250,275); 	// starting position
+	setPos(getHalfOfScreen(),275); 	// starting position
 
 	setMaxHeight(200);
 	setMinHeight(275);

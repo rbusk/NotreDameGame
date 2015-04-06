@@ -15,6 +15,12 @@
 #include "SDLClass.h"
 using namespace std;
 
+enum ScrollingStates {
+	isNotScrolling,
+	isScrollingLeft,
+	isScrollingRight
+};
+
 class StaticScreen {
 
 	public: 
@@ -33,7 +39,7 @@ class StaticScreen {
 		vector<LTexture> textures;
 		SDLClass *mySDL;
 		int isScrollingScreen; //indicates if scrolling screen
-		int isScrolling; //indicates if scrolling screen is scrolling
+		int isScrolling; //indicates if scrolling screen is scrolling-- use enums
 		int scrollingOffset;
 };
 

@@ -6,7 +6,7 @@
 StaticScreen::StaticScreen(SDLClass &myC)
 {
 	mySDL=&myC;
-	setIsScrolling(0);
+	setIsScrolling(isNotScrolling);
 }
 
 //destructor calls function destroyScreen
