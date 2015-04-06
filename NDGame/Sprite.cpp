@@ -10,8 +10,8 @@ Sprite::Sprite(SDLClass &myC)
 	xPos = 0;
 	yPos = 0;
 	currentClip=0;
-	//setCurrentClip(0);
 	state = isResting;
+	jumpingState = isNotJumping;
 	mySDL=&myC;
 }
 
@@ -27,6 +27,26 @@ void Sprite::loadFromFile(string path)
 //update screen
 void Sprite::draw()
 {
+	switch (jumpingState)
+	{
+		case isJumpingUp:
+			yPos-=4;
+			if (yPos<maxHeight)
+			{
+				jumpingState=isJumpingDown;
+			}
+			break;
+		case isJumpingDown:
+			yPos+=4;
+			if (yPos>minHeight)
+			{
+				jumpingState=isNotJumping;
+			}
+			break;
+		default:
+			break;
+
+	}
 	
 	SDL_Rect* thisClip = &spriteClips[currentClip/numOfClips];
 	mySDL->renderSprite(spriteSheet,xPos,yPos,thisClip);
@@ -100,4 +120,29 @@ void Sprite::setCurrentClip(int n)
 void Sprite::setState(int n)
 {
 	state=n;
+}
+
+void Sprite::setMaxHeight(int n)
+{
+	maxHeight=n;
+}
+
+void Sprite::setMinHeight(int n)
+{
+	minHeight=n;
+}
+
+int Sprite::getState()
+{
+	return state;
+}
+
+int Sprite::getJumpingState()
+{
+	return jumpingState;
+}
+
+void Sprite::setJumpingState(int n)
+{
+	jumpingState=n;
 }

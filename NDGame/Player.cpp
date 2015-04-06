@@ -16,5 +16,8 @@ void Player::setTextureClips(string path)
 	for(int i = 0; i < totalClips; i++ ) 	// sets clips
 		addClip( 194*i, 0, 194, 198);
 	
-	setPos(100,100); 	// starting position
+	setPos(250,275); 	// starting position
+
+	setMaxHeight(200);
+	setMinHeight(275);
 }

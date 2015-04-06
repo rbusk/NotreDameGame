@@ -77,19 +77,39 @@ int main(int argc, const char * argv[]) {
 							default:
 								break;
 						}
+						break;
+
+					case SDLK_UP:
+						if (screenState==2 && playerPtr->getJumpingState()==isNotJumping)
+						{
+							playerPtr->setJumpingState(isJumpingUp);
+						}
+						break;
 
 					default:
 						break;
 				}
 			}
+
+			else if (e.type==SDL_KEYUP)
+			{
+				switch(e.key.keysym.sym)
+				{
+					case SDLK_RIGHT:
+						playerPtr->setState(isResting);
+						screenPtr->setIsScrolling(0);
+						break;
+					default:
+						break;
+				}
+			}
+
 		}
 
 		screenPtr->draw();
 		if (playerPtr!=NULL)
 		{
 			playerPtr->draw();
-			playerPtr->setState(isResting);
-			screenPtr->setIsScrolling(0);
 		}
 
 		mySDL.update();		// not included in draw() b/c only need one update at the end
