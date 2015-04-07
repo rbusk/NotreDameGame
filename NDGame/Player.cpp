@@ -3,7 +3,7 @@
 
 Player::Player(SDLClass &myC) : Sprite(myC)
 {
-	setTextureClips("resources/manSpriteSheet.jpg", "resources/manSpriteSheet2.jpg");
+	setTextureClips("resources/manSpriteSheet.png", "resources/manSpriteSheet2.png");
 }
 
 void Player::setTextureClips(string path1, string path2)
