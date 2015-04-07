@@ -14,7 +14,7 @@ Sprite::Sprite(SDLClass &myC)
 	jumpingState = isNotJumping;
 	facingRight=1;
 	mySDL=&myC;
-	stopScreen=0;
+	stopScreen=1;
 }
 
 Sprite::~Sprite()
@@ -35,7 +35,7 @@ void Sprite::loadFlippedSheetFromFile(string path)
 void Sprite::update()
 {
 	//if facing left, stop screen
-	if (!facingRight && xPos>=4)
+	if (!facingRight && xPos>=0)
 	{
 		stopScreen=1;
 	}
@@ -46,10 +46,16 @@ void Sprite::update()
 		stopScreen=1;
 	}
 
-	//otherwise screen should scroll
-	else
+	//otherwise screen should scroll if sprite is walking
+	else if (state==isWalking)
 	{
 		stopScreen=0;
+	}
+
+	//otherwise stop screen
+	else
+	{
+		stopScreen=1;
 	}
 
 }

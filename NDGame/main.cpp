@@ -56,17 +56,6 @@ int main(int argc, const char * argv[]) {
 						{
 							playerPtr->setState(isWalking);
 							playerPtr->setFacingRight(1); //player should face right
-							playerPtr->update();
-
-							if (playerPtr->getStopScreen())
-							{
-								screenPtr->setIsScrolling(isNotScrolling);
-							}
-
-							else
-							{
-								screenPtr->setIsScrolling(isScrollingLeft);
-							}
 						}
 						break;
 
@@ -76,8 +65,6 @@ int main(int argc, const char * argv[]) {
 						{
 							playerPtr->setState(isWalking);
 							playerPtr->setFacingRight(0);
-							playerPtr->update();
-							screenPtr->setIsScrolling(isNotScrolling);
 						}
 						break;
 
@@ -120,11 +107,9 @@ int main(int argc, const char * argv[]) {
 					//stop player moving if player releases right or left button
 					case SDLK_RIGHT:
 						playerPtr->setState(isResting);
-						screenPtr->setIsScrolling(isNotScrolling);
 						break;
 					case SDLK_LEFT:
 						playerPtr->setState(isResting);
-						screenPtr->setIsScrolling(isNotScrolling);
 						break;
 					default:
 						break;
@@ -137,6 +122,10 @@ int main(int argc, const char * argv[]) {
 		if (playerPtr!=NULL)
 		{
 			playerPtr->update();
+
+			//use stopScreen variable to determine if screen should scroll
+			screenPtr->setIsScrolling(!playerPtr->getStopScreen());
+
 			playerPtr->draw();
 		}
 
