@@ -26,7 +26,7 @@ void Hotdog::setTextureClips(string path1, string path2)
 void Hotdog::draw(int s)
 {
 	setSpeed(s,0);
-	moveLeft();
+	moveLeft();		// our background scrolls left so this syncs up with it if need be
 	basicDraw();
 }
 
