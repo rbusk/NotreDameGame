@@ -18,6 +18,23 @@ class Player : public Sprite {
 	public: 
 		Player(SDLClass &myC);
 		void setTextureClips(string path1, string path2);
+		void draw(); //draw sprite
+		void update(); //use to update if screen should be scrolling
+
+		//get and set methods
+		void setMaxHeight(int);
+		void setMinHeight(int);
+		int getJumpingState();
+		void setJumpingState(int);
+		int getStopScreen();
+
+	private:
+		int maxHeight; //max jumping height
+		int minHeight; //min jumping height
+		int jumpingState; //3 states- not, up, down
+		int stopScreen; //when character is walking, indicates if screen should be scrolling
+
+		
 };
 
 #endif

@@ -89,3 +89,8 @@ void StaticScreen::setIsScrollingScreen(int x)
 {
 	isScrollingScreen=x;
 }
+
+int StaticScreen::getIsScrolling() 
+{
+	return isScrolling;
+}

@@ -12,6 +12,7 @@
 #include "Sprite.h"
 #include "Player.h"
 #include "Background.h"
+#include "Hotdog.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -24,12 +25,15 @@ int main(int argc, const char * argv[]) {
 	Background myScrolling(mySDL);
 
 	Player simpleMan(mySDL);
+	Hotdog dog(mySDL);
 
 	StaticScreen *screenPtr;
 	Player *playerPtr;
+	Hotdog *dogPtr;
 
 	screenPtr=&myOpening;
 	playerPtr=NULL;
+	dogPtr =&dog;
 
 	int screenState=0;
 	
@@ -127,6 +131,11 @@ int main(int argc, const char * argv[]) {
 			screenPtr->setIsScrolling(!playerPtr->getStopScreen());
 
 			playerPtr->draw();
+
+			if (screenPtr->getIsScrolling())		// when standing still, hotdog must scroll when screen does
+				dogPtr->draw(2);				// thus this value is the "offset" found in a scrolling background
+			else
+				dogPtr->draw(0);
 		}
 
 		mySDL.update();		// not included in draw() b/c only need one update at the end

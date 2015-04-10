@@ -34,6 +34,7 @@ class StaticScreen {
 		SDLClass * getSDL();
 		void setIsScrolling(int x);
 		void setIsScrollingScreen(int x);
+		int getIsScrolling();
 
 	private:
 		vector<LTexture> textures;
