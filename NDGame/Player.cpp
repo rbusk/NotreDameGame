@@ -4,7 +4,7 @@
 Player::Player(SDLClass &myC) : Sprite(myC)
 {
 	setTextureClips("resources/manSpriteSheet.png", "resources/manSpriteSheet2.png");
-	setSpeed(4);
+	setSpeed(4,4);
 	jumpingState=isNotJumping;
 	stopScreen=1;
 }
@@ -67,7 +67,7 @@ void Player::draw()
 
 		//if facing left, character must move left (rather than the screen scrolling)
 		//but also can't let character fall off screen
-		if (!getFacingRight() && getXPos()>=getSpeed())
+		if (!getFacingRight() && getXPos()>=getSpeedX())
 		{
 			moveLeft();
 		}

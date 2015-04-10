@@ -62,8 +62,9 @@ class Sprite {
 		int getFacingRight();
 		int getXPos();
 		int getYPos();
-		int getSpeed();
-		void setSpeed(int);
+		int getSpeedX();
+		int getSpeedY();
+		void setSpeed(int,int);
 		int getCurrentClip();
 
 	private:
@@ -82,7 +83,8 @@ class Sprite {
 		int currentClip;
 		int xPos;
 		int yPos;
-		int speed;
+		int speedX;
+		int speedY;
 		int state; // isResting, isWalking, or isJumping
 		bool facingRight; //1 if walking right, 0 if walking left
 };

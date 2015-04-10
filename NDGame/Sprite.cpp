@@ -68,22 +68,22 @@ void Sprite::checkCurrentClip()
 }
 void Sprite::moveUp()
 {
-	yPos-=speed;
+	yPos-=speedY;
 }
 
 void Sprite::moveDown()
 {
-	yPos+=speed;
+	yPos+=speedY;
 }
 
 void Sprite::moveRight()
 {
-	xPos+=speed;
+	xPos+=speedX;
 }
 
 void Sprite::moveLeft()
 {
-	xPos-=speed;
+	xPos-=speedX;
 }
 
 void Sprite::destroySprite() 
@@ -189,14 +189,20 @@ int Sprite::getYPos()
 	return yPos;
 }
 
-int Sprite::getSpeed()
+int Sprite::getSpeedX()
 {
-	return speed;
+	return speedX;
 }
 
-void Sprite::setSpeed(int n)
+int Sprite::getSpeedY()
 {
-	speed=n;
+	return speedY;
+}
+
+void Sprite::setSpeed(int xS, int yS)
+{
+	speedX = xS;
+	speedY = yS;
 }
 
 void Sprite::incrementCurrentClip()
