@@ -133,7 +133,7 @@ int main(int argc, const char * argv[]) {
 			playerPtr->draw();
 
 			if (screenPtr->getIsScrolling())		// when standing still, hotdog must scroll when screen does
-				dogPtr->draw(playerPtr->getSpeedX());
+				dogPtr->draw(2);				// thus this value is the "offset" found in a scrolling background
 			else
 				dogPtr->draw(0);
 		}
