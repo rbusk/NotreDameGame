@@ -33,7 +33,8 @@ class Sprite {
 		void addClip(int, int, int, int);
 		void addFlippedClip(int, int, int, int);
 
-		void basicDraw(); //basic drawing functionality that all sprites must use -- not directly used by user but used in draw function below
+		void basicDraw(); //basic drawing functionality that all sprites must use -- not directly used by user but be used in draw function below
+		void checkCurrentClip(); //check if currentClip needs to be set to 0. Also not used directly by user but must be used in draw function
 		void draw(); //uses basicDraw in base class and can be changed for derived classes
 		void update(); //not all sprite classes may use this
 

@@ -58,6 +58,7 @@ void Player::draw()
 			break;
 	}
 
+	basicDraw();
 
 	//if isWalking, increment clip
 	if (getState()==isWalking)
@@ -78,7 +79,7 @@ void Player::draw()
 		}
 	}
 
-	basicDraw();
+	checkCurrentClip();
 }
 
 void Player::update()

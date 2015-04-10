@@ -37,6 +37,7 @@ void Sprite::update()
 void Sprite::draw()
 {
 	basicDraw();
+	checkCurrentClip();
 }
 
 //update screen
@@ -56,14 +57,15 @@ void Sprite::basicDraw()
 		SDL_Rect* thisClip = &flippedClips[currentClip/numOfClips];
 		mySDL->renderSprite(flippedSheet,xPos,yPos,thisClip);
 	}
-
-	if (currentClip / numOfClips >= numOfClips)
-	{
-		currentClip = 0;
-	}
-	
 }
 
+void Sprite::checkCurrentClip()
+{
+	if (currentClip / numOfClips >= numOfClips)
+	{
+		currentClip=0;
+	}
+}
 void Sprite::moveUp()
 {
 	yPos-=speed;
