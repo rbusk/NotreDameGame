@@ -127,6 +127,7 @@ int main(int argc, const char * argv[]) {
 			screenPtr->setIsScrolling(!playerPtr->getStopScreen());
 
 			playerPtr->draw();
+			cout << playerPtr->getCurrentClip();
 		}
 
 		mySDL.update();		// not included in draw() b/c only need one update at the end

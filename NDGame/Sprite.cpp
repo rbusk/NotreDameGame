@@ -11,10 +11,8 @@ Sprite::Sprite(SDLClass &myC)
 	yPos = 0;
 	currentClip=0;
 	state = isResting;
-	jumpingState = isNotJumping;
 	facingRight=1;
 	mySDL=&myC;
-	stopScreen=1;
 }
 
 Sprite::~Sprite()
@@ -34,56 +32,16 @@ void Sprite::loadFlippedSheetFromFile(string path)
 
 void Sprite::update()
 {
-	//if facing left, stop screen
-	if (!facingRight && xPos>=0)
-	{
-		stopScreen=1;
-	}
+}
 
-	//if facing right but position is too far left, stop screen
-	else if (facingRight && xPos<getHalfOfScreen())
-	{
-		stopScreen=1;
-	}
-
-	//otherwise screen should scroll if sprite is walking
-	else if (state==isWalking)
-	{
-		stopScreen=0;
-	}
-
-	//otherwise stop screen
-	else
-	{
-		stopScreen=1;
-	}
-
+void Sprite::draw()
+{
+	basicDraw();
 }
 
 //update screen
-void Sprite::draw()
+void Sprite::basicDraw()
 {
-	switch (jumpingState)
-	{
-		case isJumpingUp:
-			yPos-=4;
-
-			if (yPos<maxHeight)
-			{
-				jumpingState=isJumpingDown;
-			}
-			break;
-
-		case isJumpingDown:
-			yPos+=4;
-			if (yPos>minHeight)
-			{
-				jumpingState=isNotJumping;
-			}
-			break;
-		default:
-			break;
-	}
 
 	//if sprite is facing right
 	if (facingRight==1)
@@ -99,29 +57,31 @@ void Sprite::draw()
 		mySDL->renderSprite(flippedSheet,xPos,yPos,thisClip);
 	}
 
-	//if isWalking, increment clip
-	if (state==isWalking)
-	{
-		currentClip++;
-
-		//if facing left, character must move left (rather than the screen scrolling)
-		//but also can't let character fall of screen
-		if (!facingRight && xPos>=4)
-		{
-			xPos-=4;
-		}
-
-		//if facing right but position is too far left, increment x position
-		else if (facingRight && xPos<getHalfOfScreen())
-		{
-			xPos+=4;
-		}
-
-	}
-
 	if (currentClip / numOfClips >= numOfClips)
+	{
 		currentClip = 0;
+	}
 	
+}
+
+void Sprite::moveUp()
+{
+	yPos-=speed;
+}
+
+void Sprite::moveDown()
+{
+	yPos+=speed;
+}
+
+void Sprite::moveRight()
+{
+	xPos+=speed;
+}
+
+void Sprite::moveLeft()
+{
+	xPos-=speed;
 }
 
 void Sprite::destroySprite() 
@@ -197,29 +157,9 @@ void Sprite::setState(int n)
 	state=n;
 }
 
-void Sprite::setMaxHeight(int n)
-{
-	maxHeight=n;
-}
-
-void Sprite::setMinHeight(int n)
-{
-	minHeight=n;
-}
-
 int Sprite::getState()
 {
 	return state;
-}
-
-int Sprite::getJumpingState()
-{
-	return jumpingState;
-}
-
-void Sprite::setJumpingState(int n)
-{
-	jumpingState=n;
 }
 
 void Sprite::setFacingRight(int n)
@@ -232,7 +172,37 @@ int Sprite::getHalfOfScreen()
 	return mySDL->getW()/2;
 }
 
-int Sprite::getStopScreen()
+int Sprite::getXPos()
 {
-	return stopScreen;
+	return xPos;
+}
+
+int Sprite::getFacingRight()
+{
+	return facingRight;
+}
+
+int Sprite::getYPos()
+{
+	return yPos;
+}
+
+int Sprite::getSpeed()
+{
+	return speed;
+}
+
+void Sprite::setSpeed(int n)
+{
+	speed=n;
+}
+
+void Sprite::incrementCurrentClip()
+{
+	currentClip++;
+}
+
+int Sprite::getCurrentClip()
+{
+	return currentClip;
 }
