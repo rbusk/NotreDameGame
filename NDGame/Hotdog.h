@@ -18,12 +18,7 @@ class Hotdog : public Sprite {
 	public: 
 		Hotdog(SDLClass &myC);
 		void setTextureClips(string path1, string path2);
-		void draw(int); //takes speed of scrolling background remain still relative to it
-		void setIsLoaded(bool);
-
-
-	private:
-		bool isLoaded; // if true, then will be on screen		
+		void draw(int); //takes speed of scrolling background remain still relative to it		
 			
 };
 

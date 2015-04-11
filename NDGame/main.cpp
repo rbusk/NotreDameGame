@@ -38,6 +38,10 @@ int main(int argc, const char * argv[]) {
 	playerPtr=NULL;
 	dogPtr =&dog;
 	carPtr=&car;
+	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
+	enemies.push_back(dogPtr);
+	enemies.push_back(carPtr);
+	
 
 	int screenState=0;
 	
@@ -136,15 +140,15 @@ int main(int argc, const char * argv[]) {
 
 			playerPtr->draw();
 
-			if (screenPtr->getIsScrolling())		// when standing still, hotdog must scroll when screen does
-			{	
-				dogPtr->draw(2);				// thus this value is the "offset" found in a scrolling background
-				carPtr->draw(2);
-			}
+			if (screenPtr->getIsScrolling())		
+			{										
+				for (int i=0; i < enemies.size(); i++)
+					enemies[i]->draw(2);	// when standing still, hotdog must scroll when screen does
+			}								// thus this value is the "offset" of 2 found in a scrolling background
 			else
-			{
-				dogPtr->draw(0);
-				carPtr->draw(0);
+			{	
+				for (int i=0; i < enemies.size(); i++)
+					enemies[i]->draw(0);	
 			}
 		}
 

@@ -34,7 +34,7 @@ void Sprite::update()
 {
 }
 
-void Sprite::draw()
+void Sprite::draw(int s)
 {
 	basicDraw();
 	checkCurrentClip();

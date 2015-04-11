@@ -27,12 +27,8 @@ void Hotdog::draw(int s)
 {
 	setSpeed(s,0);
 	moveLeft();		// our background scrolls left so this syncs up with it if need be
-	basicDraw();
+	Sprite::draw(s);
 }
 
-void Hotdog::setIsLoaded(bool loaded)
-{
-	isLoaded = loaded;
-}
 
 
