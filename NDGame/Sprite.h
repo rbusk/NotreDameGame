@@ -66,6 +66,8 @@ class Sprite {
 		int getSpeedY();
 		void setSpeed(int,int);
 		int getCurrentClip();
+		void setIsLoaded(bool);
+		bool getIsLoaded();
 
 	private:
 		LTexture spriteSheet;	
@@ -87,6 +89,7 @@ class Sprite {
 		int speedY;
 		int state; // isResting, isWalking, or isJumping
 		bool facingRight; //1 if walking right, 0 if walking left
+		bool isLoaded;
 };
 
 #endif

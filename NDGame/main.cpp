@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "Background.h"
 #include "Hotdog.h"
+#include "Car1.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -26,14 +27,17 @@ int main(int argc, const char * argv[]) {
 
 	Player simpleMan(mySDL);
 	Hotdog dog(mySDL);
+	Car1 car(mySDL);
 
 	StaticScreen *screenPtr;
 	Player *playerPtr;
 	Hotdog *dogPtr;
+	Car1 *carPtr;
 
 	screenPtr=&myOpening;
 	playerPtr=NULL;
 	dogPtr =&dog;
+	carPtr=&car;
 
 	int screenState=0;
 	
@@ -133,9 +137,15 @@ int main(int argc, const char * argv[]) {
 			playerPtr->draw();
 
 			if (screenPtr->getIsScrolling())		// when standing still, hotdog must scroll when screen does
+			{	
 				dogPtr->draw(2);				// thus this value is the "offset" found in a scrolling background
+				carPtr->draw(2);
+			}
 			else
+			{
 				dogPtr->draw(0);
+				carPtr->draw(0);
+			}
 		}
 
 		mySDL.update();		// not included in draw() b/c only need one update at the end

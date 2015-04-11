@@ -214,3 +214,13 @@ int Sprite::getCurrentClip()
 {
 	return currentClip;
 }
+
+void Sprite::setIsLoaded(bool l)
+{
+	isLoaded = l;
+}
+
+bool Sprite::getIsLoaded() 
+{
+	return isLoaded;
+}
