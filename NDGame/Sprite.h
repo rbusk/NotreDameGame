@@ -11,6 +11,7 @@
 #include <string>
 #include "LTexture.h"
 #include "SDLClass.h"
+#include "box.h"
 using namespace std;
 
 enum SpriteStates {
@@ -67,6 +68,21 @@ class Sprite {
 		void setSpeed(int,int);
 		int getCurrentClip();
 
+		//collision detection
+		void collisionLoop(vector<Sprite*>);
+		int collision(Sprite*);
+		int checkTop(vector< vector<int> >);
+		int checkBottom(vector< vector<int> >);
+		int checkRight(vector< vector<int> >);
+		int checkLeft(vector< vector<int> >);
+
+		virtual void animateLeftHit();
+		virtual void animateRightHit();
+		virtual void animateTopHit();
+		virtual void animateBottomHit();
+
+
+
 	private:
 		LTexture spriteSheet;	
 		LTexture flippedSheet; //for when character walks the other way
@@ -87,6 +103,7 @@ class Sprite {
 		int speedY;
 		int state; // isResting, isWalking, or isJumping
 		bool facingRight; //1 if walking right, 0 if walking left
+		box spriteBox;
 };
 
 #endif

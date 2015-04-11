@@ -1,6 +1,7 @@
 /* implementation file for Sprite class */
 
 #include "Sprite.h"
+#include "box.h"
 
 //constructor assigns pointer to SDLClass
 Sprite::Sprite(SDLClass &myC)
@@ -13,6 +14,7 @@ Sprite::Sprite(SDLClass &myC)
 	state = isResting;
 	facingRight=1;
 	mySDL=&myC;
+	spriteBox.init(xPos,yPos,height, width);
 }
 
 Sprite::~Sprite()
@@ -213,4 +215,38 @@ void Sprite::incrementCurrentClip()
 int Sprite::getCurrentClip()
 {
 	return currentClip;
+}
+
+void Sprite::collisionLoop(vector<Sprite*> enemyVector)
+{
+	int check = 0;
+
+	for(int i = 0; i < enemyVector.size(); i++)
+	{
+		//add is loaded if statement
+		check = collision(enemyVector[i]);
+
+		if (check == 1)
+		{
+			animateTopHit();
+		}
+		else if(check == 2)
+		{
+			animateBottomHit();
+		}
+		else if(check == 3)
+		{
+			animateLeftHit();
+		}
+		else if(check == 4)
+		{
+			animateRightHit();
+		}
+	}
+}
+
+int Sprite::collision(Sprite* enemy)
+{
+	int leftPlayer, leftEnemy;
+	int rightPlayer, rightEnemy;
 }
