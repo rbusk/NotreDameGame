@@ -6,6 +6,7 @@
 #include <cmath>
 #include <vector>
 #include "box.h"
+using namespace std;
 
 box::box(int x, int y, int height, int width)
 {

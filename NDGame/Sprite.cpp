@@ -2,6 +2,7 @@
 
 #include "Sprite.h"
 #include "box.h"
+#include <vector>
 
 //constructor assigns pointer to SDLClass
 Sprite::Sprite(SDLClass &myC)
@@ -36,7 +37,7 @@ void Sprite::update()
 {
 }
 
-void Sprite::draw()
+void Sprite::draw(int s)
 {
 	basicDraw();
 	checkCurrentClip();
@@ -71,21 +72,25 @@ void Sprite::checkCurrentClip()
 void Sprite::moveUp()
 {
 	yPos-=speedY;
+	spriteBox.setY(yPos);
 }
 
 void Sprite::moveDown()
 {
 	yPos+=speedY;
+	spriteBox.setY(yPos);
 }
 
 void Sprite::moveRight()
 {
 	xPos+=speedX;
+	spriteBox.setX(xPos);
 }
 
 void Sprite::moveLeft()
 {
 	xPos-=speedX;
+	spriteBox.setX(xPos);
 }
 
 void Sprite::destroySprite() 
@@ -228,25 +233,65 @@ void Sprite::collisionLoop(vector<Sprite*> enemyVector)
 
 		if (check == 1)
 		{
-			animateTopHit();
-		}
-		else if(check == 2)
-		{
-			animateBottomHit();
-		}
-		else if(check == 3)
-		{
-			animateLeftHit();
-		}
-		else if(check == 4)
-		{
-			animateRightHit();
+			if(enemyVector[i]->getXPos() > xPos)
+			{
+				moveLeft();
+			}
+			else
+			{
+				moveRight();
+			}
+			
 		}
 	}
 }
 
 int Sprite::collision(Sprite* enemy)
 {
-	int leftPlayer, leftEnemy;
-	int rightPlayer, rightEnemy;
+	vector<int> leftPlayer, leftEnemy;
+	vector<int> rightPlayer, rightEnemy;
+	vector<int> topPlayer, topEnemy;
+	vector<int> bottomPlayer, bottomEnemy;
+
+	leftPlayer = spriteBox.getTopLeft();
+	rightPlayer = spriteBox.getTopRight();
+	topPlayer = spriteBox.getTopLeft();
+	bottomPlayer = spriteBox.getBottomRight();
+
+	leftEnemy = enemy->spriteBox.getTopLeft();
+	rightEnemy = enemy->spriteBox.getTopRight();
+	topEnemy = enemy->spriteBox.getTopLeft();
+	bottomEnemy = enemy->spriteBox.getBottomRight();
+
+	if (bottomPlayer[2] <= topEnemy[2])
+	{
+		return false;
+	}
+
+	if (topPlayer[2] >= bottomEnemy[2])
+	{
+		return false;
+	}
+	
+	if (rightPlayer[1] <= leftEnemy[1])
+	{
+		return false;
+	}
+
+	if (leftPlayer[1] >= rightEnemy[1])
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void Sprite::setIsLoaded(bool l)
+{
+	isLoaded = l;
+}
+
+bool Sprite::getIsLoaded() 
+{
+	return isLoaded;
 }
