@@ -14,10 +14,10 @@ Sprite::Sprite(SDLClass &myC)
 	state = isResting;
 	facingRight=1;
 	mySDL=&myC;
-	spriteBox.x = xPos;
-	spriteBox.y = yPos;
-	spriteBox.h = height;
-	spriteBox.w = width;
+	//spriteBox.x = xPos;
+	//spriteBox.y = yPos;
+	//spriteBox.h = height;
+	//spriteBox.w = width;
 }
 
 Sprite::~Sprite()
@@ -299,7 +299,7 @@ bool Sprite::getIsLoaded()
 void Sprite::collisionLoopRect(vector<Sprite*> enemyVector)
 {
 	int check = 0;
-	cout << xPos << endl;
+
 
 	for(int i = 0; i < enemyVector.size(); i++)
 	{
@@ -309,17 +309,19 @@ void Sprite::collisionLoopRect(vector<Sprite*> enemyVector)
 
 		if(check == 1)
 		{
-			cout << "Collision" << endl;
+			cout << "Colliding" << endl;
 		}
 
 		if (check == 1 && xPos > enemyVector[i]->getXPos())
 		{
-			cout << "Collision" << endl;
+			cout << "Colliding" << endl;
 		}
 		if (check == 1 && xPos < enemyVector[i]->getXPos())
 		{
-			cout << "Collision" << endl;
+			cout << "Colliding" << endl;
 		}
+		if (check == 0)
+			cout << "Not Colliding" << endl;
 	}
 }
 

@@ -27,6 +27,10 @@ void Player::setTextureClips(string path1, string path2)
 
 	setMaxHeight(200);
 	setMinHeight(275);
+	spriteBox.x = getHalfOfScreen();	// spriteBox has to be set here so that it matches starting pos
+	spriteBox.y = 275;
+	spriteBox.w = 194;
+	spriteBox.h = 198;
 }
 
 void Player::draw()
