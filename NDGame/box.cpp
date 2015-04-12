@@ -55,6 +55,7 @@ vector<vector <int> > box::getRight()
 
 void box::init(int x, int y, int h, int w)
 {
+	clearBox();
 	setX(x);
 	setY(y);
 	setD(h,w);
@@ -62,12 +63,14 @@ void box::init(int x, int y, int h, int w)
 
 void box::setX(int x)
 {
+	clearBox();
 	xPos = x;
 	makeBox();
 }
 
 void box::setY(int y)
 {
+	clearBox();
 	yPos = y;
 	makeBox();
 }
@@ -108,5 +111,17 @@ void box::makeBox()
 	//right
 	right.push_back(topRight);
 	right.push_back(bottomRight);
+}
+
+void box::clearBox()
+{
+	left.clear();
+	right.clear();
+	bottom.clear();
+	top.clear();
+	topRight.clear();
+	topLeft.clear();
+	bottomLeft.clear();
+	bottomRight.clear();
 }
 

@@ -70,15 +70,23 @@ class Sprite {
 		bool getIsLoaded();
 
 		//collision detection
-		void collisionLoop(vector<Sprite*>);
-		int collision(Sprite*);
-		int checkTop(vector< vector<int> >);
-		int checkBottom(vector< vector<int> >);
-		int checkRight(vector< vector<int> >);
-		int checkLeft(vector< vector<int> >);
+	//	void collisionLoop(vector<Sprite*>);
+	//	int collision(Sprite*);
+	//	int checkTop(vector< vector<int> >);
+	//	int checkBottom(vector< vector<int> >);
+	//	int checkRight(vector< vector<int> >);
+	//	int checkLeft(vector< vector<int> >);
 
 
-		box spriteBox;
+	//	box spriteBox;
+	//
+	
+		SDL_Rect spriteBox;
+
+		void collisionLoopRect(vector<Sprite*>);
+		int collisionCheck(Sprite*);
+
+
 
 
 	private:

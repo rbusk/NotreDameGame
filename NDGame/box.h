@@ -26,6 +26,7 @@ class box
 		void setY(int);
 		void setD(int, int);
 		void makeBox();
+		void clearBox();
 	private:
 		vector<vector<int> > bottom; //bottomLeft bottomRight
 		vector<vector<int> > top; //topLeft(1) topRight(2)

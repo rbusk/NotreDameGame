@@ -1,9 +1,8 @@
 /* implementation file for Sprite class */
 
 #include "Sprite.h"
-#include "box.h"
-#include <vector>
-
+#include <SDL2/SDL.h>
+using namespace std;
 //constructor assigns pointer to SDLClass
 Sprite::Sprite(SDLClass &myC)
 {
@@ -15,7 +14,10 @@ Sprite::Sprite(SDLClass &myC)
 	state = isResting;
 	facingRight=1;
 	mySDL=&myC;
-	spriteBox.init(xPos,yPos,height, width);
+	spriteBox.x = xPos;
+	spriteBox.y = yPos;
+	spriteBox.h = height;
+	spriteBox.w = width;
 }
 
 Sprite::~Sprite()
@@ -72,25 +74,29 @@ void Sprite::checkCurrentClip()
 void Sprite::moveUp()
 {
 	yPos-=speedY;
-	spriteBox.setY(yPos);
+	//spriteBox.setY(yPos);
+	spriteBox.y = yPos;
 }
 
 void Sprite::moveDown()
 {
 	yPos+=speedY;
-	spriteBox.setY(yPos);
+	//spriteBox.setY(yPos);
+	spriteBox.y = yPos;
 }
 
 void Sprite::moveRight()
 {
 	xPos+=speedX;
-	spriteBox.setX(xPos);
+	//spriteBox.setX(xPos);
+	spriteBox.x = xPos;
 }
 
 void Sprite::moveLeft()
 {
 	xPos-=speedX;
-	spriteBox.setX(xPos);
+	//spriteBox.setX(xPos);
+	spriteBox.x = xPos;
 }
 
 void Sprite::destroySprite() 
@@ -222,7 +228,7 @@ int Sprite::getCurrentClip()
 	return currentClip;
 }
 
-void Sprite::collisionLoop(vector<Sprite*> enemyVector)
+/*void Sprite::collisionLoop(vector<Sprite*> enemyVector)
 {
 	int check = 0;
 
@@ -248,43 +254,37 @@ void Sprite::collisionLoop(vector<Sprite*> enemyVector)
 
 int Sprite::collision(Sprite* enemy)
 {
-	vector<int> leftPlayer, leftEnemy;
-	vector<int> rightPlayer, rightEnemy;
-	vector<int> topPlayer, topEnemy;
-	vector<int> bottomPlayer, bottomEnemy;
+	vector<int> leftTopCornerP, leftTopCornerE;
+	vector<int> rightBottomCornerP, rightBottomCornerE;
 
-	leftPlayer = spriteBox.getTopLeft();
-	rightPlayer = spriteBox.getTopRight();
-	topPlayer = spriteBox.getTopLeft();
-	bottomPlayer = spriteBox.getBottomRight();
+	leftTopCornerP = spriteBox.getTopLeft();
+	rightBottomCornerP = spriteBox.getBottomRight();
 
-	leftEnemy = enemy->spriteBox.getTopLeft();
-	rightEnemy = enemy->spriteBox.getTopRight();
-	topEnemy = enemy->spriteBox.getTopLeft();
-	bottomEnemy = enemy->spriteBox.getBottomRight();
+	leftTopCornerE = enemy->spriteBox.getTopLeft();
+	rightBottomCornerE = enemy->spriteBox.getBottomRight();
 
-	if (bottomPlayer[2] <= topEnemy[2])
+	if (rightBottomCornerP[2] <= leftTopCornerE[2])
 	{
 		return false;
 	}
 
-	if (topPlayer[2] >= bottomEnemy[2])
+	if (leftTopCornerP[2] >= rightBottomCornerE[2])
 	{
 		return false;
 	}
 	
-	if (rightPlayer[1] <= leftEnemy[1])
+	if (rightBottomCornerP[1] <= leftTopCornerE[1])
 	{
 		return false;
 	}
 
-	if (leftPlayer[1] >= rightEnemy[1])
+	if (leftTopCornerP[1] >= rightBottomCornerE[1])
 	{
 		return false;
 	}
 
 	return true;
-}
+}*/
 
 void Sprite::setIsLoaded(bool l)
 {
@@ -295,3 +295,54 @@ bool Sprite::getIsLoaded()
 {
 	return isLoaded;
 }
+
+void Sprite::collisionLoopRect(vector<Sprite*> enemyVector)
+{
+	int check = 0;
+	cout << xPos << endl;
+
+	for(int i = 0; i < enemyVector.size(); i++)
+	{
+		check = 0;
+		//add is loaded if statement
+		check = collisionCheck(enemyVector[i]);
+
+		if(check == 1)
+		{
+			cout << "Collision" << endl;
+		}
+
+		if (check == 1 && xPos > enemyVector[i]->getXPos())
+		{
+			cout << "Collision" << endl;
+		}
+		if (check == 1 && xPos < enemyVector[i]->getXPos())
+		{
+			cout << "Collision" << endl;
+		}
+	}
+}
+
+int Sprite::collisionCheck(Sprite* enemy)
+{
+	SDL_bool value;
+	SDL_Rect enemyRect;
+
+	enemyRect.x = enemy->spriteBox.x;
+	enemyRect.y = enemy->spriteBox.y;
+	enemyRect.h = enemy->spriteBox.h;
+	enemyRect.w = enemy->spriteBox.w;
+
+	value = SDL_HasIntersection(&spriteBox,&enemyRect);
+
+	if (value == SDL_TRUE)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+
+}
+
