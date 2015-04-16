@@ -307,18 +307,17 @@ void Sprite::collisionLoopRect(vector<Sprite*> enemyVector)
 		//add is loaded if statement
 		check = collisionCheck(enemyVector[i]);
 
-		if(check == 1)
-		{
-			cout << "Colliding" << endl;
-		}
-
 		if (check == 1 && xPos > enemyVector[i]->getXPos())
 		{
-			cout << "Colliding" << endl;
+			cout << "Colliding Left" << endl;
 		}
 		if (check == 1 && xPos < enemyVector[i]->getXPos())
 		{
-			cout << "Colliding" << endl;
+			cout << "Colliding Right" << endl;
+		}
+		if (check == 1 && yPos+height == enemyVector[i]->getYPos())
+		{
+			cout << "On Top" << endl;
 		}
 		if (check == 0)
 			cout << "Not Colliding" << endl;
