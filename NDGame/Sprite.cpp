@@ -296,16 +296,31 @@ bool Sprite::getIsLoaded()
 	return isLoaded;
 }
 
-void Sprite::collisionLoopRect(vector<Sprite*> enemyVector)
+/*void Sprite::collisionLoopRect(vector<Sprite*> enemyVector)
 {
 	int check = 0;
 
+	Sprite* ptr; //use to determine what kind of sprite
 
 	for(int i = 0; i < enemyVector.size(); i++)
 	{
 		check = 0;
 		//add is loaded if statement
 		check = collisionCheck(enemyVector[i]);
+
+		if (check==1)
+		{
+			if (typeid(*ptr)==typeid(Hotdog))
+			{
+				cout << "collided with hotdog. yum" << endl;
+			}
+
+			else if (typeid(*ptr)==typeid(Car1))
+			{
+				cout << "collided with car. vroom" << endl;
+			}
+		}
+
 
 		if (check == 1 && xPos > enemyVector[i]->getXPos())
 		{
@@ -345,5 +360,5 @@ int Sprite::collisionCheck(Sprite* enemy)
 		return 0;
 	}
 
-}
+}*/
 

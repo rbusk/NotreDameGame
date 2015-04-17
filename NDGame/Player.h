@@ -11,6 +11,8 @@
 #include "LTexture.h"
 #include "SDLClass.h"
 #include "Sprite.h"
+#include "Hotdog.h"
+#include "Car1.h"
 using namespace std;
 
 class Player : public Sprite {
@@ -27,6 +29,8 @@ class Player : public Sprite {
 		int getJumpingState();
 		void setJumpingState(int);
 		int getStopScreen();
+		int collisionCheck(Sprite* enemy);
+		void collisionLoopRect(vector<Sprite*> enemyVector);
 
 	private:
 		int maxHeight; //max jumping height

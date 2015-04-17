@@ -25,7 +25,7 @@ void Player::setTextureClips(string path1, string path2)
 	
 	setPos(getHalfOfScreen(),275); 	// starting position
 
-	setMaxHeight(200);
+	setMaxHeight(100);
 	setMinHeight(275);
 	spriteBox.x = getHalfOfScreen();	// spriteBox has to be set here so that it matches starting pos
 	spriteBox.y = 275;
@@ -137,4 +137,72 @@ void Player::setJumpingState(int n)
 int Player::getStopScreen()
 {
 	return stopScreen;
+}
+void Player::collisionLoopRect(vector<Sprite*> enemyVector)
+{
+	int check = 0;
+
+	Sprite* ptr; //use to determine what kind of sprite
+
+	for(int i = 0; i < enemyVector.size(); i++)
+	{
+		check = 0;
+		//add is loaded if statement
+		check = collisionCheck(enemyVector[i]);
+		
+		ptr=enemyVector[i];
+
+		//check to see what kind of sprite player has collided with
+		if (check==1)
+		{
+			if (typeid(*ptr)==typeid(Hotdog))
+			{
+				cout << "collided with hotdog. yum" << endl;
+			}
+
+			else if (typeid(*ptr)==typeid(Car1))
+			{
+				cout << "collided with car. vroom" << endl;
+			}
+		}
+
+
+		if (check == 1 && getXPos() > enemyVector[i]->getXPos())
+		{
+			cout << "Colliding Left" << endl;
+		}
+		if (check == 1 && getXPos() < enemyVector[i]->getXPos())
+		{
+			cout << "Colliding Right" << endl;
+		}
+		if (check == 1 && getYPos()+getH() == enemyVector[i]->getYPos())
+		{
+			cout << "On Top" << endl;
+		}
+		if (check == 0)
+			cout << "Not Colliding" << endl;
+	}
+}
+
+int Player::collisionCheck(Sprite* enemy)
+{
+	SDL_bool value;
+	SDL_Rect enemyRect;
+
+	enemyRect.x = enemy->spriteBox.x;
+	enemyRect.y = enemy->spriteBox.y;
+	enemyRect.h = enemy->spriteBox.h;
+	enemyRect.w = enemy->spriteBox.w;
+
+	value = SDL_HasIntersection(&spriteBox,&enemyRect);
+
+	if (value == SDL_TRUE)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+
 }
