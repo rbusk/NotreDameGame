@@ -7,6 +7,7 @@ Player::Player(SDLClass &myC) : Sprite(myC)
 	setSpeed(4,4);
 	jumpingState=isNotJumping;
 	stopScreen=1;
+	setSpeedIncrement(2);
 }
 
 void Player::setTextureClips(string path1, string path2)
@@ -158,6 +159,7 @@ void Player::collisionLoopRect(vector<Sprite*> enemyVector)
 			if (typeid(*ptr)==typeid(Hotdog))
 			{
 				cout << "collided with hotdog. yum" << endl;
+				//incrementSpeed();
 			}
 
 			else if (typeid(*ptr)==typeid(Car1))

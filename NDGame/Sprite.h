@@ -70,6 +70,8 @@ class Sprite {
 		int getCurrentClip();
 		void setIsLoaded(bool);
 		bool getIsLoaded();
+		void incrementSpeed(); //increase speed
+		void setSpeedIncrement(int);
 
 		//collision detection
 	//	void collisionLoop(vector<Sprite*>);
@@ -109,6 +111,7 @@ class Sprite {
 		int yPos;
 		int speedX;
 		int speedY;
+		int speedIncrement; //number added to speed to increase it
 		int state; // isResting, isWalking, or isJumping
 		bool facingRight; //1 if walking right, 0 if walking left
 		bool isLoaded;

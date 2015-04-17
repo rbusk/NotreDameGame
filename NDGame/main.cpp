@@ -135,6 +135,7 @@ int main(int argc, const char * argv[]) {
 		{
 			playerPtr->update();
 
+			//cout << "hi";
 			playerPtr->collisionLoopRect(enemies);
 
 			//use stopScreen variable to determine if screen should scroll
