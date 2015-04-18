@@ -3,6 +3,7 @@
 
 Player::Player(SDLClass &myC) : Sprite(myC)
 {
+	maxXPos=getHalfOfScreen()/2;
 	setTextureClips("resources/manSpriteSheet.png", "resources/manSpriteSheet2.png");
 	setSpeed(4,4);
 	jumpingState=isNotJumping;
@@ -25,11 +26,11 @@ void Player::setTextureClips(string path1, string path2)
 		addFlippedClip(194*i, 0, 194, 198);
 	}
 	
-	setPos(getHalfOfScreen(),275); 	// starting position
+	setPos(maxXPos,275); 	// starting position
 
 	setMaxHeight(100);
 	setMinHeight(275);
-	spriteBox.x = getHalfOfScreen();	// spriteBox has to be set here so that it matches starting pos
+	spriteBox.x = maxXPos;	// spriteBox has to be set here so that it matches starting pos
 	spriteBox.y = 275;
 	spriteBox.w = 194;
 	spriteBox.h = 198;
@@ -79,7 +80,7 @@ void Player::draw()
 		}
 
 		//if facing right but position is too far left, increment x position
-		else if (getFacingRight() && getXPos()<getHalfOfScreen())
+		else if (getFacingRight() && getXPos()<maxXPos)
 		{
 			moveRight();
 		}
@@ -97,7 +98,7 @@ void Player::update()
 	}
 
 	//if facing right but position is too far left, stop screen
-	else if (getFacingRight() && getXPos()<getHalfOfScreen())
+	else if (getFacingRight() && getXPos()<maxXPos)
 	{
 		stopScreen=1;
 	}

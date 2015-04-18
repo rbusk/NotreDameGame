@@ -38,6 +38,7 @@ class Player : public Sprite {
 		int jumpingState; //3 states- not, up, down
 		int stopScreen; //when character is walking, indicates if screen should be scrolling
 		int isInCollision; //1 if player is in collision
+		int maxXPos; //farthest the player can go right
 
 		
 };
