@@ -11,9 +11,6 @@
 #include <string>
 #include "LTexture.h"
 #include "SDLClass.h"
-#include "box.h"
-//#include "Hotdog.h"
-//#include "Car1.h"
 
 enum SpriteStates {
 	isResting, //use first two for state variable
@@ -70,9 +67,8 @@ class Sprite {
 		int getCurrentClip();
 		void setIsLoaded(bool);
 		bool getIsLoaded();
-		void incrementSpeed();
+		void incrementSpeed(); //increase speed
 		void setSpeedIncrement(int);
-
 
 		//collision detection
 	//	void collisionLoop(vector<Sprite*>);

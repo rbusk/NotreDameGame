@@ -13,7 +13,10 @@
 #include "Player.h"
 #include "Background.h"
 #include "Hotdog.h"
+#include "Hamburger.h"
 #include "Car1.h"
+#include "Car2.h"
+#include "Footballer.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -27,20 +30,33 @@ int main(int argc, const char * argv[]) {
 
 	Player simpleMan(mySDL);
 	Hotdog dog(mySDL);
-	Car1 car(mySDL);
+	Hamburger burger(mySDL);
+	Car1 car1(mySDL);
+	Car2 car2(mySDL);
+	Footballer baller(mySDL);
 
 	StaticScreen *screenPtr;
 	Player *playerPtr;
 	Hotdog *dogPtr;
-	Car1 *carPtr;
+	Hamburger *burgerPtr;
+	Car1 *car1Ptr;
+	Car2 *car2Ptr;
+	Footballer *ballerPtr;
 
 	screenPtr=&myOpening;
 	playerPtr=NULL;
 	dogPtr =&dog;
-	carPtr=&car;
+	burgerPtr = &burger;
+	car1Ptr=&car1;
+	car2Ptr=&car2;
+	ballerPtr=&baller;
+
 	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
 	enemies.push_back(dogPtr);
-	enemies.push_back(carPtr);
+	enemies.push_back(burgerPtr);
+	enemies.push_back(car1Ptr);
+	enemies.push_back(car2Ptr);
+	enemies.push_back(ballerPtr);
 	
 
 	int screenState=0;
@@ -135,6 +151,7 @@ int main(int argc, const char * argv[]) {
 		{
 			playerPtr->update();
 
+			//cout << "hi";
 			playerPtr->collisionLoopRect(enemies);
 
 			//use stopScreen variable to determine if screen should scroll
