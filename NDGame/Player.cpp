@@ -1,4 +1,5 @@
 #include "Sprite.h"
+#include <typeinfo>
 #include "Player.h"
 
 Player::Player(SDLClass &myC) : Sprite(myC)
