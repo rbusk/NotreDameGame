@@ -38,6 +38,3 @@ void Hamburger::draw(int s)
 	
 	Sprite::draw(s);
 }
-
-
-
