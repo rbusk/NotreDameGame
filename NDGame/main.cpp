@@ -18,6 +18,7 @@
 #include "Car2.h"
 #include "Footballer.h"
 #include "Timer.h"
+#include "Football.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -35,6 +36,7 @@ int main(int argc, const char * argv[]) {
 	Car1 car1(mySDL);
 	Car2 car2(mySDL);
 	Footballer baller(mySDL);
+	Football football(mySDL);
 
 	StaticScreen *screenPtr;
 	Player *playerPtr;
@@ -43,6 +45,7 @@ int main(int argc, const char * argv[]) {
 	Car1 *car1Ptr;
 	Car2 *car2Ptr;
 	Footballer *ballerPtr;
+	Football *footballPtr;
 
 	screenPtr=&myOpening;
 	playerPtr=NULL;
@@ -51,6 +54,7 @@ int main(int argc, const char * argv[]) {
 	car1Ptr=&car1;
 	car2Ptr=&car2;
 	ballerPtr=&baller;
+	footballPtr=&football;
 
 	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
 	enemies.push_back(dogPtr);
@@ -167,6 +171,9 @@ int main(int argc, const char * argv[]) {
 					enemies[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
 					enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, hotdog must scroll when screen does
 				}
+
+				//draw footballs
+				footballPtr->draw(screenPtr->getIsScrolling());
 			}
 
 			else //if player is dead, destroy sprite and switch screen states
