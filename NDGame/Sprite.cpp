@@ -362,3 +362,12 @@ int Sprite::collisionCheck(Sprite* enemy)
 
 }*/
 
+void Sprite::setSpeedIncrement(int n)
+{
+	speedIncrement=n;
+}
+
+void Sprite::incrementSpeed()
+{
+	speedX=speedX+speedIncrement;
+}

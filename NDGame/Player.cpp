@@ -7,6 +7,8 @@ Player::Player(SDLClass &myC) : Sprite(myC)
 	setSpeed(4,4);
 	jumpingState=isNotJumping;
 	stopScreen=1;
+	setSpeedIncrement(4);
+	isInCollision=0;
 }
 
 void Player::setTextureClips(string path1, string path2)
@@ -138,7 +140,7 @@ int Player::getStopScreen()
 {
 	return stopScreen;
 }
-void Player::collisionLoopRect(vector<Sprite*> enemyVector)
+void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 {
 	int check = 0;
 
@@ -151,21 +153,6 @@ void Player::collisionLoopRect(vector<Sprite*> enemyVector)
 		check = collisionCheck(enemyVector[i]);
 		
 		ptr=enemyVector[i];
-
-		//check to see what kind of sprite player has collided with
-		if (check==1)
-		{
-			if (typeid(*ptr)==typeid(Hotdog))
-			{
-				cout << "collided with hotdog. yum" << endl;
-			}
-
-			else if (typeid(*ptr)==typeid(Car1))
-			{
-				cout << "collided with car. vroom" << endl;
-			}
-		}
-
 
 		if (check == 1 && getXPos() > enemyVector[i]->getXPos())
 		{
@@ -180,7 +167,34 @@ void Player::collisionLoopRect(vector<Sprite*> enemyVector)
 			cout << "On Top" << endl;
 		}
 		if (check == 0)
+		{
 			cout << "Not Colliding" << endl;
+			if (isInCollision==1)
+			{
+				isInCollision=0;
+			}
+		}
+		
+		//check to see what kind of sprite player has collided with
+		if (check==1)
+		{
+			if (typeid(*ptr)==typeid(Hotdog))
+			{
+				cout << "collided with hotdog. yum" << endl;
+				
+				incrementSpeed(); //make player faster!
+
+				//erase hotdog from vector and free memory
+				ptr->destroySprite();
+				enemyVector.erase(enemyVector.begin()+i);
+				i--;
+			}
+
+			else if (typeid(*ptr)==typeid(Car1))
+			{
+				cout << "collided with car. vroom" << endl;
+			}
+		}
 	}
 }
 

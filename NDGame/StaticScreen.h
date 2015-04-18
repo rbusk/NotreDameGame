@@ -35,6 +35,9 @@ class StaticScreen {
 		void setIsScrolling(int x);
 		void setIsScrollingScreen(int x);
 		int getIsScrolling();
+		void incrementSpeed(int);
+		void setSpeed(int);
+		void setScrollingOffset(int);
 
 	private:
 		vector<LTexture> textures;
@@ -42,6 +45,7 @@ class StaticScreen {
 		int isScrollingScreen; //indicates if scrolling screen
 		int isScrolling; //indicates if scrolling screen is scrolling-- use enums
 		int scrollingOffset;
+		int speed;
 };
 
 #endif

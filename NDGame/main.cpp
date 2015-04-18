@@ -139,21 +139,14 @@ int main(int argc, const char * argv[]) {
 
 			//use stopScreen variable to determine if screen should scroll
 			screenPtr->setIsScrolling(!playerPtr->getStopScreen());
+			screenPtr->setSpeed(playerPtr->getSpeedX()/2);
 
 			playerPtr->draw();
 
-
-			if (screenPtr->getIsScrolling())		
-			{										
-				for (int i=0; i < enemies.size(); i++)
-				{
-					enemies[i]->draw(2);	// when standing still, hotdog must scroll when screen does
-				}
-			}								// thus this value is the "offset" of 2 found in a scrolling background
-			else
-			{	
-				for (int i=0; i < enemies.size(); i++)
-					enemies[i]->draw(0);	
+			for (int i=0; i<enemies.size(); i++)
+			{
+				enemies[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
+				enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, hotdog must scroll when screen does
 			}
 		}
 

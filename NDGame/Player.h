@@ -30,13 +30,14 @@ class Player : public Sprite {
 		void setJumpingState(int);
 		int getStopScreen();
 		int collisionCheck(Sprite* enemy);
-		void collisionLoopRect(vector<Sprite*> enemyVector);
+		void collisionLoopRect(vector<Sprite*>& enemyVector);
 
 	private:
 		int maxHeight; //max jumping height
 		int minHeight; //min jumping height
 		int jumpingState; //3 states- not, up, down
 		int stopScreen; //when character is walking, indicates if screen should be scrolling
+		int isInCollision; //1 if player is in collision
 
 		
 };
