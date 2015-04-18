@@ -11,9 +11,6 @@
 #include <string>
 #include "LTexture.h"
 #include "SDLClass.h"
-#include "box.h"
-//#include "Hotdog.h"
-//#include "Car1.h"
 
 enum SpriteStates {
 	isResting, //use first two for state variable
