@@ -16,23 +16,28 @@ void Hotdog::setTextureClips(string path1, string path2)
 	setNumClips(totalClips);
 
 
-	addClip(0, 0, 100, 60);
+	addClip(0, 0, 60, 30);
 		
 	
 	setPos(getHalfOfScreen()*1.75,400); 	// starting position
 
+	spriteBox.x = getHalfOfScreen()*1.75;	// spriteBox has to be set here so that it matches starting pos
+	spriteBox.y = 400;
+	spriteBox.w = 60;
+	spriteBox.h = 30;
+
 }
 
+//if s==1 then move left, otherwise just draw
 void Hotdog::draw(int s)
 {
-	setSpeed(s,0);
-	moveLeft();		// our background scrolls left so this syncs up with it if need be
-	basicDraw();
+	if (s==1)
+	{
+		moveLeft();		// our background scrolls left so this syncs up with it if need be
+	}
+	
+	Sprite::draw(s);
 }
 
-void Hotdog::setIsLoaded(bool loaded)
-{
-	isLoaded = loaded;
-}
 
 

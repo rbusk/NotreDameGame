@@ -32,7 +32,8 @@ void StaticScreen::draw()
 	{
 		if (isScrolling)
 		{
-			scrollingOffset-=2;
+			//scrollingOffset-=speed;
+			scrollingOffset-=speed;
 		}
 
 		if (scrollingOffset < -textures[0].getWidth())
@@ -51,7 +52,6 @@ void StaticScreen::draw()
 	{
 		mySDL->clear();
 		mySDL->renderTextures(textures);
-	//mySDL->update();
 	}	
 }
 
@@ -93,4 +93,28 @@ void StaticScreen::setIsScrollingScreen(int x)
 int StaticScreen::getIsScrolling() 
 {
 	return isScrolling;
+}
+
+void StaticScreen::setSpeed(int n)
+{
+	speed=n;
+}
+
+void StaticScreen::incrementSpeed(int n)
+{
+	speed+=n;
+}
+
+void StaticScreen::setScrollingOffset(int n)
+{
+	scrollingOffset=n;
+}
+
+LTexture* StaticScreen::getTexture(int n)
+{
+	return &textures[n];
+}
+
+void StaticScreen::displayGameOver()
+{
 }

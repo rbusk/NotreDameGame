@@ -30,6 +30,8 @@ public:
     int getY();
     void setX(int n);
     void setY(int n);
+    void setDraw(int n);
+    int getDraw(void);
     
 private:
     SDL_Texture* mTexture;
@@ -37,6 +39,7 @@ private:
     int mHeight;
     int x; //x position
     int y; //y position
+    int draw; //1 if draw, otherwise 0
 };
 
 

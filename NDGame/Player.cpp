@@ -1,12 +1,17 @@
 #include "Sprite.h"
+#include <typeinfo>
 #include "Player.h"
 
 Player::Player(SDLClass &myC) : Sprite(myC)
 {
+	maxXPos=getHalfOfScreen()/2;
 	setTextureClips("resources/manSpriteSheet.png", "resources/manSpriteSheet2.png");
 	setSpeed(4,4);
 	jumpingState=isNotJumping;
 	stopScreen=1;
+	setSpeedIncrement(4);
+	isInCollision=0;
+	dead=0;
 }
 
 void Player::setTextureClips(string path1, string path2)
@@ -23,14 +28,20 @@ void Player::setTextureClips(string path1, string path2)
 		addFlippedClip(194*i, 0, 194, 198);
 	}
 	
-	setPos(getHalfOfScreen(),275); 	// starting position
+	setPos(maxXPos,275); 	// starting position
 
-	setMaxHeight(200);
+	setMaxHeight(100);
 	setMinHeight(275);
+	spriteBox.x = maxXPos;	// spriteBox has to be set here so that it matches starting pos
+	spriteBox.y = 275;
+	spriteBox.w = 194;
+	spriteBox.h = 198;
 }
 
 void Player::draw()
 {
+	timer.updateTime();
+
 	switch (jumpingState)
 	{
 		//if sprite is jumping up
@@ -58,6 +69,14 @@ void Player::draw()
 			break;
 	}
 
+	cout << timer.getTime() << endl;
+
+
+	if (timer.getTimeIsUp())
+	{
+		setSpeed(getSpeedX()/2, getSpeedY()/2);
+	}
+
 	basicDraw();
 
 	//if isWalking, increment clip
@@ -73,7 +92,7 @@ void Player::draw()
 		}
 
 		//if facing right but position is too far left, increment x position
-		else if (getFacingRight() && getXPos()<getHalfOfScreen())
+		else if (getFacingRight() && getXPos()<maxXPos)
 		{
 			moveRight();
 		}
@@ -91,7 +110,7 @@ void Player::update()
 	}
 
 	//if facing right but position is too far left, stop screen
-	else if (getFacingRight() && getXPos()<getHalfOfScreen())
+	else if (getFacingRight() && getXPos()<maxXPos)
 	{
 		stopScreen=1;
 	}
@@ -133,4 +152,102 @@ void Player::setJumpingState(int n)
 int Player::getStopScreen()
 {
 	return stopScreen;
+}
+void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
+{
+	int check = 0;
+
+	Sprite* ptr; //use to determine what kind of sprite
+
+	for(int i = 0; i < enemyVector.size(); i++)
+	{
+		check = 0;
+		//add is loaded if statement
+		check = collisionCheck(enemyVector[i]);
+		
+		ptr=enemyVector[i];
+
+		if (check == 1 && getXPos() > enemyVector[i]->getXPos())
+		{
+			cout << "Colliding Left" << endl;
+		}
+		if (check == 1 && getXPos() < enemyVector[i]->getXPos())
+		{
+			cout << "Colliding Right" << endl;
+		}
+		if (check == 1 && getYPos()+getH() == enemyVector[i]->getYPos())
+		{
+			cout << "On Top" << endl;
+		}
+		if (check == 0)
+		{
+			cout << "Not Colliding" << endl;
+			if (isInCollision==1)
+			{
+				isInCollision=0;
+			}
+		}
+		
+		//check to see what kind of sprite player has collided with
+		if (check==1)
+		{
+			if (typeid(*ptr)==typeid(Hotdog))
+			{
+				cout << "collided with hotdog. yum" << endl;
+				
+				incrementSpeed(); //make player faster!
+				addTime();
+
+				//erase hotdog from vector and free memory
+				ptr->destroySprite();
+				enemyVector.erase(enemyVector.begin()+i);
+				i--;
+			}
+
+			else if (typeid(*ptr)==typeid(Car1))
+			{
+				cout << "collided with car. vroom" << endl;
+			}
+
+			//if collide with football guy, player dies
+			else if (typeid(*ptr)==typeid(Footballer))
+			{
+				cout << "collided with football guy. ouch." << endl;
+				dead=1;
+			}
+		}
+	}
+}
+
+int Player::collisionCheck(Sprite* enemy)
+{
+	SDL_bool value;
+	SDL_Rect enemyRect;
+
+	enemyRect.x = enemy->spriteBox.x;
+	enemyRect.y = enemy->spriteBox.y;
+	enemyRect.h = enemy->spriteBox.h;
+	enemyRect.w = enemy->spriteBox.w;
+
+	value = SDL_HasIntersection(&spriteBox,&enemyRect);
+
+	if (value == SDL_TRUE)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+
+}
+
+void Player::addTime()
+{
+	timer.addTime();
+}
+
+int Player::isDead()
+{
+	return dead;
 }

@@ -8,5 +8,6 @@ class Background : public StaticScreen {
 	public:
 
 		Background(SDLClass &myC);
+		void displayGameOver(); //display the words "game over"
 };
 #endif

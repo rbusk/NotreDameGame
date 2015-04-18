@@ -11,7 +11,6 @@
 #include <string>
 #include "LTexture.h"
 #include "SDLClass.h"
-using namespace std;
 
 enum SpriteStates {
 	isResting, //use first two for state variable
@@ -35,7 +34,7 @@ class Sprite {
 
 		void basicDraw(); //basic drawing functionality that all sprites must use -- not directly used by user but be used in draw function below
 		void checkCurrentClip(); //check if currentClip needs to be set to 0. Also not used directly by user but must be used in draw function
-		void draw(); //uses basicDraw in base class and can be changed for derived classes
+		virtual void draw(int); //uses basicDraw in base class and can be changed for derived classes
 		void update(); //not all sprite classes may use this
 
 		//change sprite's position
@@ -66,6 +65,30 @@ class Sprite {
 		int getSpeedY();
 		void setSpeed(int,int);
 		int getCurrentClip();
+		void setIsLoaded(bool);
+		bool getIsLoaded();
+		void incrementSpeed(); //increase speed
+		void setSpeedIncrement(int);
+
+		//collision detection
+	//	void collisionLoop(vector<Sprite*>);
+	//	int collision(Sprite*);
+	//	int checkTop(vector< vector<int> >);
+	//	int checkBottom(vector< vector<int> >);
+	//	int checkRight(vector< vector<int> >);
+	//	int checkLeft(vector< vector<int> >);
+
+
+	//	box spriteBox;
+	//
+	
+		SDL_Rect spriteBox;
+
+		void collisionLoopRect(vector<Sprite*>);
+		int collisionCheck(Sprite*);
+
+
+
 
 	private:
 		LTexture spriteSheet;	
@@ -85,8 +108,10 @@ class Sprite {
 		int yPos;
 		int speedX;
 		int speedY;
+		int speedIncrement; //use to increment speed
 		int state; // isResting, isWalking, or isJumping
 		bool facingRight; //1 if walking right, 0 if walking left
+		bool isLoaded;
 };
 
 #endif

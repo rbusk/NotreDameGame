@@ -1,6 +1,6 @@
-/* Base Hotdog derived from Sprite Class */
-#ifndef HOTDOG_H
-#define HOTDOG_H
+/* Car2 derived from Sprite Class */
+#ifndef CAR2_H
+#define CAR2_H
 
 #include <iostream>
 #include <SDL2/SDL.h>
@@ -13,12 +13,13 @@
 #include "Sprite.h"
 using namespace std;
 
-class Hotdog : public Sprite {
+class Car2 : public Sprite {
 
 	public: 
-		Hotdog(SDLClass &myC);
+		Car2(SDLClass &myC);
 		void setTextureClips(string path1, string path2);
-		void draw(int); //1 if moving 0 if not
+		void draw(int); //takes speed of scrolling background remain still relative to it
+		
 			
 };
 

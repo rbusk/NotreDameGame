@@ -13,6 +13,11 @@
 #include "Player.h"
 #include "Background.h"
 #include "Hotdog.h"
+#include "Hamburger.h"
+#include "Car1.h"
+#include "Car2.h"
+#include "Footballer.h"
+#include "Timer.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -26,14 +31,33 @@ int main(int argc, const char * argv[]) {
 
 	Player simpleMan(mySDL);
 	Hotdog dog(mySDL);
+	Hamburger burger(mySDL);
+	Car1 car1(mySDL);
+	Car2 car2(mySDL);
+	Footballer baller(mySDL);
 
 	StaticScreen *screenPtr;
 	Player *playerPtr;
 	Hotdog *dogPtr;
+	Hamburger *burgerPtr;
+	Car1 *car1Ptr;
+	Car2 *car2Ptr;
+	Footballer *ballerPtr;
 
 	screenPtr=&myOpening;
 	playerPtr=NULL;
 	dogPtr =&dog;
+	burgerPtr = &burger;
+	car1Ptr=&car1;
+	car2Ptr=&car2;
+	ballerPtr=&baller;
+
+	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
+	enemies.push_back(dogPtr);
+	enemies.push_back(burgerPtr);
+	enemies.push_back(car1Ptr);
+	enemies.push_back(car2Ptr);
+	enemies.push_back(ballerPtr);
 
 	int screenState=0;
 	
@@ -123,19 +147,38 @@ int main(int argc, const char * argv[]) {
 		}
 
 		screenPtr->draw();
-		if (playerPtr!=NULL)
+		if (screenState==2 && playerPtr!=NULL)
 		{
 			playerPtr->update();
 
-			//use stopScreen variable to determine if screen should scroll
-			screenPtr->setIsScrolling(!playerPtr->getStopScreen());
+			playerPtr->collisionLoopRect(enemies);
 
-			playerPtr->draw();
+			if (!playerPtr->isDead())
+			{
 
-			if (screenPtr->getIsScrolling())		// when standing still, hotdog must scroll when screen does
-				dogPtr->draw(2);				// thus this value is the "offset" found in a scrolling background
-			else
-				dogPtr->draw(0);
+				//use stopScreen variable to determine if screen should scroll
+				screenPtr->setIsScrolling(!playerPtr->getStopScreen());
+				screenPtr->setSpeed(playerPtr->getSpeedX()/2);
+
+				playerPtr->draw();
+
+				for (int i=0; i<enemies.size(); i++)
+				{
+					enemies[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
+					enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, hotdog must scroll when screen does
+				}
+			}
+
+			else //if player is dead, destroy sprite and switch screen states
+			{
+				screenState=3;
+				screenPtr->displayGameOver();
+			}
+		}
+
+		if (screenState==3)
+		{
+			cout << "game over" << endl;
 		}
 
 		mySDL.update();		// not included in draw() b/c only need one update at the end

@@ -46,7 +46,11 @@ void SDLClass::renderTextures(vector<LTexture> textures)
 {
 	for (int i=0; i<textures.size() ; i++)
 	{
-		textures[i].render(myRenderer);
+		//only render if draw==1
+		if (textures[i].getDraw())
+		{
+			textures[i].render(myRenderer);
+		}
 	}
 }
 
