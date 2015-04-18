@@ -16,6 +16,7 @@
 #include "Hamburger.h"
 #include "Car1.h"
 #include "Car2.h"
+#include "Footballer.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -32,6 +33,7 @@ int main(int argc, const char * argv[]) {
 	Hamburger burger(mySDL);
 	Car1 car1(mySDL);
 	Car2 car2(mySDL);
+	Footballer baller(mySDL);
 
 	StaticScreen *screenPtr;
 	Player *playerPtr;
@@ -39,6 +41,7 @@ int main(int argc, const char * argv[]) {
 	Hamburger *burgerPtr;
 	Car1 *car1Ptr;
 	Car2 *car2Ptr;
+	Footballer *ballerPtr;
 
 	screenPtr=&myOpening;
 	playerPtr=NULL;
@@ -46,12 +49,14 @@ int main(int argc, const char * argv[]) {
 	burgerPtr = &burger;
 	car1Ptr=&car1;
 	car2Ptr=&car2;
+	ballerPtr=&baller;
 
 	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
 	enemies.push_back(dogPtr);
 	enemies.push_back(burgerPtr);
 	enemies.push_back(car1Ptr);
 	enemies.push_back(car2Ptr);
+	enemies.push_back(ballerPtr);
 	
 
 	int screenState=0;
