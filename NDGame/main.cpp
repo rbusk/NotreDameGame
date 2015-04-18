@@ -147,24 +147,38 @@ int main(int argc, const char * argv[]) {
 		}
 
 		screenPtr->draw();
-		if (playerPtr!=NULL)
+		if (screenState==2 && playerPtr!=NULL)
 		{
 			playerPtr->update();
 
-			//cout << "hi";
 			playerPtr->collisionLoopRect(enemies);
 
-			//use stopScreen variable to determine if screen should scroll
-			screenPtr->setIsScrolling(!playerPtr->getStopScreen());
-			screenPtr->setSpeed(playerPtr->getSpeedX()/2);
-
-			playerPtr->draw();
-
-			for (int i=0; i<enemies.size(); i++)
+			if (!playerPtr->isDead())
 			{
-				enemies[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
-				enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, hotdog must scroll when screen does
+
+				//use stopScreen variable to determine if screen should scroll
+				screenPtr->setIsScrolling(!playerPtr->getStopScreen());
+				screenPtr->setSpeed(playerPtr->getSpeedX()/2);
+
+				playerPtr->draw();
+
+				for (int i=0; i<enemies.size(); i++)
+				{
+					enemies[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
+					enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, hotdog must scroll when screen does
+				}
 			}
+
+			else //if player is dead, destroy sprite and switch screen states
+			{
+				screenState=3;
+				screenPtr->displayGameOver();
+			}
+		}
+
+		if (screenState==3)
+		{
+			cout << "game over" << endl;
 		}
 
 		mySDL.update();		// not included in draw() b/c only need one update at the end

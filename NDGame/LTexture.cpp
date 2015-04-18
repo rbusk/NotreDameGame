@@ -21,6 +21,7 @@ LTexture::LTexture()
     mHeight=0;
     x=0;
     y=0;
+    draw=1;
 }
 
 int LTexture::getX()
@@ -183,4 +184,14 @@ void LTexture::setHeight(int h)
 void LTexture::setTexture(SDL_Texture* t)
 {
 	mTexture=t;
+}
+
+void LTexture::setDraw(int n)
+{
+	draw=n;
+}
+
+int LTexture::getDraw()
+{
+	return draw;
 }

@@ -38,6 +38,8 @@ class StaticScreen {
 		void incrementSpeed(int);
 		void setSpeed(int);
 		void setScrollingOffset(int);
+		LTexture* getTexture(int); //returns ptr LTexture w/ index of input
+		virtual void displayGameOver(); //only used for Background class
 
 	private:
 		vector<LTexture> textures;

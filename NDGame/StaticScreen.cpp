@@ -52,7 +52,6 @@ void StaticScreen::draw()
 	{
 		mySDL->clear();
 		mySDL->renderTextures(textures);
-	//mySDL->update();
 	}	
 }
 
@@ -109,4 +108,13 @@ void StaticScreen::incrementSpeed(int n)
 void StaticScreen::setScrollingOffset(int n)
 {
 	scrollingOffset=n;
+}
+
+LTexture* StaticScreen::getTexture(int n)
+{
+	return &textures[n];
+}
+
+void StaticScreen::displayGameOver()
+{
 }

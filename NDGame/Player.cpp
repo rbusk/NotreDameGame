@@ -10,6 +10,7 @@ Player::Player(SDLClass &myC) : Sprite(myC)
 	stopScreen=1;
 	setSpeedIncrement(4);
 	isInCollision=0;
+	dead=0;
 }
 
 void Player::setTextureClips(string path1, string path2)
@@ -206,6 +207,13 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 			{
 				cout << "collided with car. vroom" << endl;
 			}
+
+			//if collide with football guy, player dies
+			else if (typeid(*ptr)==typeid(Footballer))
+			{
+				cout << "collided with football guy. ouch." << endl;
+				dead=1;
+			}
 		}
 	}
 }
@@ -236,4 +244,9 @@ int Player::collisionCheck(Sprite* enemy)
 void Player::addTime()
 {
 	timer.addTime();
+}
+
+int Player::isDead()
+{
+	return dead;
 }

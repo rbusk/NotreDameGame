@@ -13,7 +13,7 @@ Background::Background(SDLClass &myC)
 
 	loadFromText("Game Over", textColor, font, getSDL()->getW()/3, getSDL()->getH()/8);
 
-	getTexture(1)->setDraw(0);
+	getTexture(1)->setDraw(1);
 
 	
 }	
