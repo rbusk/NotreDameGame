@@ -38,6 +38,8 @@ void Player::setTextureClips(string path1, string path2)
 
 void Player::draw()
 {
+	timer.updateTime();
+
 	switch (jumpingState)
 	{
 		//if sprite is jumping up
@@ -63,6 +65,14 @@ void Player::draw()
 			
 		default:
 			break;
+	}
+
+	cout << timer.getTime() << endl;
+
+
+	if (timer.getTimeIsUp())
+	{
+		setSpeed(getSpeedX()/2, getSpeedY()/2);
 	}
 
 	basicDraw();
@@ -184,6 +194,7 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 				cout << "collided with hotdog. yum" << endl;
 				
 				incrementSpeed(); //make player faster!
+				addTime();
 
 				//erase hotdog from vector and free memory
 				ptr->destroySprite();
@@ -220,4 +231,9 @@ int Player::collisionCheck(Sprite* enemy)
 		return 0;
 	}
 
+}
+
+void Player::addTime()
+{
+	timer.addTime();
 }

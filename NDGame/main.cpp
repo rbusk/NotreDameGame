@@ -17,6 +17,7 @@
 #include "Car1.h"
 #include "Car2.h"
 #include "Footballer.h"
+#include "Timer.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -57,7 +58,6 @@ int main(int argc, const char * argv[]) {
 	enemies.push_back(car1Ptr);
 	enemies.push_back(car2Ptr);
 	enemies.push_back(ballerPtr);
-	
 
 	int screenState=0;
 	

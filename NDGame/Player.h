@@ -13,6 +13,7 @@
 #include "Sprite.h"
 #include "Hotdog.h"
 #include "Car1.h"
+#include "Timer.h"
 using namespace std;
 
 class Player : public Sprite {
@@ -39,6 +40,8 @@ class Player : public Sprite {
 		int stopScreen; //when character is walking, indicates if screen should be scrolling
 		int isInCollision; //1 if player is in collision
 		int maxXPos; //farthest the player can go right
+		Timer timer; //use to control player's speed
+		void addTime(); //add time to timer
 
 		
 };
