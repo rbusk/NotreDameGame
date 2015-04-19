@@ -66,9 +66,8 @@ int main(int argc, const char * argv[]) {
 
 	//vector of footballs that player has thrown
 	vector<Football*> footballs;
-	Football footballSprite(mySDL, 300, 400);
-	footballs.push_back(&footballSprite);
-	//playerPtr->setNumFootballs(0);
+//	Football footballSprite(mySDL, 300, 400);
+//	footballs.push_back(&footballSprite);
 
 	int screenState=0;
 	
@@ -133,8 +132,8 @@ int main(int argc, const char * argv[]) {
 						{
 							if (playerPtr->getNumFootballs())
 							{
-								/*Football football(mySDL, playerPtr->getXPos(), playerPtr->getYPos());
-								footballs.push_back(football);*/
+								Football footballSprite(mySDL, playerPtr->getXPos(), playerPtr->getYPos());
+								footballs.push_back(&footballSprite);
 								playerPtr->setNumFootballs(0);
 							}
 						}
@@ -179,7 +178,6 @@ int main(int argc, const char * argv[]) {
 
 			if (!playerPtr->isDead())
 			{
-
 				//use stopScreen variable to determine if screen should scroll
 				screenPtr->setIsScrolling(!playerPtr->getStopScreen());
 				screenPtr->setSpeed(playerPtr->getSpeedX()/2);
@@ -196,6 +194,8 @@ int main(int argc, const char * argv[]) {
 				for (int i=0; i<footballs.size(); i++)
 				{
 					footballs[i]->draw(screenPtr->getIsScrolling());
+					cout << footballs[i]->getXPos() << endl;
+					cout << footballs[i]->getSpeedX() << endl;
 				}
 			}
 
