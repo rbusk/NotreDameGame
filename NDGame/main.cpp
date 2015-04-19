@@ -134,8 +134,8 @@ int main(int argc, const char * argv[]) {
 							if (playerPtr->getNumFootballs())
 							{
 								/*Football football(mySDL, playerPtr->getXPos(), playerPtr->getYPos());
-								footballs.push_back(football);
-								playerPtr->setNumFootballs(0);*/
+								footballs.push_back(football);*/
+								playerPtr->setNumFootballs(0);
 							}
 						}
 						break;
