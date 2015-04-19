@@ -7,6 +7,7 @@ FootballPowerup::FootballPowerup(SDLClass &myC) : Sprite(myC)
 	setSpeed(0,0);
 }
 
+//location 1 is for powerups, location 0 is for indicator in corner of screen
 void FootballPowerup::setTextureClips(string path1, string path2)
 {
 	loadSheetFromFile(path1);

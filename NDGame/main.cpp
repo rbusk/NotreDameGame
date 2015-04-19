@@ -165,6 +165,7 @@ int main(int argc, const char * argv[]) {
 				//use stopScreen variable to determine if screen should scroll
 				screenPtr->setIsScrolling(!playerPtr->getStopScreen());
 				screenPtr->setSpeed(playerPtr->getSpeedX()/2);
+				screenPtr->getTexture(2)->setDraw(playerPtr->getNumFootballs());
 
 				playerPtr->draw();
 
