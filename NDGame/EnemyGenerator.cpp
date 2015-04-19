@@ -34,7 +34,8 @@ void EnemyGenerator::generateSprites(Player* man, int num)
 
 	for (int i = 0; i < num; i++) {
 
-		int species;
+		Sprite* created = NULL;
+		EnemyType species;
 		int random, randX, randY;
 		int manX = man->getX(), manY = man->getY();
 
@@ -45,52 +46,28 @@ void EnemyGenerator::generateSprites(Player* man, int num)
 
 		switch (species)
 		{
-			case isHotdog:
-			{
-				Hotdog dog(*mySDL);
-				Hotdog *dogPtr = &dog;
-				// insert randomized placement and speed/motion here?
-				// would be done just using created->setX() etc.
-				dogPtr->setPos(randX,randY);
-				createdSprites.push_back(dogPtr);
-				break;
-			}
-			case isHamburger:
-			{
-				Hamburger burger(*mySDL);
-				Hamburger *burgerPtr = &burger;
-				burgerPtr->setPos(randX,randY);
-				createdSprites.push_back(burgerPtr);
-				break;
-			}
 			case isCar1:
 			{
-				Car1 car1(*mySDL);
-				Car1 *car1Ptr = &car1;
-				car1Ptr->setPos(randX,400);
-				createdSprites.push_back(car1Ptr);
+				created = new Car1(*mySDL);
+				created->setPos(randX,400);
 				break;
 			}
 			case isCar2:
 			{
-				Car2 car2(*mySDL);
-				Car2 *car2Ptr = &car2;
-				car2Ptr->setPos(randX,400);
-				createdSprites.push_back(car2Ptr);
+				created = new Car2(*mySDL);
+				created->setPos(randX,400);
 				break;
 			}
 			case isFootballer:
 			{
-				Footballer baller(*mySDL);
-				Footballer *ballerPtr = &baller;
-				ballerPtr->setPos(randX,345);
-				createdSprites.push_back(ballerPtr);
+				created = new Footballer(*mySDL);
+				created->setPos(randX,345);
 				break;
 			}
 
 		}
 
-
+		createdSprites.push_back(created);
 
 	}
 

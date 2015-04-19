@@ -167,8 +167,10 @@ int main(int argc, const char * argv[]) {
 			enemyFactory.setFrequency(numOfEnemies);
 
 			desiredEnemies.clear();
-			desiredEnemies.push_back(isHotdog);
 			desiredEnemies.push_back(isCar1);
+			desiredEnemies.push_back(isCar2);
+			desiredEnemies.push_back(isFootballer);
+
 			enemyFactory.setEnemies(desiredEnemies);
 
 			if (enemies.size() < numOfEnemies)

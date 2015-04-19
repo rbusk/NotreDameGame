@@ -14,8 +14,6 @@
 #include "Footballer.h"
 
 enum EnemyType {
-	isHotdog,
-	isHamburger,
 	isCar1,
 	isCar2,
 	isFootballer
