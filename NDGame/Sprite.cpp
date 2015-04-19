@@ -371,4 +371,3 @@ void Sprite::incrementSpeed()
 {
 	speedX = speedX + speedIncrement;
 }
-

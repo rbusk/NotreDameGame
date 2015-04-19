@@ -66,6 +66,9 @@ int main(int argc, const char * argv[]) {
 
 	//vector of footballs that player has thrown
 	vector<Football*> footballs;
+	Football footballSprite(mySDL, 300, 400);
+	footballs.push_back(&footballSprite);
+	//playerPtr->setNumFootballs(0);
 
 	int screenState=0;
 	
@@ -130,9 +133,9 @@ int main(int argc, const char * argv[]) {
 						{
 							if (playerPtr->getNumFootballs())
 							{
-								Football football(mySDL);
-								footballs.push_back(&football);
-								playerPtr->setNumFootballs(0);
+								/*Football football(mySDL, playerPtr->getXPos(), playerPtr->getYPos());
+								footballs.push_back(football);
+								playerPtr->setNumFootballs(0);*/
 							}
 						}
 						break;
@@ -190,8 +193,9 @@ int main(int argc, const char * argv[]) {
 					enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, hotdog must scroll when screen does
 				}
 
-				if (footballs.size()!=1)
+				for (int i=0; i<footballs.size(); i++)
 				{
+					footballs[i]->draw(screenPtr->getIsScrolling());
 				}
 			}
 

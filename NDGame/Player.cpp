@@ -275,4 +275,3 @@ void Player::setNumFootballs(int n)
 {
 	numFootballs=n;
 }
-

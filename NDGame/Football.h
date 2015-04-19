@@ -14,9 +14,11 @@ using namespace std;
 class Football : public Sprite {
 
 	public:
-		Football(SDLClass &myC);
+		Football(SDLClass &myC, int, int); //takes in x and y positions as arguments as well
 		void setTextureClips(string path1, string path2);
-		void draw(int); //1 if moving 0 if not
+
+		void draw(int); // int is to indicate if screen is scrolling,
+
 };
 
 #endif
