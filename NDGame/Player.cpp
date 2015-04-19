@@ -13,6 +13,7 @@ Player::Player(SDLClass &myC) : Sprite(myC)
 	isInCollision=0;
 	dead=0;
 	numFootballs=0;
+	setW(194);
 }
 
 void Player::setTextureClips(string path1, string path2)

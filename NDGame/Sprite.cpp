@@ -366,3 +366,8 @@ void Sprite::incrementSpeed()
 {
 	speedX = speedX + speedIncrement;
 }
+
+void Sprite::setW(int n)
+{
+	width=n;
+}

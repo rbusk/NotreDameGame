@@ -130,7 +130,6 @@ int main(int argc, const char * argv[]) {
 						{
 							if (playerPtr->getNumFootballs())
 							{
-								cout << playerPtr->getW();
 								Football footballSprite(mySDL, playerPtr->getXPos()+playerPtr->getW(), playerPtr->getYPos());
 								footballs.push_back(footballSprite);
 								playerPtr->setNumFootballs(0);
