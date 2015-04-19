@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 #include "LTexture.h"
-#include "SDLClass.h"
 #include "StaticScreen.h"
 #include "OpeningScreen.h"
 #include "GraduatingScreen.h"
@@ -18,6 +17,8 @@
 #include "Car2.h"
 #include "Footballer.h"
 #include "Timer.h"
+#include "Football.h"
+#include "FootballPowerup.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -35,6 +36,7 @@ int main(int argc, const char * argv[]) {
 	Car1 car1(mySDL);
 	Car2 car2(mySDL);
 	Footballer baller(mySDL);
+	FootballPowerup football(mySDL);
 
 	StaticScreen *screenPtr;
 	Player *playerPtr;
@@ -43,6 +45,7 @@ int main(int argc, const char * argv[]) {
 	Car1 *car1Ptr;
 	Car2 *car2Ptr;
 	Footballer *ballerPtr;
+	FootballPowerup *footballPtr;
 
 	screenPtr=&myOpening;
 	playerPtr=NULL;
@@ -51,6 +54,7 @@ int main(int argc, const char * argv[]) {
 	car1Ptr=&car1;
 	car2Ptr=&car2;
 	ballerPtr=&baller;
+	footballPtr=&football;
 
 	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
 	enemies.push_back(dogPtr);
@@ -58,6 +62,12 @@ int main(int argc, const char * argv[]) {
 	enemies.push_back(car1Ptr);
 	enemies.push_back(car2Ptr);
 	enemies.push_back(ballerPtr);
+	enemies.push_back(footballPtr);
+
+	//vector of footballs that player has thrown
+	vector<Football*> footballs;
+//	Football footballSprite(mySDL, 300, 400);
+//	footballs.push_back(&footballSprite);
 
 	int screenState=0;
 	
@@ -76,6 +86,27 @@ int main(int argc, const char * argv[]) {
 
 			else if (e.type==SDL_KEYDOWN) //user presses a key
 			{
+				//if any key is pressed for first 2 screenStates, go to next screenState and set some pointers
+				if (screenState<2)
+				{
+					screenState++;
+					
+					switch (screenState) {
+						case 0:
+							break;
+							
+						case 1:
+							screenPtr=&myGraduating;
+							break;
+						case 2:
+							screenPtr=&myScrolling;
+							playerPtr=&simpleMan;
+							break;
+						default:
+							break;
+					}
+				}
+
 				switch(e.key.keysym.sym) //case checks which key was pressed
 				{
 					//user presses right -- if screen state is 2, player walks right
@@ -96,23 +127,15 @@ int main(int argc, const char * argv[]) {
 						}
 						break;
 
-						//user presses space -- switch screenState
 					case SDLK_SPACE:
-						screenState++;
-
-						switch (screenState) {
-							case 0:
-								break;
-								
-							case 1:
-								screenPtr=&myGraduating;
-								break;
-							case 2:
-								screenPtr=&myScrolling;
-								playerPtr=&simpleMan;
-								break;
-							default:
-								break;
+						if (screenState==2)
+						{
+							if (playerPtr->getNumFootballs())
+							{
+								Football footballSprite(mySDL, playerPtr->getXPos(), playerPtr->getYPos());
+								footballs.push_back(&footballSprite);
+								playerPtr->setNumFootballs(0);
+							}
 						}
 						break;
 
@@ -155,10 +178,10 @@ int main(int argc, const char * argv[]) {
 
 			if (!playerPtr->isDead())
 			{
-
 				//use stopScreen variable to determine if screen should scroll
 				screenPtr->setIsScrolling(!playerPtr->getStopScreen());
 				screenPtr->setSpeed(playerPtr->getSpeedX()/2);
+				screenPtr->getTexture(2)->setDraw(playerPtr->getNumFootballs());
 
 				playerPtr->draw();
 
@@ -167,7 +190,15 @@ int main(int argc, const char * argv[]) {
 					enemies[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
 					enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, hotdog must scroll when screen does
 				}
+
+				for (int i=0; i<footballs.size(); i++)
+				{
+					footballs[i]->draw(screenPtr->getIsScrolling());
+					cout << footballs[i]->getXPos() << endl;
+					cout << footballs[i]->getSpeedX() << endl;
+				}
 			}
+
 
 			else //if player is dead, destroy sprite and switch screen states
 			{

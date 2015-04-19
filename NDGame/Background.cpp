@@ -1,5 +1,6 @@
 #include "Background.h"
 #include "StaticScreen.h"
+#include "FootballPowerup.h"
 
 Background::Background(SDLClass &myC)
 	: StaticScreen(myC)
@@ -15,7 +16,9 @@ Background::Background(SDLClass &myC)
 
 	getTexture(1)->setDraw(0);
 
-	
+	loadFromFile("resources/football.png"); //for football in corner indicating if player has a football
+
+	getTexture(2)->setDraw(0);
 }	
 
 void Background::displayGameOver()

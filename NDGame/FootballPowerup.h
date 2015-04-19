@@ -1,6 +1,6 @@
 // Football derived from Sprite Class
-#ifndef FOOTBALL_H
-#define FOOTBALL_H
+#ifndef FOOTBALLPOWERUP_H
+#define FOOTBALLPOWERUP_H
 
 #include <iostream>
 #include <SDL2/SDL.h>
@@ -11,14 +11,12 @@
 #include "Sprite.h"
 using namespace std;
 
-class Football : public Sprite {
+class FootballPowerup : public Sprite {
 
 	public:
-		Football(SDLClass &myC, int, int); //takes in x and y positions as arguments as well
+		FootballPowerup(SDLClass &myC);
 		void setTextureClips(string path1, string path2);
-
-		void draw(int); // int is to indicate if screen is scrolling,
-
+		void draw(int); //1 if moving 0 if not
 };
 
 #endif

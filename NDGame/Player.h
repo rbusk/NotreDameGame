@@ -15,6 +15,7 @@
 #include "Car1.h"
 #include "Timer.h"
 #include "Footballer.h"
+#include "FootballPowerup.h"
 using namespace std;
 
 class Player : public Sprite {
@@ -24,6 +25,8 @@ class Player : public Sprite {
 		void setTextureClips(string path1, string path2);
 		void draw(); //draw sprite
 		void update(); //use to update if screen should be scrolling
+		int collisionCheck(Sprite* enemy);
+		void collisionLoopRect(vector<Sprite*>& enemyVector);
 
 		//get and set methods
 		void setMaxHeight(int);
@@ -31,9 +34,9 @@ class Player : public Sprite {
 		int getJumpingState();
 		void setJumpingState(int);
 		int getStopScreen();
-		int collisionCheck(Sprite* enemy);
-		void collisionLoopRect(vector<Sprite*>& enemyVector);
 		int isDead(); //returns 1 if player is dead and 0 otherwise
+		int getNumFootballs();
+		void setNumFootballs(int);
 
 	private:
 		int maxHeight; //max jumping height
@@ -45,6 +48,8 @@ class Player : public Sprite {
 		Timer timer; //use to control player's speed
 		void addTime(); //add time to timer
 		int dead; //indicates if player is dead
+		int numFootballs;
+
 
 		
 };

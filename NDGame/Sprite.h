@@ -87,9 +87,6 @@ class Sprite {
 		void collisionLoopRect(vector<Sprite*>);
 		int collisionCheck(Sprite*);
 
-
-
-
 	private:
 		LTexture spriteSheet;	
 		LTexture flippedSheet; //for when character walks the other way
@@ -112,6 +109,7 @@ class Sprite {
 		int state; // isResting, isWalking, or isJumping
 		bool facingRight; //1 if walking right, 0 if walking left
 		bool isLoaded;
+		
 };
 
 #endif

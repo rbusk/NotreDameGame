@@ -12,6 +12,7 @@ Player::Player(SDLClass &myC) : Sprite(myC)
 	setSpeedIncrement(4);
 	isInCollision=0;
 	dead=0;
+	numFootballs=0;
 }
 
 void Player::setTextureClips(string path1, string path2)
@@ -215,6 +216,19 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 				cout << "collided with football guy. ouch." << endl;
 				dead=1;
 			}
+
+			//if collide with FootballPowerup, give guy num of footballs
+			else if (typeid(*ptr)==typeid(FootballPowerup))
+			{
+				cout << "you gots footballz" << endl;
+				numFootballs=1;
+
+				//erase football powerup from vector and free memory
+				ptr->destroySprite();
+				enemyVector.erase(enemyVector.begin()+i);
+				i--;
+			}
+
 		}
 	}
 }
@@ -250,4 +264,14 @@ void Player::addTime()
 int Player::isDead()
 {
 	return dead;
+}
+
+int Player::getNumFootballs()
+{
+	return numFootballs;
+}
+
+void Player::setNumFootballs(int n)
+{
+	numFootballs=n;
 }

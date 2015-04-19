@@ -19,7 +19,6 @@ class Hotdog : public Sprite {
 		Hotdog(SDLClass &myC);
 		void setTextureClips(string path1, string path2);
 		void draw(int); //1 if moving 0 if not
-			
 };
 
 #endif
