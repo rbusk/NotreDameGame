@@ -31,6 +31,8 @@ void Football::setTextureClips(string path1, string path2)
 //so that the football doesn't slow down when the player moves
 void Football::draw(int s)
 {
+	cout << "HEY" << endl;
 	moveRight();
+	//cout << "Right after move right: " << getXPos() << endl;
 	Sprite::draw(s);
 }

@@ -24,7 +24,6 @@ class Sprite {
 	
 	public:
 		Sprite(SDLClass &myC);
-		~Sprite();
 		virtual void setTextureClips(string path1, string path2)=0;
 		void loadSheetFromFile(string path);
 		void loadFlippedSheetFromFile(string path);

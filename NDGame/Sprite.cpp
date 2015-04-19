@@ -20,11 +20,6 @@ Sprite::Sprite(SDLClass &myC)
 	//spriteBox.w = width;
 }
 
-Sprite::~Sprite()
-{
-	destroySprite();
-}
-
 void Sprite::loadSheetFromFile(string path)
 {
 	spriteSheet = mySDL->loadFromFile(path);
