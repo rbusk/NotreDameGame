@@ -1,11 +1,27 @@
 // sound loader, to playm music and have sound effects
 
-#include <SDL/SDL.h>
-#include <SDL/SDL_mixer.h>
+#ifndef SOUNDCLASS_H
+#define SOUNDCLASS_H
+
+#include <iostream>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
+#include <string>
+using namespace std;
 
 class SoundClass
 {
 	public:
-		SoundLoader(Mix_Chunk*);
-		~SoundLoader();
+		SoundClass(string,int);
+		void play();
+		void pause();
+		void stop();
+		void load();
+	private:
+		string filename;
+		Mix_Chunk *effect = NULL;
+		Mix_Music *song = NULL;
 
+};
+
+#endif
