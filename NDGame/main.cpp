@@ -126,6 +126,15 @@ int main(int argc, const char * argv[]) {
 						break;
 
 					case SDLK_SPACE:
+						if (screenState==2)
+						{
+							if (playerPtr->getNumFootballs())
+							{
+								Football football(mySDL);
+								footballs.push_back(&football);
+								playerPtr->setNumFootballs(0);
+							}
+						}
 						break;
 
 					case SDLK_UP:
@@ -180,7 +189,12 @@ int main(int argc, const char * argv[]) {
 					enemies[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
 					enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, hotdog must scroll when screen does
 				}
+
+				if (footballs.size()!=1)
+				{
+				}
 			}
+
 
 			else //if player is dead, destroy sprite and switch screen states
 			{

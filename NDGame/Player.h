@@ -36,6 +36,7 @@ class Player : public Sprite {
 		void collisionLoopRect(vector<Sprite*>& enemyVector);
 		int isDead(); //returns 1 if player is dead and 0 otherwise
 		int getNumFootballs();
+		void setNumFootballs(int);
 
 	private:
 		int maxHeight; //max jumping height

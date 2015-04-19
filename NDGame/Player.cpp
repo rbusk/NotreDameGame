@@ -270,3 +270,9 @@ int Player::getNumFootballs()
 {
 	return numFootballs;
 }
+
+void Player::setNumFootballs(int n)
+{
+	numFootballs=n;
+}
+
