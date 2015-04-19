@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 #include "LTexture.h"
-#include "SDLClass.h"
 #include "StaticScreen.h"
 #include "OpeningScreen.h"
 #include "GraduatingScreen.h"
@@ -64,6 +63,9 @@ int main(int argc, const char * argv[]) {
 	enemies.push_back(car2Ptr);
 	enemies.push_back(ballerPtr);
 	enemies.push_back(footballPtr);
+
+	//vector of footballs that player has thrown
+	vector<Football*> footballs;
 
 	int screenState=0;
 	
