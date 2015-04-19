@@ -82,6 +82,27 @@ int main(int argc, const char * argv[]) {
 
 			else if (e.type==SDL_KEYDOWN) //user presses a key
 			{
+				//if any key is pressed for first 2 screenStates, go to next screenState and set some pointers
+				if (screenState<2)
+				{
+					screenState++;
+					
+					switch (screenState) {
+						case 0:
+							break;
+							
+						case 1:
+							screenPtr=&myGraduating;
+							break;
+						case 2:
+							screenPtr=&myScrolling;
+							playerPtr=&simpleMan;
+							break;
+						default:
+							break;
+					}
+				}
+
 				switch(e.key.keysym.sym) //case checks which key was pressed
 				{
 					//user presses right -- if screen state is 2, player walks right
@@ -102,24 +123,7 @@ int main(int argc, const char * argv[]) {
 						}
 						break;
 
-						//user presses space -- switch screenState
 					case SDLK_SPACE:
-						screenState++;
-
-						switch (screenState) {
-							case 0:
-								break;
-								
-							case 1:
-								screenPtr=&myGraduating;
-								break;
-							case 2:
-								screenPtr=&myScrolling;
-								playerPtr=&simpleMan;
-								break;
-							default:
-								break;
-						}
 						break;
 
 					case SDLK_UP:
