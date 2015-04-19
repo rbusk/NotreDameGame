@@ -1,5 +1,7 @@
 #include "EnemyGenerator.h"
 #include "SDLClass.h"
+#include "Sprite.h"
+#include "Player.h"
 #include <stdlib.h>
 
 EnemyGenerator::EnemyGenerator(SDLClass &myC) 
@@ -13,7 +15,7 @@ EnemyGenerator::EnemyGenerator(SDLClass &myC)
 
 EnemyGenerator::~EnemyGenerator() 
 {
-
+	// Destructor
 }
 
 void EnemyGenerator::setFrequency(int f)
@@ -21,58 +23,84 @@ void EnemyGenerator::setFrequency(int f)
 	frequency = f;
 }
 
-void EnemyGenerator::setEnemies(vector<enemyType> desired)
+void EnemyGenerator::setEnemies(vector<EnemyType> desired)
 {
 	spritesToBe = desired;
 }
 
-Sprite* EnemyGenerator::generateSprites() 
+void EnemyGenerator::generateSprites(Player* man, int num) 
 {
 	createdSprites.clear();	// erase any previously generated sprites
 
-	for (int i = 0; i < frequency; i++) {
+	for (int i = 0; i < num; i++) {
 
-		Sprite *created = NULL;
-		EnemyType species;
-		int random;
+		int species;
+		int random, randX, randY;
+		int manX = man->getX(), manY = man->getY();
 
 		random = rand() % spritesToBe.size();
+		randX = rand() % (screenW*3) + screenW;
+		randY = rand() % screenH;
 		species = spritesToBe[random];
 
 		switch (species)
 		{
 			case isHotdog:
-				created = new Hotdog;
+			{
+				Hotdog dog(*mySDL);
+				Hotdog *dogPtr = &dog;
 				// insert randomized placement and speed/motion here?
 				// would be done just using created->setX() etc.
+				dogPtr->setPos(randX,randY);
+				createdSprites.push_back(dogPtr);
 				break;
+			}
 			case isHamburger:
-				created = new Hamburger;
-				// same as above
+			{
+				Hamburger burger(*mySDL);
+				Hamburger *burgerPtr = &burger;
+				burgerPtr->setPos(randX,randY);
+				createdSprites.push_back(burgerPtr);
 				break;
+			}
 			case isCar1:
-				created = new Car1;
-				// same as above
+			{
+				Car1 car1(*mySDL);
+				Car1 *car1Ptr = &car1;
+				car1Ptr->setPos(randX,400);
+				createdSprites.push_back(car1Ptr);
 				break;
+			}
 			case isCar2:
-				created = new Car2;
-				// same as above
+			{
+				Car2 car2(*mySDL);
+				Car2 *car2Ptr = &car2;
+				car2Ptr->setPos(randX,400);
+				createdSprites.push_back(car2Ptr);
 				break;
+			}
 			case isFootballer:
-				created = new Footballer;
-				// same as above
+			{
+				Footballer baller(*mySDL);
+				Footballer *ballerPtr = &baller;
+				ballerPtr->setPos(randX,345);
+				createdSprites.push_back(ballerPtr);
 				break;
+			}
+
 		}
 
-		createdSprites.push_back(created);	// push newly created sprite's pointer into createdSprites vector
+
 
 	}
 
 }
 
-void EnemyGenerator::packageSprites(vector<Sprite*> & _enemies)
+void EnemyGenerator::packageSprites(vector<Sprite*>& _enemies)
 {
 	for (int i = 0; i < createdSprites.size(); i++)		// pushes creations into enemies vector in main 
 		_enemies.push_back(createdSprites[i]);
+
+	//return _enemies;
 
 }

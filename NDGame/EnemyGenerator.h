@@ -6,6 +6,7 @@
 #include <vector>
 #include "SDLClass.h"
 #include "Sprite.h"
+#include "Player.h"
 #include "Hotdog.h"
 #include "Hamburger.h"
 #include "Car1.h"
@@ -28,7 +29,7 @@ class EnemyGenerator {
 		void setFrequency(int);					// how many on screen at same time
 
 		void setEnemies(vector<EnemyType>); 	// send in enemies you wish to generate
-		Sprite* generateSprites(); 				// creates new sprites and puts them in private vector
+		void generateSprites(Player*, int); 				// creates new sprites and puts them in private vector
 		void packageSprites(vector<Sprite*>&);	// will add generated sprites to enemies vector
 
 	private:
@@ -40,3 +41,5 @@ class EnemyGenerator {
 		SDLClass *mySDL;
 		
 };
+
+#endif

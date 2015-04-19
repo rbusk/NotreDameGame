@@ -17,6 +17,7 @@
 #include "Car1.h"
 #include "Car2.h"
 #include "Footballer.h"
+#include "EnemyGenerator.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -29,35 +30,36 @@ int main(int argc, const char * argv[]) {
 	Background myScrolling(mySDL);
 
 	Player simpleMan(mySDL);
-	Hotdog dog(mySDL);
+	/*Hotdog dog(mySDL);
 	Hamburger burger(mySDL);
 	Car1 car1(mySDL);
 	Car2 car2(mySDL);
-	Footballer baller(mySDL);
+	Footballer baller(mySDL);*/
 
 	StaticScreen *screenPtr;
 	Player *playerPtr;
-	Hotdog *dogPtr;
+	/*Hotdog *dogPtr;
 	Hamburger *burgerPtr;
 	Car1 *car1Ptr;
 	Car2 *car2Ptr;
-	Footballer *ballerPtr;
+	Footballer *ballerPtr;*/
 
 	screenPtr=&myOpening;
 	playerPtr=NULL;
-	dogPtr =&dog;
+	/*dogPtr =&dog;
 	burgerPtr = &burger;
 	car1Ptr=&car1;
 	car2Ptr=&car2;
-	ballerPtr=&baller;
+	ballerPtr=&baller;*/
 
 	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
-	enemies.push_back(dogPtr);
+	/*enemies.push_back(dogPtr);
 	enemies.push_back(burgerPtr);
 	enemies.push_back(car1Ptr);
 	enemies.push_back(car2Ptr);
-	enemies.push_back(ballerPtr);
-	
+	enemies.push_back(ballerPtr);*/
+	EnemyGenerator enemyFactory(mySDL);
+	vector<EnemyType> desiredEnemies;
 
 	int screenState=0;
 	
@@ -152,13 +154,26 @@ int main(int argc, const char * argv[]) {
 			playerPtr->update();
 
 			//cout << "hi";
-			playerPtr->collisionLoopRect(enemies);
+			if (enemies.size() > 0)
+				playerPtr->collisionLoopRect(enemies);
 
 			//use stopScreen variable to determine if screen should scroll
 			screenPtr->setIsScrolling(!playerPtr->getStopScreen());
 
 			playerPtr->draw();
+			
+			// probably put in timer based if statements to change these after so long
+			int numOfEnemies = 3;	// desired number of enemies
+			enemyFactory.setFrequency(numOfEnemies);
 
+			desiredEnemies.clear();
+			desiredEnemies.push_back(isHotdog);
+			desiredEnemies.push_back(isCar1);
+			enemyFactory.setEnemies(desiredEnemies);
+
+			if (enemies.size() < numOfEnemies)
+				enemyFactory.generateSprites(playerPtr,numOfEnemies - enemies.size());
+			enemyFactory.packageSprites(enemies);
 
 			if (screenPtr->getIsScrolling())		
 			{										

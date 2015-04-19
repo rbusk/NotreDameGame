@@ -71,16 +71,6 @@ class Sprite {
 		void setSpeedIncrement(int);
 
 		//collision detection
-	//	void collisionLoop(vector<Sprite*>);
-	//	int collision(Sprite*);
-	//	int checkTop(vector< vector<int> >);
-	//	int checkBottom(vector< vector<int> >);
-	//	int checkRight(vector< vector<int> >);
-	//	int checkLeft(vector< vector<int> >);
-
-
-	//	box spriteBox;
-	//
 	
 		SDL_Rect spriteBox;
 
