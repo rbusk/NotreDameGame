@@ -16,11 +16,6 @@ Sprite::Sprite(SDLClass &myC)
 	mySDL=&myC;
 }
 
-Sprite::~Sprite()
-{
-	//destroySprite();
-}
-
 void Sprite::loadSheetFromFile(string path)
 {
 	spriteSheet = mySDL->loadFromFile(path);
@@ -360,12 +355,22 @@ int Sprite::collisionCheck(Sprite* enemy)
 
 }*/
 
+void Sprite::setSpeedIncrement(int n)
+{
+	speedIncrement=n;
+}
+
 void Sprite::incrementSpeed()
 {
 	speedX = speedX + speedIncrement;
 }
 
-void Sprite::setSpeedIncrement(int n)
+void Sprite::setW(int n)
 {
-	speedIncrement=n;
+	width=n;
+}
+
+void Sprite::setH(int n)
+{
+	height=n;
 }

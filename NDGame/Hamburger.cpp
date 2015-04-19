@@ -28,12 +28,13 @@ void Hamburger::setTextureClips(string path1, string path2)
 
 }
 
+//if s==1, move left, otherwise just draw
 void Hamburger::draw(int s)
 {
-	setSpeed(s,0);
-	moveLeft();		// our background scrolls left so this syncs up with it if need be
+	if (s==1)
+	{
+		moveLeft();		// our background scrolls left so this syncs up with it if need be
+	}
+	
 	Sprite::draw(s);
 }
-
-
-

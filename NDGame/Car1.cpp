@@ -28,10 +28,14 @@ void Car1::setTextureClips(string path1, string path2)
 
 }
 
+//if s is 1, then move left, otherwise
 void Car1::draw(int s)
 {
-	setSpeed(s,0);
-	moveLeft();		// our background scrolls left so this syncs up with it if need be
+	if (s==1)
+	{
+		moveLeft();
+	}
+
 	Sprite::draw(s);
 }
 

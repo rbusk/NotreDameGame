@@ -24,7 +24,6 @@ class Sprite {
 	
 	public:
 		Sprite(SDLClass &myC);
-		~Sprite();
 		virtual void setTextureClips(string path1, string path2)=0;
 		void loadSheetFromFile(string path);
 		void loadFlippedSheetFromFile(string path);
@@ -69,6 +68,8 @@ class Sprite {
 		bool getIsLoaded();
 		void incrementSpeed(); //increase speed
 		void setSpeedIncrement(int);
+		void setW(int); //set width
+		void setH(int); //set height
 
 		//collision detection
 	
@@ -76,9 +77,6 @@ class Sprite {
 
 		void collisionLoopRect(vector<Sprite*>);
 		int collisionCheck(Sprite*);
-
-
-
 
 	private:
 		LTexture spriteSheet;	
@@ -98,10 +96,11 @@ class Sprite {
 		int yPos;
 		int speedX;
 		int speedY;
-		int speedIncrement; //number added to speed to increase it
+		int speedIncrement; //use to increment speed
 		int state; // isResting, isWalking, or isJumping
 		bool facingRight; //1 if walking right, 0 if walking left
 		bool isLoaded;
+		
 };
 
 #endif
