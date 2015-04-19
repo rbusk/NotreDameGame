@@ -130,7 +130,7 @@ int main(int argc, const char * argv[]) {
 						{
 							if (playerPtr->getNumFootballs())
 							{
-								Football footballSprite(mySDL, playerPtr->getXPos()+playerPtr->getW(), playerPtr->getYPos());
+								Football footballSprite(mySDL, playerPtr->getXPos()+playerPtr->getW(), playerPtr->getYPos()+playerPtr->getH()/2);
 								footballs.push_back(footballSprite);
 								playerPtr->setNumFootballs(0);
 							}
@@ -173,6 +173,11 @@ int main(int argc, const char * argv[]) {
 			playerPtr->update();
 
 			playerPtr->collisionLoopRect(enemies);
+			
+			for (int i=0; i<footballs.size(); i++)
+			{
+				footballs[i].collisionLoopRect(enemies);
+			}
 
 			if (!playerPtr->isDead())
 			{
@@ -189,13 +194,9 @@ int main(int argc, const char * argv[]) {
 					enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, hotdog must scroll when screen does
 				}
 
-				cout << "Size of vector: " << footballs.size() << endl;
 				for (int i=0; i<footballs.size(); i++)
 				{
 					footballs[i].draw(1);
-					//footballs[i]->draw(screenPtr->getIsScrolling());
-					cout << footballs[i].getXPos() << endl;
-					cout << footballs[i].getSpeedX() << endl;
 				}
 			}
 
@@ -205,11 +206,6 @@ int main(int argc, const char * argv[]) {
 				screenState=3;
 				screenPtr->displayGameOver();
 			}
-		}
-
-		if (screenState==3)
-		{
-			cout << "game over" << endl;
 		}
 
 		mySDL.update();		// not included in draw() b/c only need one update at the end

@@ -371,3 +371,8 @@ void Sprite::setW(int n)
 {
 	width=n;
 }
+
+void Sprite::setH(int n)
+{
+	height=n;
+}

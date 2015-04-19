@@ -69,6 +69,7 @@ class Sprite {
 		void incrementSpeed(); //increase speed
 		void setSpeedIncrement(int);
 		void setW(int); //set width
+		void setH(int); //set height
 
 		//collision detection
 	//	void collisionLoop(vector<Sprite*>);

@@ -14,6 +14,7 @@ Player::Player(SDLClass &myC) : Sprite(myC)
 	dead=0;
 	numFootballs=0;
 	setW(194);
+	setH(198);
 }
 
 void Player::setTextureClips(string path1, string path2)
@@ -70,9 +71,6 @@ void Player::draw()
 		default:
 			break;
 	}
-
-	cout << timer.getTime() << endl;
-
 
 	if (timer.getTimeIsUp())
 	{
@@ -168,22 +166,9 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 		check = collisionCheck(enemyVector[i]);
 		
 		ptr=enemyVector[i];
-
-		if (check == 1 && getXPos() > enemyVector[i]->getXPos())
-		{
-			cout << "Colliding Left" << endl;
-		}
-		if (check == 1 && getXPos() < enemyVector[i]->getXPos())
-		{
-			cout << "Colliding Right" << endl;
-		}
-		if (check == 1 && getYPos()+getH() == enemyVector[i]->getYPos())
-		{
-			cout << "On Top" << endl;
-		}
+		
 		if (check == 0)
 		{
-			cout << "Not Colliding" << endl;
 			if (isInCollision==1)
 			{
 				isInCollision=0;
@@ -195,8 +180,6 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 		{
 			if (typeid(*ptr)==typeid(Hotdog))
 			{
-				cout << "collided with hotdog. yum" << endl;
-				
 				incrementSpeed(); //make player faster!
 				addTime();
 
@@ -208,20 +191,17 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 
 			else if (typeid(*ptr)==typeid(Car1))
 			{
-				cout << "collided with car. vroom" << endl;
 			}
 
 			//if collide with football guy, player dies
 			else if (typeid(*ptr)==typeid(Footballer))
 			{
-				cout << "collided with football guy. ouch." << endl;
 				dead=1;
 			}
 
 			//if collide with FootballPowerup, give guy num of footballs
 			else if (typeid(*ptr)==typeid(FootballPowerup))
 			{
-				cout << "you gots footballz" << endl;
 				numFootballs=1;
 
 				//erase football powerup from vector and free memory
@@ -276,3 +256,5 @@ void Player::setNumFootballs(int n)
 {
 	numFootballs=n;
 }
+
+
