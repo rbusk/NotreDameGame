@@ -5,7 +5,7 @@
 Background::Background(SDLClass &myC)
 	: StaticScreen(myC)
 {
-	loadFromFile("resources/bg.jpg");
+	loadFromFile("resources/bg.png");
 	setIsScrollingScreen(1);
 	setSpeed(2);
 

@@ -6,7 +6,7 @@ GraduatingScreen::GraduatingScreen(SDLClass &myC)
 {
 	setIsScrollingScreen(0);
 
-	loadFromFile("resources/diploma.jpg");
+	loadFromFile("resources/diploma.png");
 	TTF_Font *font=TTF_OpenFont("resources/OpenSans-Bold.ttf", 20);
 	SDL_Color textColor={0,0,0};
 
