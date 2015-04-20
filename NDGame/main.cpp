@@ -54,9 +54,9 @@ int main(int argc, const char * argv[]) {
 
 
 	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
-	enemies.push_back(dogPtr);
-	enemies.push_back(burgerPtr);
-	enemies.push_back(footballPtr);
+	//enemies.push_back(dogPtr);
+	//enemies.push_back(burgerPtr);
+	//enemies.push_back(footballPtr);
 
 	EnemyGenerator enemyFactory(mySDL);
 	vector<EnemyType> desiredEnemies;
@@ -224,6 +224,8 @@ int main(int argc, const char * argv[]) {
 				screenState=3;
 				screenPtr->displayGameOver();
 			}
+
+			enemyFactory.destroyPastEnemies(playerPtr,enemies);
 		}
 
 		mySDL.update();		// not included in draw() b/c only need one update at the end
