@@ -40,7 +40,9 @@ void Footballer::draw(int s)
 {
 	int initialSpeedX = getSpeedX();
 	if (s != 0)		// if background speed != 0, adjust player speed accordingly
+	{
 		setSpeed(s+initialSpeedX,getSpeedY());
+	}
 
 	moveLeft();		// our background scrolls left so this syncs up with it if need be
 	Sprite::draw(s);

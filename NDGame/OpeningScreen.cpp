@@ -6,7 +6,7 @@ OpeningScreen::OpeningScreen(SDLClass &myC)
 {
 	setIsScrolling(0);
 
-	loadFromFile("resources/dome2.jpg");
+	loadFromFile("resources/dome2.png");
 
 	TTF_Font *font=TTF_OpenFont("resources/OpenSans-Bold.ttf", 40);
 	SDL_Color textColor={255, 255, 255};
