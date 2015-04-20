@@ -16,6 +16,11 @@ Sprite::Sprite(SDLClass &myC)
 	mySDL=&myC;
 }
 
+Sprite::~Sprite() 
+{
+	//DESTUCTION IMMINENT
+}
+
 void Sprite::loadSheetFromFile(string path)
 {
 	spriteSheet = mySDL->loadFromFile(path);

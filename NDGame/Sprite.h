@@ -24,6 +24,7 @@ class Sprite {
 	
 	public:
 		Sprite(SDLClass &myC);
+		virtual ~Sprite(); 		// virtual destructor in order to delete derived pointers
 		virtual void setTextureClips(string path1, string path2)=0;
 		void loadSheetFromFile(string path);
 		void loadFlippedSheetFromFile(string path);

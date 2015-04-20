@@ -40,7 +40,7 @@ void EnemyGenerator::generateSprites(Player* man, int num)
 		int manX = man->getX(), manY = man->getY();
 
 		random = rand() % spritesToBe.size();
-		randX = rand() % (screenW*3) + screenW;
+		randX = rand() % (screenW*2) + screenW;
 		randY = rand() % screenH;
 		species = spritesToBe[random];
 
@@ -49,19 +49,19 @@ void EnemyGenerator::generateSprites(Player* man, int num)
 			case isCar1:
 			{
 				created = new Car1(*mySDL);
-				created->setPos(randX,400);
+				created->setPos(manX+randX,400);
 				break;
 			}
 			case isCar2:
 			{
 				created = new Car2(*mySDL);
-				created->setPos(randX,400);
+				created->setPos(manX+randX,400);
 				break;
 			}
 			case isFootballer:
 			{
 				created = new Footballer(*mySDL);
-				created->setPos(randX,345);
+				created->setPos(manX+randX,345);
 				break;
 			}
 
@@ -81,3 +81,23 @@ void EnemyGenerator::packageSprites(vector<Sprite*>& _enemies)
 	//return _enemies;
 
 }
+
+void EnemyGenerator::destroyPastEnemies(Player* man, vector<Sprite*>& _enemies)
+{
+	int tooFar = man->getX() + (screenW*2);
+	for (int i = 0; i < _enemies.size(); i++) {
+		if ( (_enemies[i]->getX() > tooFar) || (_enemies[i]->getX() < (-1*tooFar) ) ) {
+			_enemies[i]->destroySprite();
+			delete _enemies[i];
+			_enemies.erase(_enemies.begin()+i);
+			i--;
+		}
+	}
+}
+
+
+
+
+
+
+

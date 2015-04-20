@@ -27,8 +27,10 @@ class EnemyGenerator {
 		void setFrequency(int);					// how many on screen at same time
 
 		void setEnemies(vector<EnemyType>); 	// send in enemies you wish to generate
-		void generateSprites(Player*, int); 				// creates new sprites and puts them in private vector
+		void generateSprites(Player*, int); 	// creates new sprites and puts them in private vector
 		void packageSprites(vector<Sprite*>&);	// will add generated sprites to enemies vector
+
+		void destroyPastEnemies(Player*, vector<Sprite*>&);	// dynamically delete past enemies
 
 	private:
 		vector<EnemyType> spritesToBe;
