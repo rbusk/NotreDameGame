@@ -201,9 +201,10 @@ int main(int argc, const char * argv[]) {
 				enemyFactory.setEnemies(desiredEnemies);
 
 				if (enemies.size() < numOfEnemies)
+				{
 					enemyFactory.generateSprites(playerPtr,numOfEnemies - enemies.size());
-
-				enemyFactory.packageSprites(enemies);
+					enemyFactory.packageSprites(enemies);
+				}
 			
 
 				for (int i=0; i<enemies.size(); i++)
