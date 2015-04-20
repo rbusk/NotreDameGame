@@ -43,7 +43,6 @@ void Player::setTextureClips(string path1, string path2)
 
 void Player::draw()
 {
-	cout << "PLAYER BEING DRAWN" << endl;
 	timer.updateTime();
 
 	switch (jumpingState)

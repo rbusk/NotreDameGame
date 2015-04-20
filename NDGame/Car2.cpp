@@ -30,8 +30,11 @@ void Car2::setTextureClips(string path1, string path2)
 
 void Car2::draw(int s)
 {
-	setSpeed(s,0);
-	moveLeft();		// our background scrolls left so this syncs up with it if need be
+	if (s)
+	{
+		moveLeft();		// our background scrolls left so this syncs up with it if need be
+	}
+		
 	Sprite::draw(s);
 }
 
