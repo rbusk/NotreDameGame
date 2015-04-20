@@ -38,11 +38,11 @@ void Footballer::setTextureClips(string path1, string path2)
 
 void Footballer::draw(int s)
 {
-	cout << "FOOTBALLER BEING DRAWN" << endl;
 	int initialSpeedX = getSpeedX();
 	if (s != 0)		// if background speed != 0, adjust player speed accordingly
+	{
 		setSpeed(s+initialSpeedX,getSpeedY());
-	cout << "speed: " << s+initialSpeedX << " position: " << getXPos() << endl;
+	}
 
 	moveLeft();		// our background scrolls left so this syncs up with it if need be
 	Sprite::draw(s);
