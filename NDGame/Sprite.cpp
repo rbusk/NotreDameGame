@@ -14,10 +14,6 @@ Sprite::Sprite(SDLClass &myC)
 	state = isResting;
 	facingRight=1;
 	mySDL=&myC;
-	//spriteBox.x = xPos;
-	//spriteBox.y = yPos;
-	//spriteBox.h = height;
-	//spriteBox.w = width;
 }
 
 void Sprite::loadSheetFromFile(string path)
@@ -113,7 +109,9 @@ int Sprite::getY()
 void Sprite::setPos(int x, int y)
 {
 	xPos = x;
-	yPos = y;
+	spriteBox.x = x;	// set spriteBoxes here in setPos(). Can remove if 
+	yPos = y;			// makes colliding too inaccurate
+	spriteBox.y = y;
 }
 
 int Sprite::getH()

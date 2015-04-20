@@ -16,6 +16,7 @@
 #include "Car1.h"
 #include "Car2.h"
 #include "Footballer.h"
+#include "EnemyGenerator.h"
 #include "Timer.h"
 #include "Football.h"
 #include "FootballPowerup.h"
@@ -33,39 +34,38 @@ int main(int argc, const char * argv[]) {
 	Player simpleMan(mySDL);
 	Hotdog dog(mySDL);
 	Hamburger burger(mySDL);
-	Car1 car1(mySDL);
-	Car2 car2(mySDL);
-	Footballer baller(mySDL);
 	FootballPowerup football(mySDL);
 
 	StaticScreen *screenPtr;
 	Player *playerPtr;
 	Hotdog *dogPtr;
 	Hamburger *burgerPtr;
-	Car1 *car1Ptr;
-	Car2 *car2Ptr;
-	Footballer *ballerPtr;
+	
+
 	FootballPowerup *footballPtr;
+
 
 	screenPtr=&myOpening;
 	playerPtr=NULL;
 	dogPtr =&dog;
 	burgerPtr = &burger;
-	car1Ptr=&car1;
-	car2Ptr=&car2;
-	ballerPtr=&baller;
+	
 	footballPtr=&football;
+
 
 	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
 	enemies.push_back(dogPtr);
 	enemies.push_back(burgerPtr);
-	enemies.push_back(car1Ptr);
-	enemies.push_back(car2Ptr);
-	enemies.push_back(ballerPtr);
 	enemies.push_back(footballPtr);
+
+	EnemyGenerator enemyFactory(mySDL);
+	vector<EnemyType> desiredEnemies;
+
+
 
 	//vector of footballs that player has thrown
 	vector<Football> footballs;
+
 
 	int screenState=0;
 	
@@ -186,7 +186,26 @@ int main(int argc, const char * argv[]) {
 				screenPtr->setSpeed(playerPtr->getSpeedX()/2);
 				screenPtr->getTexture(2)->setDraw(playerPtr->getNumFootballs());
 
+
 				playerPtr->draw();
+			
+				// probably put in timer based if statements to change these after so long
+				int numOfEnemies = 3;	// desired number of enemies
+				enemyFactory.setFrequency(numOfEnemies);
+
+				desiredEnemies.clear();
+				desiredEnemies.push_back(isCar1);
+				desiredEnemies.push_back(isCar2);
+				desiredEnemies.push_back(isFootballer);
+
+				enemyFactory.setEnemies(desiredEnemies);
+
+				if (enemies.size() < numOfEnemies)
+				{
+					enemyFactory.generateSprites(playerPtr,numOfEnemies - enemies.size());
+					enemyFactory.packageSprites(enemies);
+				}
+			
 
 				for (int i=0; i<enemies.size(); i++)
 				{
