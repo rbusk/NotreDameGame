@@ -36,7 +36,7 @@ void Football::draw(int s)
 	Sprite::draw(s);
 }
 
-void Football::collisionLoopRect(vector<Sprite*>& enemyVector)
+int Football::collisionLoopRect(vector<Sprite*>& enemyVector)
 {
 	int check=0;
 
@@ -67,9 +67,11 @@ void Football::collisionLoopRect(vector<Sprite*>& enemyVector)
 				ptr->destroySprite();
 				enemyVector.erase(enemyVector.begin()+i);
 				i--;
+				return 1; //if footballer hit, return 1
 			}
 		}
 	}
+	return 0; //if no footballer hit, return 0
 }
 
 int Football::collisionCheck(Sprite* enemy)

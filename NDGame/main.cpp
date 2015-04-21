@@ -176,7 +176,13 @@ int main(int argc, const char * argv[]) {
 			
 			for (int i=0; i<footballs.size(); i++)
 			{
-				footballs[i].collisionLoopRect(enemies);
+				if (footballs[i].collisionLoopRect(enemies))
+				{
+					//if collision with footballer occurs, destroy football and delete from vector
+					footballs[i].destroySprite();
+					footballs.erase(footballs.begin()+i);
+					i--;
+				}
 			}
 
 			if (!playerPtr->isDead())
