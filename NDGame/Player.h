@@ -16,6 +16,7 @@
 #include "Timer.h"
 #include "Footballer.h"
 #include "FootballPowerup.h"
+#include "Can.h"
 using namespace std;
 
 class Player : public Sprite {

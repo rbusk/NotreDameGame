@@ -1,6 +1,7 @@
-/* Base Hamburger derived from Sprite Class */
-#ifndef HAMBURGER_H
-#define HAMBURGER_H
+/* can derived from sprite class*/
+
+#ifndef CAN_H
+#define CAN_H
 
 #include <iostream>
 #include <SDL2/SDL.h>
@@ -13,13 +14,11 @@
 #include "Sprite.h"
 using namespace std;
 
-class Hamburger : public Sprite {
+class Can : public Sprite {
 
-	public: 
-		Hamburger(SDLClass &myC);
+	public:
+		Can(SDLClass &myC);
 		void setTextureClips(string path1, string path2);
-		void draw(int); 		
-			
+		void draw(int);
 };
-
 #endif

@@ -7,8 +7,8 @@ Football::Football(SDLClass &myC, int x, int y) : Sprite(myC)
 	setTextureClips("resources/football.png", "resources/football.png");
 	setSpeed(5,0);
 	setPos(x, y); //set position
-	spriteBox.x=x;
-	spriteBox.y=y;
+	//spriteBox.x=x;
+	//spriteBox.y=y;
 	isInCollision=0;
 }
 
@@ -36,7 +36,7 @@ void Football::draw(int s)
 	Sprite::draw(s);
 }
 
-void Football::collisionLoopRect(vector<Sprite*>& enemyVector)
+int Football::collisionLoopRect(vector<Sprite*>& enemyVector)
 {
 	int check=0;
 
@@ -67,9 +67,11 @@ void Football::collisionLoopRect(vector<Sprite*>& enemyVector)
 				ptr->destroySprite();
 				enemyVector.erase(enemyVector.begin()+i);
 				i--;
+				return 1; //if footballer hit, return 1
 			}
 		}
 	}
+	return 0; //if no footballer hit, return 0
 }
 
 int Football::collisionCheck(Sprite* enemy)

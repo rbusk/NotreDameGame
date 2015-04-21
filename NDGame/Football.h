@@ -22,7 +22,7 @@ class Football : public Sprite {
 
 		//collision detection
 		int collisionCheck(Sprite* enemy);
-		void collisionLoopRect(vector<Sprite*>& enemyVector);
+		int collisionLoopRect(vector<Sprite*>& enemyVector);
 
 	private:
 		int isInCollision;

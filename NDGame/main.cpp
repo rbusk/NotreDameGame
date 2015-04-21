@@ -20,6 +20,7 @@
 #include "Timer.h"
 #include "Football.h"
 #include "FootballPowerup.h"
+#include "Can.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -40,10 +41,16 @@ int main(int argc, const char * argv[]) {
 	Player *playerPtr;
 	Hotdog *dogPtr;
 	Hamburger *burgerPtr;
-	
-
 	FootballPowerup *footballPtr;
 
+	//can enemy
+	Can can(mySDL);
+	Can *canPtr;
+	canPtr=&can;
+
+	//the screen sort of works if these are here idk man
+	Can can2(mySDL);
+	Can *can2ptr;
 
 	screenPtr=&myOpening;
 	playerPtr=NULL;
@@ -65,7 +72,6 @@ int main(int argc, const char * argv[]) {
 	//enemies.push_back(burgerPtr);
 	//enemies.push_back(footballPtr);
 
-	
 	//vector of footballs that player has thrown
 	vector<Football> footballs;
 
@@ -133,7 +139,7 @@ int main(int argc, const char * argv[]) {
 						{
 							if (playerPtr->getNumFootballs())
 							{
-								Football footballSprite(mySDL, playerPtr->getXPos()+playerPtr->getW(), playerPtr->getYPos()+playerPtr->getH()/2);
+								Football footballSprite(mySDL, playerPtr->getXPos() + playerPtr->getW(), playerPtr->getYPos());
 								footballs.push_back(footballSprite);
 								playerPtr->setNumFootballs(0);
 							}
@@ -158,10 +164,16 @@ int main(int argc, const char * argv[]) {
 				{
 					//stop player moving if player releases right or left button
 					case SDLK_RIGHT:
-						playerPtr->setState(isResting);
+						if (screenState==2)
+						{
+							playerPtr->setState(isResting);
+						}
 						break;
 					case SDLK_LEFT:
-						playerPtr->setState(isResting);
+						if (screenState==2)
+						{
+							playerPtr->setState(isResting);
+						}
 						break;
 					default:
 						break;
@@ -179,7 +191,13 @@ int main(int argc, const char * argv[]) {
 			
 			for (int i=0; i<footballs.size(); i++)
 			{
-				footballs[i].collisionLoopRect(enemies);
+				if (footballs[i].collisionLoopRect(enemies))
+				{
+					//if collision with footballer occurs, destroy football and delete from vector
+					footballs[i].destroySprite();
+					footballs.erase(footballs.begin()+i);
+					i--;
+				}
 			}
 
 			if (!playerPtr->isDead())
@@ -197,6 +215,7 @@ int main(int argc, const char * argv[]) {
 				powerupFactory.setFrequency(300,400);
 
 				desiredEnemies.clear();
+
 				desiredEnemies.push_back(isCar1);
 				desiredEnemies.push_back(isCar2);
 				//desiredEnemies.push_back(isFootballer);
@@ -211,7 +230,6 @@ int main(int argc, const char * argv[]) {
 				powerupFactory.setSprites(desiredPowerups);
 				powerupFactory.generateSprites(playerPtr);
 				powerupFactory.packageSprites(powerups);
-				
 			
 
 				for (int i=0; i < enemies.size(); i++)
