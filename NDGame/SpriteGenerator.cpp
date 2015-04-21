@@ -113,9 +113,16 @@ void SpriteGenerator::packageSprites(vector<Sprite*>& _sprites)
 
 void SpriteGenerator::destroyPastSprites(Player* man, vector<Sprite*>& _sprites)
 {
-	int tooFar = man->getX() + (screenW*2);
+	int tooFarX = man->getX() + (screenW*2);
+	int tooFarY = screenH+200;
 	for (int i = 0; i < _sprites.size(); i++) {
-		if ( (_sprites[i]->getX() > tooFar) || (_sprites[i]->getX() < (-1*tooFar) ) ) {
+		if ( (_sprites[i]->getX() > tooFarX) || (_sprites[i]->getX() < (-1*tooFarX) ) ) {
+			_sprites[i]->destroySprite();
+			delete _sprites[i];
+			_sprites.erase(_sprites.begin()+i);
+			i--;
+		}
+		else if ( (_sprites[i]->getY() > tooFarY) || (_sprites[i]->getY() < (-200) ) ) {
 			_sprites[i]->destroySprite();
 			delete _sprites[i];
 			_sprites.erase(_sprites.begin()+i);
