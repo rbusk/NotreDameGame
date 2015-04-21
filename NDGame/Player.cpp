@@ -210,6 +210,12 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 				i--;
 			}
 
+			//if collide with beer can, dead
+			else if (typeid(*ptr)==typeid(Can))
+			{
+				dead=1;
+			}	
+
 		}
 	}
 }
