@@ -203,6 +203,7 @@ int main(int argc, const char * argv[]) {
 				desiredPowerups.clear();
 				desiredPowerups.push_back(isHamburger);
 				desiredPowerups.push_back(isHotdog);
+				//desiredPowerups.push_back(isFootballPowerup);
 
 				enemyFactory.setSprites(desiredEnemies);
 				enemyFactory.generateSprites(playerPtr);

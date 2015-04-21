@@ -81,6 +81,12 @@ void SpriteGenerator::generateSprites(Player* man)
 				created->setPos(manX+screenW,randY);
 				break;
 			}
+			case isFootballPowerup:
+			{
+				created = new FootballPowerup(*mySDL);
+				created->setPos(manX+screenW,randY);
+				break;
+			}
 
 		}
 

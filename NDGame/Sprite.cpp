@@ -50,6 +50,8 @@ void Sprite::basicDraw()
 	{
 		SDL_Rect* thisClip = &spriteClips[currentClip/numOfClips];
 		mySDL->renderSprite(spriteSheet,xPos,yPos,thisClip);
+		spriteBox.w = thisClip->w;
+		spriteBox.h = thisClip->h;
 	}
 
 	//if sprite is facing left
@@ -57,7 +59,11 @@ void Sprite::basicDraw()
 	{
 		SDL_Rect* thisClip = &flippedClips[currentClip/numOfClips];
 		mySDL->renderSprite(flippedSheet,xPos,yPos,thisClip);
+		spriteBox.w = thisClip->w;
+		spriteBox.h = thisClip->h;
 	}
+	spriteBox.x = xPos;
+	spriteBox.y = yPos;
 }
 
 void Sprite::checkCurrentClip()

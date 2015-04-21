@@ -19,7 +19,8 @@ enum SpriteType {
 	isCar2,
 	isFootballer,
 	isHotdog,
-	isHamburger
+	isHamburger,
+	isFootballPowerup
 };
 
 class SpriteGenerator {
