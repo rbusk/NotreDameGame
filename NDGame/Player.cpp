@@ -13,8 +13,7 @@ Player::Player(SDLClass &myC) : Sprite(myC)
 	isInCollision=0;
 	dead=0;
 	numFootballs=0;
-	setW(194);
-	setH(198);
+	setW(45);
 }
 
 void Player::setTextureClips(string path1, string path2)
@@ -22,23 +21,20 @@ void Player::setTextureClips(string path1, string path2)
 	loadSheetFromFile(path1);
 	loadFlippedSheetFromFile(path2);
 
-	int totalClips = 4;		// enter number of sprites on sheet
+	int totalClips = 3;		// enter number of sprites on sheet
 	setNumClips(totalClips);
 
-	for(int i = 0; i < totalClips; i++ )
-	{	// sets clips
-		addClip( 194*i, 0, 194, 198);
-		addFlippedClip(194*i, 0, 194, 198);
-	}
+	addClip(10, 5, 45, 53);
+	addClip(70, 5, 45, 53);
+	addClip(129, 5, 46, 53);
+	addFlippedClip(10, 5, 45, 53);
+	addFlippedClip(70, 5, 45, 53);
+	addFlippedClip(129, 5, 46, 53);
 	
-	setPos(maxXPos,275); 	// starting position
+	setPos(maxXPos,400); 	// starting position
 
 	setMaxHeight(100);
-	setMinHeight(275);
-	spriteBox.x = maxXPos;	// spriteBox has to be set here so that it matches starting pos
-	spriteBox.y = 275;
-	spriteBox.w = 194;
-	spriteBox.h = 198;
+	setMinHeight(350);
 }
 
 void Player::draw()

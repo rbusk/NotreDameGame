@@ -136,7 +136,7 @@ int main(int argc, const char * argv[]) {
 						{
 							if (playerPtr->getNumFootballs())
 							{
-								Football footballSprite(mySDL, playerPtr->getXPos()+playerPtr->getW(), playerPtr->getYPos()+playerPtr->getH()/2);
+								Football footballSprite(mySDL, playerPtr->getXPos() + playerPtr->getW(), playerPtr->getYPos());
 								footballs.push_back(footballSprite);
 								playerPtr->setNumFootballs(0);
 							}
@@ -212,8 +212,8 @@ int main(int argc, const char * argv[]) {
 				enemyFactory.setFrequency(numOfEnemies);
 
 				desiredEnemies.clear();
-				desiredEnemies.push_back(isCar1);
-				desiredEnemies.push_back(isCar2);
+				//desiredEnemies.push_back(isCar1);
+				//desiredEnemies.push_back(isCar2);
 				desiredEnemies.push_back(isFootballer);
 
 				enemyFactory.setEnemies(desiredEnemies);

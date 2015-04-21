@@ -61,7 +61,7 @@ void EnemyGenerator::generateSprites(Player* man, int num)
 			case isFootballer:
 			{
 				created = new Footballer(*mySDL);
-				created->setPos(randX,345);
+				created->setPos(randX,400);
 				break;
 			}
 
