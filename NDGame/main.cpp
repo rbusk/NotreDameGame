@@ -37,30 +37,8 @@ int main(int argc, const char * argv[]) {
 	playerPtr=NULL;
 
 	Player simpleMan(mySDL);
-	/*Hotdog dog(mySDL);
-	Hamburger burger(mySDL);
-	FootballPowerup football(mySDL);
-
-	Hotdog *dogPtr;
-	Hamburger *burgerPtr;
-	FootballPowerup *footballPtr;
-
-	Squirrel mySquirrel(mySDL);
-	Squirrel *squirrelPtr;
-	squirrelPtr=&mySquirrel;
-
-	dogPtr =&dog;
-	burgerPtr = &burger;
-	
-	footballPtr=&football;*/
-
-
 	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
-/*	enemies.push_back(dogPtr);
-	enemies.push_back(burgerPtr);
-	enemies.push_back(footballPtr);
-	enemies.push_back(squirrelPtr);
-*/	SpriteGenerator enemyFactory(mySDL);	
+	SpriteGenerator enemyFactory(mySDL);	
 	vector<SpriteType> desiredEnemies;
 
 	vector<Sprite*> powerups;
@@ -207,14 +185,14 @@ int main(int argc, const char * argv[]) {
 				playerPtr->draw();
 			
 				// probably put in timer based if statements to change these after so long
-				enemyFactory.setFrequency(100,150);
-				powerupFactory.setFrequency(50,75);
+				enemyFactory.setFrequency(10,20);
+				powerupFactory.setFrequency(300,400);
 
 				desiredEnemies.clear();
 
-				desiredEnemies.push_back(isCar1);
-				desiredEnemies.push_back(isCar2);
-				desiredEnemies.push_back(isFootballer);
+				//desiredEnemies.push_back(isCar1);
+				//desiredEnemies.push_back(isCar2);
+				//desiredEnemies.push_back(isFootballer);
 				desiredEnemies.push_back(isSquirrel);
 				desiredPowerups.clear();
 				desiredPowerups.push_back(isHamburger);
