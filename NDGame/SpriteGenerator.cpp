@@ -66,7 +66,7 @@ void SpriteGenerator::generateSprites(Player* man)
 			case isFootballer:
 			{
 				created = new Footballer(*mySDL);
-				created->setPos(manX+screenW,345);
+				created->setPos(manX+screenW,400);
 				break;
 			}
 			case isHotdog:

@@ -175,7 +175,7 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 		if (check==1)
 		{
 			if (typeid(*ptr)==typeid(Hotdog))
-			{
+			{	
 				incrementSpeed(); //make player faster!
 				addTime();
 

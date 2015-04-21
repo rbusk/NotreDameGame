@@ -188,6 +188,7 @@ int main(int argc, const char * argv[]) {
 			playerPtr->update();
 
 			playerPtr->collisionLoopRect(enemies);
+			playerPtr->collisionLoopRect(powerups);
 			
 			for (int i=0; i<footballs.size(); i++)
 			{
@@ -212,17 +213,17 @@ int main(int argc, const char * argv[]) {
 			
 				// probably put in timer based if statements to change these after so long
 				enemyFactory.setFrequency(100,150);
-				powerupFactory.setFrequency(300,400);
+				powerupFactory.setFrequency(50,75);
 
 				desiredEnemies.clear();
 
 				desiredEnemies.push_back(isCar1);
 				desiredEnemies.push_back(isCar2);
-				//desiredEnemies.push_back(isFootballer);
+				desiredEnemies.push_back(isFootballer);
 				desiredPowerups.clear();
 				desiredPowerups.push_back(isHamburger);
 				desiredPowerups.push_back(isHotdog);
-				//desiredPowerups.push_back(isFootballPowerup);
+				desiredPowerups.push_back(isFootballPowerup);
 
 				enemyFactory.setSprites(desiredEnemies);
 				enemyFactory.generateSprites(playerPtr);
