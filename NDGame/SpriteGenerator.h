@@ -29,16 +29,16 @@ class SpriteGenerator {
 	public:
 		SpriteGenerator(SDLClass &myC);
 		~SpriteGenerator();
-		void setFrequency(int,int);					// how many on screen at same time
+		void setFrequency(int,int);		// enter range of frequency that determines how long between each sprite spawn
 
 		void setSprites(vector<SpriteType>); 	// send in enemies you wish to generate
-		void generateSprites(Player*); 	// creates new sprites and puts them in private vector
-		void packageSprites(vector<Sprite*>&);	// will add generated sprites to enemies vector
+		void generateSprites(Player*); 	        // creates new sprites and puts them in private vector
+		void packageSprites(vector<Sprite*>&);	// will add generated sprites to given sprites vector
 
-		void destroyPastSprites(Player*, vector<Sprite*>&);	// dynamically delete past enemies
+		void destroyPastSprites(Player*, vector<Sprite*>&);	// dynamically delete sprites too far off the screen
 
 	private:
-		vector<SpriteType> spritesToBe;
+		vector<SpriteType> spritesToBe;         
 		vector<Sprite*> createdSprites;
 
 		Timer spawnTimer;
