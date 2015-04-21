@@ -20,6 +20,7 @@
 #include "Timer.h"
 #include "Football.h"
 #include "FootballPowerup.h"
+#include "Can.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -40,10 +41,16 @@ int main(int argc, const char * argv[]) {
 	Player *playerPtr;
 	Hotdog *dogPtr;
 	Hamburger *burgerPtr;
-	
-
 	FootballPowerup *footballPtr;
 
+	//can enemy
+	Can can(mySDL);
+	Can *canPtr;
+	canPtr=&can;
+
+	//the screen sort of works if these are here idk man
+	Can can2(mySDL);
+	Can *can2ptr;
 
 	screenPtr=&myOpening;
 	playerPtr=NULL;
@@ -57,11 +64,10 @@ int main(int argc, const char * argv[]) {
 	enemies.push_back(dogPtr);
 	enemies.push_back(burgerPtr);
 	enemies.push_back(footballPtr);
+	enemies.push_back(canPtr);
 
 	EnemyGenerator enemyFactory(mySDL);
 	vector<EnemyType> desiredEnemies;
-
-
 
 	//vector of footballs that player has thrown
 	vector<Football> footballs;
