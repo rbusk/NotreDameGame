@@ -27,7 +27,7 @@ void SpriteGenerator::setFrequency(int lower, int higher)
 	freqHigher = higher;
 }
 
-void SpriteGenerator::setEnemies(vector<SpriteType> desired)
+void SpriteGenerator::setSprites(vector<SpriteType> desired)
 {
 	spritesToBe = desired;
 }
@@ -67,6 +67,18 @@ void SpriteGenerator::generateSprites(Player* man)
 			{
 				created = new Footballer(*mySDL);
 				created->setPos(manX+screenW,345);
+				break;
+			}
+			case isHotdog:
+			{
+				created = new Hotdog(*mySDL);
+				created->setPos(manX+screenW,randY);
+				break;
+			}
+			case isHamburger:
+			{
+				created = new Hamburger(*mySDL);
+				created->setPos(manX+screenW,randY);
 				break;
 			}
 

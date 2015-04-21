@@ -16,7 +16,7 @@
 #include "Car1.h"
 #include "Car2.h"
 #include "Footballer.h"
-#include "EnemyGenerator.h"
+#include "SpriteGenerator.h"
 #include "Timer.h"
 #include "Football.h"
 #include "FootballPowerup.h"
@@ -58,8 +58,8 @@ int main(int argc, const char * argv[]) {
 	//enemies.push_back(burgerPtr);
 	//enemies.push_back(footballPtr);
 
-	EnemyGenerator enemyFactory(mySDL);
-	vector<EnemyType> desiredEnemies;
+	SpriteGenerator enemyFactory(mySDL);
+	vector<SpriteType> desiredEnemies;
 
 
 
@@ -190,21 +190,20 @@ int main(int argc, const char * argv[]) {
 				playerPtr->draw();
 			
 				// probably put in timer based if statements to change these after so long
-				int numOfEnemies = 3;	// desired number of enemies
-				enemyFactory.setFrequency(numOfEnemies);
+				enemyFactory.setFrequency(100,150);
 
 				desiredEnemies.clear();
 				desiredEnemies.push_back(isCar1);
 				desiredEnemies.push_back(isCar2);
-				desiredEnemies.push_back(isFootballer);
+				//desiredEnemies.push_back(isFootballer);
 
-				enemyFactory.setEnemies(desiredEnemies);
+				enemyFactory.setSprites(desiredEnemies);
 
-				if (enemies.size() < numOfEnemies)
-				{
-					enemyFactory.generateSprites(playerPtr,numOfEnemies - enemies.size());
-					enemyFactory.packageSprites(enemies);
-				}
+				
+				
+				enemyFactory.generateSprites(playerPtr);
+				enemyFactory.packageSprites(enemies);
+				
 			
 
 				for (int i=0; i<enemies.size(); i++)
@@ -226,8 +225,8 @@ int main(int argc, const char * argv[]) {
 				screenPtr->displayGameOver();
 			}
 
-			enemyFactory.destroyPastEnemies(playerPtr,enemies);
-		}
+			enemyFactory.destroyPastSprites(playerPtr,enemies);		// dynamically delete sprites too 
+		}															// far off the screen
 
 		mySDL.update();		// not included in draw() b/c only need one update at the end
 	}
