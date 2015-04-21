@@ -33,8 +33,8 @@ void Player::setTextureClips(string path1, string path2)
 	
 	setPos(maxXPos,400); 	// starting position
 
-	setMaxHeight(100);
-	setMinHeight(350);
+	setMaxHeight(200);
+	setMinHeight(400);
 }
 
 void Player::draw()
@@ -70,7 +70,7 @@ void Player::draw()
 
 	if (timer.getTimeIsUp())
 	{
-		setSpeed(getSpeedX()/2, getSpeedY()/2);
+		setSpeed(getSpeedX()/2, getSpeedY());
 	}
 
 	basicDraw();
