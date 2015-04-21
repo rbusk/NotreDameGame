@@ -6,10 +6,10 @@ Player::Player(SDLClass &myC) : Sprite(myC)
 {
 	maxXPos=getHalfOfScreen()/2;
 	setTextureClips("resources/manSpriteSheet.png", "resources/manSpriteSheet2.png");
-	setSpeed(4,4);
+	setSpeed(8, 5);
 	jumpingState=isNotJumping;
 	stopScreen=1;
-	setSpeedIncrement(4);
+	setMaxSpeed(16);
 	isInCollision=0;
 	dead=0;
 	numFootballs=0;
@@ -207,7 +207,7 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 			}
 
 			//if collide with beer can, dead
-			else if (typeid(*ptr)==typeid(Can))
+			else if (typeid(*ptr)==typeid(Squirrel))
 			{
 				dead=1;
 			}	

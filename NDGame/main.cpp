@@ -20,7 +20,7 @@
 #include "Timer.h"
 #include "Football.h"
 #include "FootballPowerup.h"
-#include "Can.h"
+#include "Squirrel.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -31,35 +31,12 @@ int main(int argc, const char * argv[]) {
 	OpeningScreen myOpening(mySDL);
 	GraduatingScreen myGraduating(mySDL);
 	Background myScrolling(mySDL);
-
-	Player simpleMan(mySDL);
-	Hotdog dog(mySDL);
-	Hamburger burger(mySDL);
-	FootballPowerup football(mySDL);
-
 	StaticScreen *screenPtr;
 	Player *playerPtr;
-	Hotdog *dogPtr;
-	Hamburger *burgerPtr;
-	FootballPowerup *footballPtr;
-
-	//can enemy
-	Can can(mySDL);
-	Can *canPtr;
-	canPtr=&can;
-
-	//the screen sort of works if these are here idk man
-	Can can2(mySDL);
-	Can *can2ptr;
-
 	screenPtr=&myOpening;
 	playerPtr=NULL;
-	dogPtr =&dog;
-	burgerPtr = &burger;
-	
-	footballPtr=&football;
 
-
+	Player simpleMan(mySDL);
 	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
 	SpriteGenerator enemyFactory(mySDL);	
 	vector<SpriteType> desiredEnemies;
@@ -67,10 +44,6 @@ int main(int argc, const char * argv[]) {
 	vector<Sprite*> powerups;
 	SpriteGenerator powerupFactory(mySDL);
 	vector<SpriteType> desiredPowerups;
-
-	//enemies.push_back(dogPtr);
-	//enemies.push_back(burgerPtr);
-	//enemies.push_back(footballPtr);
 
 	//vector of footballs that player has thrown
 	vector<Football> footballs;
@@ -212,14 +185,15 @@ int main(int argc, const char * argv[]) {
 				playerPtr->draw();
 			
 				// probably put in timer based if statements to change these after so long
-				enemyFactory.setFrequency(100,150);
-				powerupFactory.setFrequency(50,75);
+				enemyFactory.setFrequency(150, 200);
+				powerupFactory.setFrequency(300,400);
 
 				desiredEnemies.clear();
 
 				desiredEnemies.push_back(isCar1);
 				desiredEnemies.push_back(isCar2);
 				desiredEnemies.push_back(isFootballer);
+				desiredEnemies.push_back(isSquirrel);
 				desiredPowerups.clear();
 				desiredPowerups.push_back(isHamburger);
 				desiredPowerups.push_back(isHotdog);
@@ -235,7 +209,7 @@ int main(int argc, const char * argv[]) {
 
 				for (int i=0; i < enemies.size(); i++)
 				{
-					enemies[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
+					enemies[i]->setSpeed(playerPtr->getSpeedX()/2, enemies[i]->getSpeedY());
 					enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, must scroll when screen does
 				}
 				for (int i=0; i < powerups.size(); i++)

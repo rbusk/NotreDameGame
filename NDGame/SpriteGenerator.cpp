@@ -88,6 +88,13 @@ void SpriteGenerator::generateSprites(Player* man)
 				break;
 			}
 
+			case isSquirrel:
+			{
+				created = new Squirrel(*mySDL);
+				created->setPos(manX+screenW/2, -100);
+				break;
+			}
+
 		}
 
 		createdSprites.push_back(created);

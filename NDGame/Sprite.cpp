@@ -366,14 +366,17 @@ int Sprite::collisionCheck(Sprite* enemy)
 
 }*/
 
-void Sprite::setSpeedIncrement(int n)
+void Sprite::setMaxSpeed(int n)
 {
-	speedIncrement=n;
+	maxSpeed=n;
 }
 
 void Sprite::incrementSpeed()
 {
-	speedX = speedX + speedIncrement;
+	if (speedX!=maxSpeed)
+	{
+		speedX = maxSpeed;
+	}
 }
 
 void Sprite::setW(int n)
