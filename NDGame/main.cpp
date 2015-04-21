@@ -54,15 +54,18 @@ int main(int argc, const char * argv[]) {
 
 
 	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
+	SpriteGenerator enemyFactory(mySDL);	
+	vector<SpriteType> desiredEnemies;
+
+	vector<Sprite*> powerups;
+	SpriteGenerator powerupFactory(mySDL);
+	vector<SpriteType> desiredPowerups;
+
 	//enemies.push_back(dogPtr);
 	//enemies.push_back(burgerPtr);
 	//enemies.push_back(footballPtr);
 
-	SpriteGenerator enemyFactory(mySDL);
-	vector<SpriteType> desiredEnemies;
-
-
-
+	
 	//vector of footballs that player has thrown
 	vector<Football> footballs;
 
@@ -191,25 +194,34 @@ int main(int argc, const char * argv[]) {
 			
 				// probably put in timer based if statements to change these after so long
 				enemyFactory.setFrequency(100,150);
+				powerupFactory.setFrequency(300,400);
 
 				desiredEnemies.clear();
 				desiredEnemies.push_back(isCar1);
 				desiredEnemies.push_back(isCar2);
 				//desiredEnemies.push_back(isFootballer);
+				desiredPowerups.clear();
+				desiredPowerups.push_back(isHamburger);
+				desiredPowerups.push_back(isHotdog);
 
 				enemyFactory.setSprites(desiredEnemies);
-
-				
-				
 				enemyFactory.generateSprites(playerPtr);
 				enemyFactory.packageSprites(enemies);
+				powerupFactory.setSprites(desiredPowerups);
+				powerupFactory.generateSprites(playerPtr);
+				powerupFactory.packageSprites(powerups);
 				
 			
 
-				for (int i=0; i<enemies.size(); i++)
+				for (int i=0; i < enemies.size(); i++)
 				{
 					enemies[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
-					enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, hotdog must scroll when screen does
+					enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, must scroll when screen does
+				}
+				for (int i=0; i < powerups.size(); i++)
+				{
+					powerups[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
+					powerups[i]->draw(screenPtr->getIsScrolling());	// when standing still, must scroll when screen does
 				}
 
 				for (int i=0; i<footballs.size(); i++)
@@ -241,5 +253,9 @@ int main(int argc, const char * argv[]) {
 		enemies[i]->destroySprite();
 	}
 
-    	return 0;
+	for (int i=0; i<powerups.size(); i++)
+	{
+		powerups[i]->destroySprite();
+	}
+    return 0;
 }

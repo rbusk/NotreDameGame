@@ -91,7 +91,8 @@ void SpriteGenerator::generateSprites(Player* man)
 		spawnTimer.addTime();
 	}
 
-	spawnTimer.updateTime();	// update timer for enemiers	
+	if (man->getState() == isWalking)
+		spawnTimer.updateTime();	// update timer if man is walking	
 	
 
 }
