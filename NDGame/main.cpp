@@ -155,10 +155,16 @@ int main(int argc, const char * argv[]) {
 				{
 					//stop player moving if player releases right or left button
 					case SDLK_RIGHT:
-						playerPtr->setState(isResting);
+						if (screenState==2)
+						{
+							playerPtr->setState(isResting);
+						}
 						break;
 					case SDLK_LEFT:
-						playerPtr->setState(isResting);
+						if (screenState==2)
+						{
+							playerPtr->setState(isResting);
+						}
 						break;
 					default:
 						break;
