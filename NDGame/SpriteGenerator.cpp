@@ -46,7 +46,7 @@ void SpriteGenerator::generateSprites(Player* man)
 
 		random = rand() % spritesToBe.size();
 		randX = rand() % (screenW*2) + screenW;
-		randY = rand() % screenH;
+		randY = screenH - (rand() % (screenH-200)) - 100;
 		species = spritesToBe[random];
 
 		switch (species)
@@ -102,6 +102,7 @@ void SpriteGenerator::generateSprites(Player* man)
 		int randomTime = rand() % (freqHigher-freqLower) + freqLower;	// generates new random time within range
 		spawnTimer.setTimeIncrement(randomTime);						// for time to next enemy spawn
 		spawnTimer.addTime();
+		spawnTimer.updateTime();
 	}
 
 	if (man->getState() == isWalking)
