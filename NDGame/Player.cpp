@@ -6,7 +6,7 @@ Player::Player(SDLClass &myC) : Sprite(myC)
 {
 	maxXPos=getHalfOfScreen()/2;
 	setTextureClips("resources/manSpriteSheet.png", "resources/manSpriteSheet2.png");
-	setSpeed(8, 5);
+	setSpeed(8, 7);
 	jumpingState=isNotJumping;
 	stopScreen=1;
 	setMaxSpeed(16);
@@ -14,6 +14,10 @@ Player::Player(SDLClass &myC) : Sprite(myC)
 	dead=0;
 	numFootballs=0;
 	setW(45);
+	burgerMaxHeight=175;
+	noBurgerMaxHeight=250;
+	setMaxHeight(noBurgerMaxHeight); //original max height is one w/o eating burger
+	setMinHeight(400);
 }
 
 void Player::setTextureClips(string path1, string path2)
@@ -32,14 +36,15 @@ void Player::setTextureClips(string path1, string path2)
 	addFlippedClip(129, 5, 46, 53);
 	
 	setPos(maxXPos,400); 	// starting position
-
-	setMaxHeight(200);
-	setMinHeight(400);
 }
 
 void Player::draw()
 {
-	timer.updateTime();
+	hotdogTimer.updateTime();
+	burgerTimer.updateTime();
+
+	cout << "Hotdog timer: " << hotdogTimer.getTime() << endl;
+	cout << "Burger timer: " << burgerTimer.getTime() << endl;
 
 	switch (jumpingState)
 	{
@@ -68,9 +73,14 @@ void Player::draw()
 			break;
 	}
 
-	if (timer.getTimeIsUp())
+	if (hotdogTimer.getTimeIsUp())
 	{
 		setSpeed(getSpeedX()/2, getSpeedY());
+	}
+
+	if (burgerTimer.getTimeIsUp())
+	{
+		setMaxHeight(noBurgerMaxHeight);
 	}
 
 	basicDraw();
@@ -177,7 +187,7 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 			if (typeid(*ptr)==typeid(Hotdog))
 			{	
 				incrementSpeed(); //make player faster!
-				addTime();
+				hotdogTimer.addTime();
 
 				//erase hotdog from vector and free memory
 				ptr->destroySprite();
@@ -212,6 +222,16 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 				dead=1;
 			}	
 
+			else if (typeid(*ptr)==typeid(Hamburger))
+			{
+				setMaxHeight(burgerMaxHeight); //make max height higher
+				burgerTimer.addTime();
+
+				//erase hamburger from vector and free memory
+				ptr->destroySprite();
+				enemyVector.erase(enemyVector.begin()+i);
+				i--;
+			}
 		}
 	}
 }
@@ -237,11 +257,6 @@ int Player::collisionCheck(Sprite* enemy)
 		return 0;
 	}
 
-}
-
-void Player::addTime()
-{
-	timer.addTime();
 }
 
 int Player::isDead()

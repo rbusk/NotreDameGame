@@ -29,7 +29,7 @@ int main(int argc, const char * argv[]) {
 	SDLClass mySDL;
 
 	OpeningScreen myOpening(mySDL);
-	GraduatingScreen myGraduating(mySDL);
+//	GraduatingScreen myGraduating(mySDL);
 	Background myScrolling(mySDL);
 	StaticScreen *screenPtr;
 	Player *playerPtr;
@@ -67,7 +67,7 @@ int main(int argc, const char * argv[]) {
 			else if (e.type==SDL_KEYDOWN) //user presses a key
 			{
 				//if any key is pressed for first 2 screenStates, go to next screenState and set some pointers
-				if (screenState<2)
+				if (screenState<1)
 				{
 					screenState++;
 					
@@ -75,10 +75,10 @@ int main(int argc, const char * argv[]) {
 						case 0:
 							break;
 							
+						//case 1:
+						//	screenPtr=&myGraduating;
+						//	break;
 						case 1:
-							screenPtr=&myGraduating;
-							break;
-						case 2:
 							screenPtr=&myScrolling;
 							playerPtr=&simpleMan;
 							break;
@@ -91,7 +91,7 @@ int main(int argc, const char * argv[]) {
 				{
 					//user presses right -- if screen state is 2, player walks right
 					case SDLK_RIGHT:
-						if (screenState==2)
+						if (screenState==1)
 						{
 							playerPtr->setState(isWalking);
 							playerPtr->setFacingRight(1); //player should face right
@@ -100,7 +100,7 @@ int main(int argc, const char * argv[]) {
 
 						//user presses left -- if screen state is 2, player walks left
 					case SDLK_LEFT:
-						if (screenState==2)
+						if (screenState==1)
 						{
 							playerPtr->setState(isWalking);
 							playerPtr->setFacingRight(0);
@@ -108,7 +108,7 @@ int main(int argc, const char * argv[]) {
 						break;
 
 					case SDLK_SPACE:
-						if (screenState==2)
+						if (screenState==1)
 						{
 							if (playerPtr->getNumFootballs())
 							{
@@ -120,7 +120,7 @@ int main(int argc, const char * argv[]) {
 						break;
 
 					case SDLK_UP:
-						if (screenState==2 && playerPtr->getJumpingState()==isNotJumping)
+						if (screenState==1 && playerPtr->getJumpingState()==isNotJumping)
 						{
 							playerPtr->setJumpingState(isJumpingUp);
 						}
@@ -137,13 +137,13 @@ int main(int argc, const char * argv[]) {
 				{
 					//stop player moving if player releases right or left button
 					case SDLK_RIGHT:
-						if (screenState==2)
+						if (screenState==1)
 						{
 							playerPtr->setState(isResting);
 						}
 						break;
 					case SDLK_LEFT:
-						if (screenState==2)
+						if (screenState==1)
 						{
 							playerPtr->setState(isResting);
 						}
@@ -156,7 +156,7 @@ int main(int argc, const char * argv[]) {
 		}
 
 		screenPtr->draw();
-		if (screenState==2 && playerPtr!=NULL)
+		if (screenState==1 && playerPtr!=NULL)
 		{
 			playerPtr->update();
 
@@ -227,7 +227,7 @@ int main(int argc, const char * argv[]) {
 
 			else //if player is dead, destroy sprite and switch screen states
 			{
-				screenState=3;
+				screenState=2;
 				screenPtr->displayGameOver();
 			}
 
