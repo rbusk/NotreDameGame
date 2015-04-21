@@ -58,13 +58,13 @@ void SpriteGenerator::generateSprites(Player* man)
 			case isCar1:
 			{
 				created = new Car1(*mySDL);
-				created->setPos(manX+screenW,400);		// right now they all spawn a screen away
+				created->setPos(manX+screenW,425);		// right now they all spawn a screen away
 				break;						// from the man's position
 			}
 			case isCar2:
 			{
 				created = new Car2(*mySDL);
-				created->setPos(manX+screenW,400);
+				created->setPos(manX+screenW,425);
 				break;
 			}
 			case isFootballer:

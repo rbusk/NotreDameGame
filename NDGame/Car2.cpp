@@ -16,15 +16,15 @@ void Car2::setTextureClips(string path1, string path2)
 	setNumClips(totalClips);
 
 
-	addClip(0, 0, 250, 71);
+	addClip(0, 0, 150, 47);
 		
 	
-	setPos(getHalfOfScreen()*5,400); 	// starting position
+	setPos(getHalfOfScreen()*5,475); 	// starting position
 
-	spriteBox.x = getHalfOfScreen()*5;	// spriteBox has to be set here so that it matches starting pos
+/*	spriteBox.x = getHalfOfScreen()*5;	// spriteBox has to be set here so that it matches starting pos
 	spriteBox.y = 400;
 	spriteBox.w = 250;
-	spriteBox.h = 71;
+	spriteBox.h = 71;*/
 
 }
 

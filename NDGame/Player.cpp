@@ -14,7 +14,7 @@ Player::Player(SDLClass &myC) : Sprite(myC)
 	dead=0;
 	numFootballs=0;
 	setW(45);
-	burgerMaxHeight=175;
+	burgerMaxHeight=200;
 	noBurgerMaxHeight=250;
 	setMaxHeight(noBurgerMaxHeight); //original max height is one w/o eating burger
 	setMinHeight(400);
@@ -42,9 +42,6 @@ void Player::draw()
 {
 	hotdogTimer.updateTime();
 	burgerTimer.updateTime();
-
-	cout << "Hotdog timer: " << hotdogTimer.getTime() << endl;
-	cout << "Burger timer: " << burgerTimer.getTime() << endl;
 
 	switch (jumpingState)
 	{
