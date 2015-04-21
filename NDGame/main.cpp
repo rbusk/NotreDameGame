@@ -20,7 +20,7 @@
 #include "Timer.h"
 #include "Football.h"
 #include "FootballPowerup.h"
-#include "Can.h"
+#include "Squirrel.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -43,14 +43,9 @@ int main(int argc, const char * argv[]) {
 	Hamburger *burgerPtr;
 	FootballPowerup *footballPtr;
 
-	//can enemy
-	Can can(mySDL);
-	Can *canPtr;
-	canPtr=&can;
-
-	//the screen sort of works if these are here idk man
-	Can can2(mySDL);
-	Can *can2ptr;
+	Squirrel mySquirrel(mySDL);
+	Squirrel *squirrelPtr;
+	squirrelPtr=&mySquirrel;
 
 	screenPtr=&myOpening;
 	playerPtr=NULL;
@@ -64,7 +59,7 @@ int main(int argc, const char * argv[]) {
 	enemies.push_back(dogPtr);
 	enemies.push_back(burgerPtr);
 	enemies.push_back(footballPtr);
-	enemies.push_back(canPtr);
+	enemies.push_back(squirrelPtr);
 
 	EnemyGenerator enemyFactory(mySDL);
 	vector<EnemyType> desiredEnemies;
