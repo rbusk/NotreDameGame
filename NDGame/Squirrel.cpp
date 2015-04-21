@@ -5,7 +5,6 @@ Squirrel::Squirrel(SDLClass &myC) : Sprite(myC)
 {
 	setTextureClips("resources/squirrel.png", "resources/squirrel.png");
 	setSpeed(0, 8);
-	cout << getSpeedX() << endl;
 }
 
 void Squirrel::setTextureClips(string path1, string path2)
