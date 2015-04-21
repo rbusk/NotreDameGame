@@ -185,14 +185,14 @@ int main(int argc, const char * argv[]) {
 				playerPtr->draw();
 			
 				// probably put in timer based if statements to change these after so long
-				enemyFactory.setFrequency(10,20);
+				enemyFactory.setFrequency(150, 200);
 				powerupFactory.setFrequency(300,400);
 
 				desiredEnemies.clear();
 
-				//desiredEnemies.push_back(isCar1);
-				//desiredEnemies.push_back(isCar2);
-				//desiredEnemies.push_back(isFootballer);
+				desiredEnemies.push_back(isCar1);
+				desiredEnemies.push_back(isCar2);
+				desiredEnemies.push_back(isFootballer);
 				desiredEnemies.push_back(isSquirrel);
 				desiredPowerups.clear();
 				desiredPowerups.push_back(isHamburger);
