@@ -16,6 +16,11 @@ Sprite::Sprite(SDLClass &myC)
 	mySDL=&myC;
 }
 
+Sprite::~Sprite() 
+{
+	//DESTUCTION IMMINENT
+}
+
 void Sprite::loadSheetFromFile(string path)
 {
 	spriteSheet = mySDL->loadFromFile(path);
@@ -361,14 +366,17 @@ int Sprite::collisionCheck(Sprite* enemy)
 
 }*/
 
-void Sprite::setSpeedIncrement(int n)
+void Sprite::setMaxSpeed(int n)
 {
-	speedIncrement=n;
+	maxSpeed=n;
 }
 
 void Sprite::incrementSpeed()
 {
-	speedX = speedX + speedIncrement;
+	if (speedX!=maxSpeed)
+	{
+		speedX = maxSpeed;
+	}
 }
 
 void Sprite::setW(int n)

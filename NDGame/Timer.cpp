@@ -44,3 +44,8 @@ int Timer::getTimeIsUp()
 {
 	return timeIsUp;
 }
+
+void Timer::setTimeIncrement(int n)
+{
+	timeIncrement = n;
+}

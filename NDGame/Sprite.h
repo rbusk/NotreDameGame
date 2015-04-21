@@ -24,6 +24,7 @@ class Sprite {
 	
 	public:
 		Sprite(SDLClass &myC);
+		virtual ~Sprite(); 		// virtual destructor in order to delete derived pointers
 		virtual void setTextureClips(string path1, string path2)=0;
 		void loadSheetFromFile(string path);
 		void loadFlippedSheetFromFile(string path);
@@ -67,7 +68,7 @@ class Sprite {
 		void setIsLoaded(bool);
 		bool getIsLoaded();
 		void incrementSpeed(); //increase speed
-		void setSpeedIncrement(int);
+		void setMaxSpeed(int);
 		void setW(int); //set width
 		void setH(int); //set height
 
@@ -96,7 +97,7 @@ class Sprite {
 		int yPos;
 		int speedX;
 		int speedY;
-		int speedIncrement; //use to increment speed
+		int maxSpeed;
 		int state; // isResting, isWalking, or isJumping
 		bool facingRight; //1 if walking right, 0 if walking left
 		bool isLoaded;

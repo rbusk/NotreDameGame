@@ -16,7 +16,7 @@
 #include "Car1.h"
 #include "Car2.h"
 #include "Footballer.h"
-#include "EnemyGenerator.h"
+#include "SpriteGenerator.h"
 #include "Timer.h"
 #include "Football.h"
 #include "FootballPowerup.h"
@@ -31,14 +31,16 @@ int main(int argc, const char * argv[]) {
 	OpeningScreen myOpening(mySDL);
 	GraduatingScreen myGraduating(mySDL);
 	Background myScrolling(mySDL);
+	StaticScreen *screenPtr;
+	Player *playerPtr;
+	screenPtr=&myOpening;
+	playerPtr=NULL;
 
 	Player simpleMan(mySDL);
-	Hotdog dog(mySDL);
+	/*Hotdog dog(mySDL);
 	Hamburger burger(mySDL);
 	FootballPowerup football(mySDL);
 
-	StaticScreen *screenPtr;
-	Player *playerPtr;
 	Hotdog *dogPtr;
 	Hamburger *burgerPtr;
 	FootballPowerup *footballPtr;
@@ -47,22 +49,23 @@ int main(int argc, const char * argv[]) {
 	Squirrel *squirrelPtr;
 	squirrelPtr=&mySquirrel;
 
-	screenPtr=&myOpening;
-	playerPtr=NULL;
 	dogPtr =&dog;
 	burgerPtr = &burger;
 	
-	footballPtr=&football;
+	footballPtr=&football;*/
 
 
 	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
-	enemies.push_back(dogPtr);
+/*	enemies.push_back(dogPtr);
 	enemies.push_back(burgerPtr);
 	enemies.push_back(footballPtr);
 	enemies.push_back(squirrelPtr);
+*/	SpriteGenerator enemyFactory(mySDL);	
+	vector<SpriteType> desiredEnemies;
 
-	EnemyGenerator enemyFactory(mySDL);
-	vector<EnemyType> desiredEnemies;
+	vector<Sprite*> powerups;
+	SpriteGenerator powerupFactory(mySDL);
+	vector<SpriteType> desiredPowerups;
 
 	//vector of footballs that player has thrown
 	vector<Football> footballs;
@@ -180,6 +183,7 @@ int main(int argc, const char * argv[]) {
 			playerPtr->update();
 
 			playerPtr->collisionLoopRect(enemies);
+			playerPtr->collisionLoopRect(powerups);
 			
 			for (int i=0; i<footballs.size(); i++)
 			{
@@ -203,27 +207,37 @@ int main(int argc, const char * argv[]) {
 				playerPtr->draw();
 			
 				// probably put in timer based if statements to change these after so long
-				int numOfEnemies = 3;	// desired number of enemies
-				enemyFactory.setFrequency(numOfEnemies);
+				enemyFactory.setFrequency(100,150);
+				powerupFactory.setFrequency(50,75);
 
 				desiredEnemies.clear();
-				//desiredEnemies.push_back(isCar1);
-				//desiredEnemies.push_back(isCar2);
+
+				desiredEnemies.push_back(isCar1);
+				desiredEnemies.push_back(isCar2);
 				desiredEnemies.push_back(isFootballer);
+				desiredEnemies.push_back(isSquirrel);
+				desiredPowerups.clear();
+				desiredPowerups.push_back(isHamburger);
+				desiredPowerups.push_back(isHotdog);
+				desiredPowerups.push_back(isFootballPowerup);
 
-				enemyFactory.setEnemies(desiredEnemies);
-
-				if (enemies.size() < numOfEnemies)
-				{
-					enemyFactory.generateSprites(playerPtr,numOfEnemies - enemies.size());
-					enemyFactory.packageSprites(enemies);
-				}
+				enemyFactory.setSprites(desiredEnemies);
+				enemyFactory.generateSprites(playerPtr);
+				enemyFactory.packageSprites(enemies);
+				powerupFactory.setSprites(desiredPowerups);
+				powerupFactory.generateSprites(playerPtr);
+				powerupFactory.packageSprites(powerups);
 			
 
-				for (int i=0; i<enemies.size(); i++)
+				for (int i=0; i < enemies.size(); i++)
 				{
-					enemies[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
-					enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, hotdog must scroll when screen does
+					enemies[i]->setSpeed(playerPtr->getSpeedX()/2, enemies[i]->getSpeedY());
+					enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, must scroll when screen does
+				}
+				for (int i=0; i < powerups.size(); i++)
+				{
+					powerups[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
+					powerups[i]->draw(screenPtr->getIsScrolling());	// when standing still, must scroll when screen does
 				}
 
 				for (int i=0; i<footballs.size(); i++)
@@ -238,7 +252,9 @@ int main(int argc, const char * argv[]) {
 				screenState=3;
 				screenPtr->displayGameOver();
 			}
-		}
+
+			enemyFactory.destroyPastSprites(playerPtr,enemies);		// dynamically delete sprites too 
+		}															// far off the screen
 
 		mySDL.update();		// not included in draw() b/c only need one update at the end
 	}
@@ -253,5 +269,9 @@ int main(int argc, const char * argv[]) {
 		enemies[i]->destroySprite();
 	}
 
-    	return 0;
+	for (int i=0; i<powerups.size(); i++)
+	{
+		powerups[i]->destroySprite();
+	}
+    return 0;
 }
