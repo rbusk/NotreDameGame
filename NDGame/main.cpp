@@ -166,9 +166,13 @@ int main(int argc, const char * argv[]) {
 			
 			for (int i=0; i<footballs.size(); i++)
 			{
-				if (footballs[i].collisionLoopRect(enemies))
+                                int ballX = footballs[i].getX();
+                                int playerX = playerPtr->getX();
+                                int screenW = mySDL.getW()/2;
+				if (footballs[i].collisionLoopRect(enemies) || ballX < (playerX-screenW) || ballX > (playerX+screenW))
 				{
 					//if collision with footballer occurs, destroy football and delete from vector
+                                        //also if football goes off the screen
 					footballs[i].destroySprite();
 					footballs.erase(footballs.begin()+i);
 					i--;
