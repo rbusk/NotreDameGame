@@ -21,6 +21,7 @@
 #include "Football.h"
 #include "FootballPowerup.h"
 #include "Squirrel.h"
+#include "Can.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -194,6 +195,7 @@ int main(int argc, const char * argv[]) {
 				desiredEnemies.push_back(isCar2);
 				desiredEnemies.push_back(isFootballer);
 				desiredEnemies.push_back(isSquirrel);
+                                desiredEnemies.push_back(isCan);
 				desiredPowerups.clear();
 				desiredPowerups.push_back(isHamburger);
 				desiredPowerups.push_back(isHotdog);

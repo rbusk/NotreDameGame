@@ -18,6 +18,7 @@
 #include "Footballer.h"
 #include "FootballPowerup.h"
 #include "Squirrel.h"
+#include "Can.h"
 using namespace std;
 
 class Player : public Sprite {

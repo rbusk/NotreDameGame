@@ -45,12 +45,14 @@ void SpriteGenerator::generateSprites(Player* man)
 	{	
 		Sprite* created = NULL;
 		SpriteType species;
-		int random, randX, randY;
+		int random, randX, randY, randXS, randYS;
 		int manX = man->getX(), manY = man->getY();
 
 		random = rand() % spritesToBe.size();           // randomly choose index within spriteToBe
 		randX = rand() % (screenW*2) + screenW;         // randomX slightly offscreen
-		randY = rand() % 200 + 200;           // randomY within reach of player
+		randY = rand() % 200 + 200;                     // randomY within reach of player
+                randXS = rand() % 5 + 1;                        // random X speed
+                randYS = rand() % 5 + 1;                        // random Y speed
 		species = spritesToBe[random];                  // the generated sprite will be whichever type 
                                                                 // is in that index of spritesToBe
 		switch (species)
@@ -98,7 +100,13 @@ void SpriteGenerator::generateSprites(Player* man)
 				created->setPos(manX+screenW/2, -100);
 				break;
 			}
-
+                        case isCan:
+                        {
+                            created = new Can(*mySDL);
+                            created->setPos(manX+screenW, randY-300);
+                            created->setSpeed(randXS,randYS+2);
+                            break;
+                        }
 		}
 
 		createdSprites.push_back(created);

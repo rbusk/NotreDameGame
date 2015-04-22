@@ -13,6 +13,7 @@
 #include "Car1.h"
 #include "Car2.h"
 #include "Footballer.h"
+#include "Can.h"
 
 enum SpriteType {
 	isCar1,
@@ -21,7 +22,8 @@ enum SpriteType {
 	isHotdog,
 	isHamburger,
 	isFootballPowerup,
-	isSquirrel
+	isSquirrel,
+        isCan
 };
 
 class SpriteGenerator {
