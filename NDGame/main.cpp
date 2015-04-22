@@ -22,6 +22,7 @@
 #include "FootballPowerup.h"
 #include "Squirrel.h"
 #include "Can.h"
+#include "Level.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -48,6 +49,27 @@ int main(int argc, const char * argv[]) {
 
 	//vector of footballs that player has thrown
 	vector<Football> footballs;
+
+	//vector of levels
+	int lengthOfLevel = 1000;
+	int level = 0;
+	vector<Level> levelVector;	
+	Level level1(1);
+	Level level2(2);
+	Level level3(3);
+	levelVector.push_back(level1);
+	levelVector.push_back(level2);
+	levelVector.push_back(level3);
+	Timer levelTimer;
+	levelTimer.setTimeIncrement(1);
+	levelTimer.addTime();
+	levelTimer.setTimeIncrement(lengthOfLevel);
+	levelTimer.updateTime();
+	vector<int> freqPowerUp;
+	vector<int> freqEnemy;
+
+	cout << levelTimer.getTime() << endl;
+	cout << levelTimer.getTimeIsUp() << endl;
 
 
 	int screenState=0;
@@ -159,6 +181,36 @@ int main(int argc, const char * argv[]) {
 		screenPtr->draw();
 		if (screenState==1 && playerPtr!=NULL)
 		{
+
+			if (levelTimer.getTimeIsUp())
+			{
+				level++;
+				switch (level)
+				{
+					case 1:
+						levelTimer.addTime();
+						break;
+
+					case 2:
+						levelTimer.addTime();
+						break;
+
+					case 3:
+						levelTimer.addTime();
+						break;
+
+				}
+				freqPowerUp = levelVector[level-1].getFrequencyPowerUp();
+				cout << freqPowerUp[0] << freqPowerUp[1] << endl;
+				powerupFactory.setFrequency(freqPowerUp[0],freqPowerUp[1]);
+				freqEnemy = levelVector[level-1].getFrequencyEnemy();
+				cout << freqEnemy[0] << freqEnemy[1] << endl;
+				enemyFactory.setFrequency(freqEnemy[0], freqEnemy[1]);
+			}
+			
+			levelTimer.updateTime();
+			cout << levelTimer.getTime() << endl;
+			cout << level << endl;
 			playerPtr->update();
 
 			playerPtr->collisionLoopRect(enemies);
@@ -190,8 +242,6 @@ int main(int argc, const char * argv[]) {
 				playerPtr->draw();
 			
 				// probably put in timer based if statements to change these after so long
-				enemyFactory.setFrequency(150, 200);
-				powerupFactory.setFrequency(300,400);
 
 				desiredEnemies.clear();
 
