@@ -31,7 +31,7 @@ int main(int argc, const char * argv[]) {
 	SDLClass mySDL;
 
 	OpeningScreen myOpening(mySDL);
-//	GraduatingScreen myGraduating(mySDL);
+	GraduatingScreen myGraduating(mySDL);
 	Background myScrolling(mySDL);
 	StaticScreen *screenPtr;
 	Player *playerPtr;
