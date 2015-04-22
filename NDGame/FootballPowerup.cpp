@@ -28,10 +28,13 @@ void FootballPowerup::setTextureClips(string path1, string path2)
 
 void FootballPowerup::draw(int s)
 {
-	if (s==1)
-	{
-		moveLeft();
-	}
+	int initialSpeedX = getSpeedX();
+
+	setSpeed(s, getSpeedY());
+
+	moveLeft();
 
 	Sprite::draw(s);
+
+	setSpeed(initialSpeedX, getSpeedY());
 }

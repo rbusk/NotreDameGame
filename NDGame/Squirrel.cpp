@@ -4,7 +4,7 @@
 Squirrel::Squirrel(SDLClass &myC) : Sprite(myC)
 {
 	setTextureClips("resources/squirrel.png", "resources/squirrel.png");
-	setSpeed(0, 8);
+	setSpeed(2, 6);
 }
 
 void Squirrel::setTextureClips(string path1, string path2)
@@ -15,7 +15,7 @@ void Squirrel::setTextureClips(string path1, string path2)
 	int totalClips=1;
 	setNumClips(totalClips);
 
-	addClip(0, 0, 93, 107);
+	addClip(0, 0, 65, 75);
 
 	setPos(getHalfOfScreen(), 0);
 
@@ -23,12 +23,17 @@ void Squirrel::setTextureClips(string path1, string path2)
 
 void Squirrel::draw(int s)
 {
-	if (s==1)
+	int initialSpeedX = getSpeedX();
+
+	if (s!=0)
 	{
-		moveLeft();
+		setSpeed(s+initialSpeedX, getSpeedY());
 	}
 
 	moveDown();
+	moveLeft();
 
 	Sprite::draw(s);
+
+	setSpeed(initialSpeedX, getSpeedY());
 }

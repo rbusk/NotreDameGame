@@ -31,7 +31,7 @@ int main(int argc, const char * argv[]) {
 	SDLClass mySDL;
 
 	OpeningScreen myOpening(mySDL);
-	GraduatingScreen myGraduating(mySDL);
+//	GraduatingScreen myGraduating(mySDL);
 	Background myScrolling(mySDL);
 	StaticScreen *screenPtr;
 	Player *playerPtr;
@@ -98,9 +98,6 @@ int main(int argc, const char * argv[]) {
 						case 0:
 							break;
 							
-						//case 1:
-						//	screenPtr=&myGraduating;
-						//	break;
 						case 1:
 							screenPtr=&myScrolling;
 							playerPtr=&simpleMan;
@@ -235,18 +232,20 @@ int main(int argc, const char * argv[]) {
 			{
 				//use stopScreen variable to determine if screen should scroll
 				screenPtr->setIsScrolling(!playerPtr->getStopScreen());
-				screenPtr->setSpeed(playerPtr->getSpeedX()/2);
+				screenPtr->setSpeed(playerPtr->getSpeedX());
 				screenPtr->getTexture(2)->setDraw(playerPtr->getNumFootballs());
 
 
 				playerPtr->draw();
 			
 				// probably put in timer based if statements to change these after so long
+				//enemyFactory.setFrequency(200, 300);
+				//powerupFactory.setFrequency(100,200);
 
 				desiredEnemies.clear();
 
-				desiredEnemies.push_back(isCar1);
-				desiredEnemies.push_back(isCar2);
+				//desiredEnemies.push_back(isCar1);
+				//desiredEnemies.push_back(isCar2);
 				desiredEnemies.push_back(isFootballer);
 				desiredEnemies.push_back(isSquirrel);
                                 desiredEnemies.push_back(isCan);
@@ -265,13 +264,33 @@ int main(int argc, const char * argv[]) {
 
 				for (int i=0; i < enemies.size(); i++)
 				{
-					enemies[i]->setSpeed(playerPtr->getSpeedX()/2, enemies[i]->getSpeedY());
-					enemies[i]->draw(screenPtr->getIsScrolling());	// when standing still, must scroll when screen does
+					//enemies[i]->setSpeed(playerPtr->getSpeedX()/2, enemies[i]->getSpeedY());
+					if (screenPtr->getIsScrolling())
+					{
+						enemies[i]->draw(playerPtr->getSpeedX());	// when standing still, must scroll when screen does
+				
+					}
+
+					else
+					{
+						enemies[i]->draw(0);
+					}
 				}
+
 				for (int i=0; i < powerups.size(); i++)
 				{
-					powerups[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
-					powerups[i]->draw(screenPtr->getIsScrolling());	// when standing still, must scroll when screen does
+					//powerups[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
+					//powerups[i]->draw(screenPtr->getIsScrolling());	// when standing still, must scroll when screen does
+					if (screenPtr->getIsScrolling())
+					{
+						powerups[i]->draw(playerPtr->getSpeedX());	// when standing still, must scroll when screen does
+				
+					}
+
+					else
+					{
+						powerups[i]->draw(0);
+					}
 				}
 
 				for (int i=0; i<footballs.size(); i++)

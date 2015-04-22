@@ -4,7 +4,7 @@
 Can::Can(SDLClass &myC) : Sprite(myC)
 {
 	setTextureClips("resources/can.png", "resources/can.png");
-	setSpeed(0,4);
+	setSpeed(2,4);
         setFacingRight(0);
 }
 
@@ -38,10 +38,11 @@ void Can::draw(int s)
             moveLeft();
 
         if (getY() > 450)
-            setSpeed(getSpeedX(),-1);
+            //setSpeed(getSpeedX()+s,-1);
+	    setSpeed(initialSpeedX+s/2, -1);
         moveDown();
 
 	Sprite::draw(s);
 
-        setSpeed(initialSpeedX,getSpeedY());
+       setSpeed(initialSpeedX,getSpeedY());
 }
