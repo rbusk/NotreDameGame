@@ -251,10 +251,6 @@ int Player::collisionCheck(Sprite* enemy)
 
 	if (value == SDL_TRUE)
 	{
-		if (spriteBox.y+spriteBox.h > enemyRect.y)
-		{
-			cout  << "collided on top";
-		}
 		return 1;
 	}
 	else
