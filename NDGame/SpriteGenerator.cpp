@@ -97,7 +97,7 @@ void SpriteGenerator::generateSprites(Player* man)
 			case isSquirrel:
 			{
 				created = new Squirrel(*mySDL);
-				created->setPos(manX+screenW/2, -100);
+				created->setPos(manX+screenW/2, randY-300);
 				break;
 			}
                         case isCan:

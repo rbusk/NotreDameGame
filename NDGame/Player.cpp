@@ -6,10 +6,10 @@ Player::Player(SDLClass &myC) : Sprite(myC)
 {
 	maxXPos=getHalfOfScreen()/2;
 	setTextureClips("resources/manSpriteSheet.png", "resources/manSpriteSheet2.png");
-	setSpeed(8, 7);
+	setSpeed(4, 7);
 	jumpingState=isNotJumping;
 	stopScreen=1;
-	setMaxSpeed(16);
+	setMaxSpeed(8);
 	isInCollision=0;
 	dead=0;
 	numFootballs=0;

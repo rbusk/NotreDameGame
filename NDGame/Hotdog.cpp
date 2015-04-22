@@ -31,13 +31,13 @@ void Hotdog::setTextureClips(string path1, string path2)
 //if s==1 then move left, otherwise just draw
 void Hotdog::draw(int s)
 {
-	if (s==1)
-	{
-		moveLeft();		// our background scrolls left so this syncs up with it if need be
-	}
-	
+	int initialSpeedX = getSpeedX();
+
+	setSpeed(s, getSpeedY());
+
+	moveLeft();		// our background scrolls left so this syncs up with it if need be
 	Sprite::draw(s);
+	
+	setSpeed(initialSpeedX, getSpeedY());
+
 }
-
-
-
