@@ -15,7 +15,7 @@ void Squirrel::setTextureClips(string path1, string path2)
 	int totalClips=1;
 	setNumClips(totalClips);
 
-	addClip(0, 0, 93, 107);
+	addClip(0, 0, 65, 75);
 
 	setPos(getHalfOfScreen(), 0);
 

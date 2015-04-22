@@ -190,8 +190,8 @@ int main(int argc, const char * argv[]) {
 				playerPtr->draw();
 			
 				// probably put in timer based if statements to change these after so long
-				enemyFactory.setFrequency(50, 100);
-				powerupFactory.setFrequency(50,100);
+				enemyFactory.setFrequency(200, 300);
+				powerupFactory.setFrequency(100,200);
 
 				desiredEnemies.clear();
 
