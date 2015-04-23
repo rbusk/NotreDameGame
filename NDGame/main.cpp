@@ -23,6 +23,7 @@
 #include "Squirrel.h"
 #include "Can.h"
 #include "Level.h"
+#include "SoundClass.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -49,6 +50,9 @@ int main(int argc, const char * argv[]) {
 
 	//vector of footballs that player has thrown
 	vector<Football> footballs;
+
+	//opening song
+	SoundClass main("GOT.wav",1);
 
 	//vector of levels
 	int lengthOfLevel = 1000;
@@ -99,6 +103,7 @@ int main(int argc, const char * argv[]) {
 							break;
 							
 						case 1:
+							main.play();
 							screenPtr=&myScrolling;
 							playerPtr=&simpleMan;
 							break;

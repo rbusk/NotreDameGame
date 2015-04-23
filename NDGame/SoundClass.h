@@ -6,6 +6,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_image.h>
 #include <string>
 using namespace std;
 
@@ -19,8 +20,8 @@ class SoundClass
 		void load();
 	private:
 		string filename;
-		Mix_Chunk *effect = NULL;
-		Mix_Music *song = NULL;
+		Mix_Chunk *effect;
+		Mix_Music *song;
 
 };
 
