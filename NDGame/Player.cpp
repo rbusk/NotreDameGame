@@ -6,13 +6,18 @@ Player::Player(SDLClass &myC) : Sprite(myC)
 {
 	maxXPos=getHalfOfScreen()/2;
 	setTextureClips("resources/manSpriteSheet.png", "resources/manSpriteSheet2.png");
-	setSpeed(4,4);
+	setSpeed(3, 7);
 	jumpingState=isNotJumping;
 	stopScreen=1;
-	setSpeedIncrement(4);
+	setMaxSpeed(6);
 	isInCollision=0;
 	dead=0;
 	numFootballs=0;
+	setW(45);
+	burgerMaxHeight=200;
+	noBurgerMaxHeight=250;
+	setMaxHeight(noBurgerMaxHeight); //original max height is one w/o eating burger
+	setMinHeight(400);
 }
 
 void Player::setTextureClips(string path1, string path2)
@@ -20,28 +25,23 @@ void Player::setTextureClips(string path1, string path2)
 	loadSheetFromFile(path1);
 	loadFlippedSheetFromFile(path2);
 
-	int totalClips = 4;		// enter number of sprites on sheet
+	int totalClips = 3;		// enter number of sprites on sheet
 	setNumClips(totalClips);
 
-	for(int i = 0; i < totalClips; i++ )
-	{	// sets clips
-		addClip( 194*i, 0, 194, 198);
-		addFlippedClip(194*i, 0, 194, 198);
-	}
+	addClip(10, 5, 45, 53);
+	addClip(70, 5, 45, 53);
+	addClip(129, 5, 46, 53);
+	addFlippedClip(10, 5, 45, 53);
+	addFlippedClip(70, 5, 45, 53);
+	addFlippedClip(129, 5, 46, 53);
 	
-	setPos(maxXPos,275); 	// starting position
-
-	setMaxHeight(100);
-	setMinHeight(275);
-	spriteBox.x = maxXPos;	// spriteBox has to be set here so that it matches starting pos
-	spriteBox.y = 275;
-	spriteBox.w = 194;
-	spriteBox.h = 198;
+	setPos(maxXPos,400); 	// starting position
 }
 
 void Player::draw()
 {
-	timer.updateTime();
+	hotdogTimer.updateTime();
+	burgerTimer.updateTime();
 
 	switch (jumpingState)
 	{
@@ -70,12 +70,14 @@ void Player::draw()
 			break;
 	}
 
-	cout << timer.getTime() << endl;
-
-
-	if (timer.getTimeIsUp())
+	if (hotdogTimer.getTimeIsUp())
 	{
-		setSpeed(getSpeedX()/2, getSpeedY()/2);
+		setSpeed(getSpeedX()/2, getSpeedY());
+	}
+
+	if (burgerTimer.getTimeIsUp())
+	{
+		setMaxHeight(noBurgerMaxHeight);
 	}
 
 	basicDraw();
@@ -167,22 +169,9 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 		check = collisionCheck(enemyVector[i]);
 		
 		ptr=enemyVector[i];
-
-		if (check == 1 && getXPos() > enemyVector[i]->getXPos())
-		{
-			cout << "Colliding Left" << endl;
-		}
-		if (check == 1 && getXPos() < enemyVector[i]->getXPos())
-		{
-			cout << "Colliding Right" << endl;
-		}
-		if (check == 1 && getYPos()+getH() == enemyVector[i]->getYPos())
-		{
-			cout << "On Top" << endl;
-		}
+		
 		if (check == 0)
 		{
-			cout << "Not Colliding" << endl;
 			if (isInCollision==1)
 			{
 				isInCollision=0;
@@ -193,11 +182,9 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 		if (check==1)
 		{
 			if (typeid(*ptr)==typeid(Hotdog))
-			{
-				cout << "collided with hotdog. yum" << endl;
-				
+			{	
 				incrementSpeed(); //make player faster!
-				addTime();
+				hotdogTimer.addTime();
 
 				//erase hotdog from vector and free memory
 				ptr->destroySprite();
@@ -207,20 +194,17 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 
 			else if (typeid(*ptr)==typeid(Car1))
 			{
-				cout << "collided with car. vroom" << endl;
 			}
 
 			//if collide with football guy, player dies
 			else if (typeid(*ptr)==typeid(Footballer))
 			{
-				cout << "collided with football guy. ouch." << endl;
 				dead=1;
 			}
 
 			//if collide with FootballPowerup, give guy num of footballs
 			else if (typeid(*ptr)==typeid(FootballPowerup))
 			{
-				cout << "you gots footballz" << endl;
 				numFootballs=1;
 
 				//erase football powerup from vector and free memory
@@ -229,6 +213,26 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 				i--;
 			}
 
+			//if collide with squirrel, dead
+			else if (typeid(*ptr)==typeid(Squirrel))
+			{
+				dead=1;
+			}
+                        
+                        //if collide with soda can, dead
+                        else if (typeid(*ptr)==typeid(Can))
+                            dead = 1;        
+
+			else if (typeid(*ptr)==typeid(Hamburger))
+			{
+				setMaxHeight(burgerMaxHeight); //make max height higher
+				burgerTimer.addTime();
+
+				//erase hamburger from vector and free memory
+				ptr->destroySprite();
+				enemyVector.erase(enemyVector.begin()+i);
+				i--;
+			}
 		}
 	}
 }
@@ -256,11 +260,6 @@ int Player::collisionCheck(Sprite* enemy)
 
 }
 
-void Player::addTime()
-{
-	timer.addTime();
-}
-
 int Player::isDead()
 {
 	return dead;
@@ -275,3 +274,5 @@ void Player::setNumFootballs(int n)
 {
 	numFootballs=n;
 }
+
+

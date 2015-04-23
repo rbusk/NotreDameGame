@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <vector>
+#include <typeinfo>
 #include "LTexture.h"
 #include "SDLClass.h"
 #include "Sprite.h"
@@ -17,7 +18,14 @@ class Football : public Sprite {
 		Football(SDLClass &myC, int, int); //takes in x and y positions as arguments as well
 		void setTextureClips(string path1, string path2);
 
-		void draw(int); // int is to indicate if screen is scrolling,
+		void draw(int); // int is to indicate if screen is scrolling
+
+		//collision detection
+		int collisionCheck(Sprite* enemy);
+		int collisionLoopRect(vector<Sprite*>& enemyVector);
+
+	private:
+		int isInCollision;
 
 };
 

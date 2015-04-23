@@ -12,6 +12,7 @@ class Timer {
 		void addTime(); //add time to timer
 		void updateTime(); //only decrements timer if time>0
 		int getTimeIsUp();
+		void setTimeIncrement(int); 
 
 	private:
 		int time;

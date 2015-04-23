@@ -75,8 +75,8 @@ bool SDLClass::init()
         success=false;
     }
     
-    //initialize JPG loading
-    int imgFlags=IMG_INIT_JPG;
+    //initialize PNG loading
+    int imgFlags=IMG_INIT_PNG;
     if (!(IMG_Init(imgFlags) & imgFlags))
     {
         cout << "SDL_image could not initialize. SDL_image Error: " << IMG_GetError() << endl;

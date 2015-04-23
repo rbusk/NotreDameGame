@@ -12,10 +12,13 @@
 #include "SDLClass.h"
 #include "Sprite.h"
 #include "Hotdog.h"
+#include "Hamburger.h"
 #include "Car1.h"
 #include "Timer.h"
 #include "Footballer.h"
 #include "FootballPowerup.h"
+#include "Squirrel.h"
+#include "Can.h"
 using namespace std;
 
 class Player : public Sprite {
@@ -40,13 +43,15 @@ class Player : public Sprite {
 
 	private:
 		int maxHeight; //max jumping height
+		int burgerMaxHeight; //max height if eat hamburger
+		int noBurgerMaxHeight; //max height if not eaten hamburger
 		int minHeight; //min jumping height
 		int jumpingState; //3 states- not, up, down
 		int stopScreen; //when character is walking, indicates if screen should be scrolling
 		int isInCollision; //1 if player is in collision
 		int maxXPos; //farthest the player can go right
-		Timer timer; //use to control player's speed
-		void addTime(); //add time to timer
+		Timer hotdogTimer; //use to control player's speed
+		Timer burgerTimer; //use to control player's maxHeight
 		int dead; //indicates if player is dead
 		int numFootballs;
 

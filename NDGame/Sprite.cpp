@@ -14,15 +14,11 @@ Sprite::Sprite(SDLClass &myC)
 	state = isResting;
 	facingRight=1;
 	mySDL=&myC;
-	//spriteBox.x = xPos;
-	//spriteBox.y = yPos;
-	//spriteBox.h = height;
-	//spriteBox.w = width;
 }
 
-Sprite::~Sprite()
+Sprite::~Sprite() 
 {
-	destroySprite();
+	//DESTUCTION IMMINENT
 }
 
 void Sprite::loadSheetFromFile(string path)
@@ -54,6 +50,8 @@ void Sprite::basicDraw()
 	{
 		SDL_Rect* thisClip = &spriteClips[currentClip/numOfClips];
 		mySDL->renderSprite(spriteSheet,xPos,yPos,thisClip);
+		spriteBox.w = thisClip->w;
+		spriteBox.h = thisClip->h;
 	}
 
 	//if sprite is facing left
@@ -61,7 +59,11 @@ void Sprite::basicDraw()
 	{
 		SDL_Rect* thisClip = &flippedClips[currentClip/numOfClips];
 		mySDL->renderSprite(flippedSheet,xPos,yPos,thisClip);
+		spriteBox.w = thisClip->w;
+		spriteBox.h = thisClip->h;
 	}
+	spriteBox.x = xPos;
+	spriteBox.y = yPos;
 }
 
 void Sprite::checkCurrentClip()
@@ -118,7 +120,9 @@ int Sprite::getY()
 void Sprite::setPos(int x, int y)
 {
 	xPos = x;
-	yPos = y;
+	spriteBox.x = x;	// set spriteBoxes here in setPos(). Can remove if 
+	yPos = y;			// makes colliding too inaccurate
+	spriteBox.y = y;
 }
 
 int Sprite::getH()
@@ -362,12 +366,25 @@ int Sprite::collisionCheck(Sprite* enemy)
 
 }*/
 
-void Sprite::setSpeedIncrement(int n)
+void Sprite::setMaxSpeed(int n)
 {
-	speedIncrement=n;
+	maxSpeed=n;
 }
 
 void Sprite::incrementSpeed()
 {
-	speedX = speedX + speedIncrement;
+	if (speedX!=maxSpeed)
+	{
+		speedX = maxSpeed;
+	}
+}
+
+void Sprite::setW(int n)
+{
+	width=n;
+}
+
+void Sprite::setH(int n)
+{
+	height=n;
 }
