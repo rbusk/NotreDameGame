@@ -17,7 +17,6 @@ class SoundClass
 		void play();
 		void pause();
 		void stop();
-		void load();
 	private:
 		string filename;
 		Mix_Chunk *effect;
