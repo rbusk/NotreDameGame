@@ -31,6 +31,8 @@ int main(int argc, const char * argv[]) {
 
 	SDLClass mySDL;
 
+	srand(time(NULL));
+
 	OpeningScreen myOpening(mySDL);
 //	GraduatingScreen myGraduating(mySDL);
 	Background myScrolling(mySDL);
@@ -51,8 +53,25 @@ int main(int argc, const char * argv[]) {
 	//vector of footballs that player has thrown
 	vector<Football> footballs;
 
-	//opening song
-	SoundClass main("GOT.wav",1);
+	//Sound loading
+	vector<SoundClass> songVector;
+	SoundClass theme("GOT.wav",1);
+	SoundClass song1("UptownFunk.wav",1);
+	SoundClass song2("Anaconda.wav",1);
+	SoundClass song3("RatherBe.wav",1);
+	SoundClass song4("TalkDirty.wav",1);
+	SoundClass song5("DarkHorse.wav",1);
+	SoundClass death("NeverGonnaGiveYouUp.wav",1);
+	songVector.push_back(song1);
+	songVector.push_back(song2);
+	songVector.push_back(song3);
+	songVector.push_back(song4);
+	songVector.push_back(song5);
+
+	int song = rand() % songVector.size();
+
+
+	theme.play();
 
 	//vector of levels
 	int lengthOfLevel = 1000;
@@ -103,7 +122,8 @@ int main(int argc, const char * argv[]) {
 							break;
 							
 						case 1:
-							main.play();
+							theme.stop();
+							songVector[song].play();
 							screenPtr=&myScrolling;
 							playerPtr=&simpleMan;
 							break;
@@ -309,6 +329,9 @@ int main(int argc, const char * argv[]) {
 			{
 				screenState=2;
 				screenPtr->displayGameOver();
+				songVector[song].stop();
+				death.play();
+
 			}
 
 			enemyFactory.destroyPastSprites(playerPtr,enemies);		// dynamically delete sprites too 
