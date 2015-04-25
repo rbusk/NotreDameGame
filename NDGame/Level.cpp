@@ -38,16 +38,16 @@ void Level::setSpeedMult()
 
 void Level::setFrequencyEnemy()
 {
-	int min = 50 + 100/level;
-	int max = 100 + 100/level;
+	int min = 50 + 100/(level*2);
+	int max = 100 + 100/(level*2);
 	FEnemy.push_back(min);
 	FEnemy.push_back(max);
 }
 
 void Level::setFrequencyPowerUp()
 {
-	int min = 100 + 200/level;
-	int max = 100 + 300/level;
+	int min = 100 + 200 + (level-1)*75;
+	int max = 100 + 300 + (level-1)*75;
 	FPowerUp.push_back(min);
 	FPowerUp.push_back(max);
 }

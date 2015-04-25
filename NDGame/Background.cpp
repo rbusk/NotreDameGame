@@ -19,10 +19,26 @@ Background::Background(SDLClass &myC)
 	loadFromFile("resources/football.png"); //for football in corner indicating if player has a football
 
 	getTexture(2)->setDraw(0);
+
+        loadFromText("Level: ", textColor, font, getSDL()->getW()/20, getSDL()->getH()/20);
+
+        getTexture(3)->setDraw(0);
 }	
 
 void Background::displayGameOver()
 {
 	//set draw of texture 1 (words displaying "game over") to 1
 	getTexture(1)->setDraw(1);
+}
+
+void Background::displayLevel(int lvl)
+{
+        getTexture(3)->setDraw(1);
+        TTF_Font *font=TTF_OpenFont("resources/OpenSans-Bold.ttf", 30);
+        SDL_Color textColor={0,0,0};
+
+        LTexture level;     
+        string l = "Level: " + to_string(lvl);
+        level = getSDL()->loadFromText(l, textColor, font, getSDL()->getW()-getSDL()->getW()/5, getSDL()->getH()/40);
+        setTexture(level,3);
 }

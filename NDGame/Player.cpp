@@ -4,7 +4,7 @@
 
 Player::Player(SDLClass &myC) : Sprite(myC)
 {
-	maxXPos=getHalfOfScreen()/2;
+	maxXPos=getHalfOfScreen()/1.25;
 	setTextureClips("resources/manSpriteSheet.png", "resources/manSpriteSheet2.png");
 	setSpeed(3, 7);
 	jumpingState=isNotJumping;
@@ -32,8 +32,8 @@ void Player::setTextureClips(string path1, string path2)
 	addClip(70, 5, 45, 53);
 	addClip(129, 5, 46, 53);
 	addFlippedClip(10, 5, 45, 53);
-	addFlippedClip(70, 5, 45, 53);
-	addFlippedClip(129, 5, 46, 53);
+	addFlippedClip(70, 5, 42, 53);
+	addFlippedClip(129, 5, 43, 53);
 	
 	setPos(maxXPos,400); 	// starting position
 }

@@ -10,6 +10,7 @@ class Background : public StaticScreen {
 
 		Background(SDLClass &myC);
 		void displayGameOver(); //display the words "game over"
+                void displayLevel(int);
 
 	private:
 		FootballPowerup *football;

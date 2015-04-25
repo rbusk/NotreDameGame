@@ -66,7 +66,7 @@ void SpriteGenerator::generateSprites(Player* man)
 			case isCar2:
 			{
 				created = new Car2(*mySDL);
-				created->setPos(manX-screenW/0.25,425);
+				created->setPos(manX-screenW/1.75,415);
 				break;
 			}
 			case isFootballer:
@@ -134,10 +134,11 @@ void SpriteGenerator::packageSprites(vector<Sprite*>& _sprites)
 
 void SpriteGenerator::destroyPastSprites(Player* man, vector<Sprite*>& _sprites)
 {
-	int tooFarX = man->getX() + (screenW*2);        // over 2 screens aways from man
+	int tooFarXR = man->getX() + (screenW*2);        // over 2 screens aways from man
+        int tooFarXL = man->getX() - (screenW*1.5);       // half a screen behind him
 	int tooFarY = screenH+200;                      // over 200 pixels above or below screen
 	for (int i = 0; i < _sprites.size(); i++) {
-		if ( (_sprites[i]->getX() > tooFarX) || (_sprites[i]->getX() < (-1*tooFarX) ) ) {
+		if ( (_sprites[i]->getX() > tooFarXR) || (_sprites[i]->getX() < tooFarXL ) ) {
 			_sprites[i]->destroySprite();
 			delete _sprites[i];
 			_sprites.erase(_sprites.begin()+i);

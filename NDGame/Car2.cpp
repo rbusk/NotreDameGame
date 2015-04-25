@@ -4,7 +4,7 @@
 Car2::Car2(SDLClass &myC) : Sprite(myC)
 {
 	setTextureClips("resources/car2.png", "resources/car2.png");
-	setSpeed(0,0);
+	setSpeed(4,0);
 }
 
 void Car2::setTextureClips(string path1, string path2)
@@ -16,26 +16,23 @@ void Car2::setTextureClips(string path1, string path2)
 	setNumClips(totalClips);
 
 
-	addClip(0, 0, 150, 47);
-		
+	addClip(0, 0, 150, 43);
 	
 	setPos(getHalfOfScreen()*5,475); 	// starting position
-
-/*	spriteBox.x = getHalfOfScreen()*5;	// spriteBox has to be set here so that it matches starting pos
-	spriteBox.y = 400;
-	spriteBox.w = 250;
-	spriteBox.h = 71;*/
 
 }
 
 void Car2::draw(int s)
 {
-	if (s)
-	{
-		moveLeft();		// our background scrolls left so this syncs up with it if need be
-	}
-		
-	Sprite::draw(s);
+    int initialSpeedX = getSpeedX();
+
+    setSpeed(initialSpeedX-s,getSpeedY());
+    moveRight();
+
+    Sprite::draw(s);
+
+    setSpeed(initialSpeedX,getSpeedY());
+    spriteBox.w = 140;          // compensates for this particular car being hard to avoid
 }
 
 

@@ -16,7 +16,7 @@ void Car1::setTextureClips(string path1, string path2)
 	setNumClips(totalClips);
 
 
-	addClip(0, 0, 150, 43);
+	addClip(0, 0, 150, 47);
 		
 	
 	setPos(getHalfOfScreen()*3,500); 	// starting position
@@ -33,6 +33,7 @@ void Car1::draw(int s)
         Sprite::draw(s);
 
         setSpeed(initialSpeedX,getSpeedY());
+        spriteBox.w = 140;      // compensates for this car being hard to jump over
 }
 
 

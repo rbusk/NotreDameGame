@@ -74,7 +74,7 @@ int main(int argc, const char * argv[]) {
 	theme.play();
 
 	//vector of levels
-	int lengthOfLevel = 1000;
+	int lengthOfLevel = 2000;
 	int level = 0;
 	vector<Level> levelVector;	
 	Level level1(1);
@@ -84,10 +84,10 @@ int main(int argc, const char * argv[]) {
 	levelVector.push_back(level2);
 	levelVector.push_back(level3);
 	Timer levelTimer;
-	levelTimer.setTimeIncrement(1);
+	levelTimer.setTimeIncrement(2);
 	levelTimer.addTime();
 	levelTimer.setTimeIncrement(lengthOfLevel);
-	levelTimer.updateTime();
+        levelTimer.updateTime();
 	vector<int> freqPowerUp;
 	vector<int> freqEnemy;
 
@@ -203,7 +203,7 @@ int main(int argc, const char * argv[]) {
 		screenPtr->draw();
 		if (screenState==1 && playerPtr!=NULL)
 		{
-
+                        screenPtr->displayLevel(level);
 			if (levelTimer.getTimeIsUp())
 			{
 				level++;
@@ -223,14 +223,13 @@ int main(int argc, const char * argv[]) {
 
 				}
 				freqPowerUp = levelVector[level-1].getFrequencyPowerUp();
-				cout << freqPowerUp[0] << freqPowerUp[1] << endl;
 				powerupFactory.setFrequency(freqPowerUp[0],freqPowerUp[1]);
 				freqEnemy = levelVector[level-1].getFrequencyEnemy();
-				cout << freqEnemy[0] << freqEnemy[1] << endl;
 				enemyFactory.setFrequency(freqEnemy[0], freqEnemy[1]);
 			}
 			
-			levelTimer.updateTime();
+                        if (playerPtr->getState() == isWalking) 
+			    levelTimer.updateTime();
 			cout << levelTimer.getTime() << endl;
 			cout << level << endl;
 			playerPtr->update();
@@ -270,7 +269,7 @@ int main(int argc, const char * argv[]) {
 				desiredEnemies.clear();
 
 				desiredEnemies.push_back(isCar1);
-//				desiredEnemies.push_back(isCar2);
+				desiredEnemies.push_back(isCar2);
 				desiredEnemies.push_back(isFootballer);
 				desiredEnemies.push_back(isSquirrel);
                                 desiredEnemies.push_back(isCan);
