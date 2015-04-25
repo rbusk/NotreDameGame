@@ -51,7 +51,7 @@ int main(int argc, const char * argv[]) {
 	vector<Football> footballs;
 
 	//vector of levels
-	int lengthOfLevel = 1000;
+	int lengthOfLevel = 2000;
 	int level = 0;
 	vector<Level> levelVector;	
 	Level level1(1);
@@ -178,7 +178,7 @@ int main(int argc, const char * argv[]) {
 		screenPtr->draw();
 		if (screenState==1 && playerPtr!=NULL)
 		{
-
+                        screenPtr->displayLevel(level);
 			if (levelTimer.getTimeIsUp())
 			{
 				level++;
@@ -198,10 +198,8 @@ int main(int argc, const char * argv[]) {
 
 				}
 				freqPowerUp = levelVector[level-1].getFrequencyPowerUp();
-				cout << freqPowerUp[0] << freqPowerUp[1] << endl;
 				powerupFactory.setFrequency(freqPowerUp[0],freqPowerUp[1]);
 				freqEnemy = levelVector[level-1].getFrequencyEnemy();
-				cout << freqEnemy[0] << freqEnemy[1] << endl;
 				enemyFactory.setFrequency(freqEnemy[0], freqEnemy[1]);
 			}
 			

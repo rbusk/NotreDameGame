@@ -39,8 +39,9 @@ class StaticScreen {
 		void setSpeed(int);
 		void setScrollingOffset(int);
 		LTexture* getTexture(int); //returns ptr LTexture w/ index of input
+                void setTexture(LTexture, int);
 		virtual void displayGameOver(); //only used for Background class
-
+                virtual void displayLevel(int);
 	private:
 		vector<LTexture> textures;
 		SDLClass *mySDL;

@@ -118,3 +118,11 @@ LTexture* StaticScreen::getTexture(int n)
 void StaticScreen::displayGameOver()
 {
 }
+
+void StaticScreen::displayLevel(int lvl)
+{
+}
+
+void StaticScreen::setTexture(LTexture tx, int index) {
+    textures[index] = tx;
+}
