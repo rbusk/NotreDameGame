@@ -61,10 +61,10 @@ int main(int argc, const char * argv[]) {
 	levelVector.push_back(level2);
 	levelVector.push_back(level3);
 	Timer levelTimer;
-	levelTimer.setTimeIncrement(1);
+	levelTimer.setTimeIncrement(2);
 	levelTimer.addTime();
 	levelTimer.setTimeIncrement(lengthOfLevel);
-	levelTimer.updateTime();
+        levelTimer.updateTime();
 	vector<int> freqPowerUp;
 	vector<int> freqEnemy;
 
@@ -205,7 +205,8 @@ int main(int argc, const char * argv[]) {
 				enemyFactory.setFrequency(freqEnemy[0], freqEnemy[1]);
 			}
 			
-			levelTimer.updateTime();
+                        if (playerPtr->getState() == isWalking) 
+			    levelTimer.updateTime();
 			cout << levelTimer.getTime() << endl;
 			cout << level << endl;
 			playerPtr->update();
@@ -245,7 +246,7 @@ int main(int argc, const char * argv[]) {
 				desiredEnemies.clear();
 
 				desiredEnemies.push_back(isCar1);
-//				desiredEnemies.push_back(isCar2);
+				desiredEnemies.push_back(isCar2);
 				desiredEnemies.push_back(isFootballer);
 				desiredEnemies.push_back(isSquirrel);
                                 desiredEnemies.push_back(isCan);

@@ -1,6 +1,8 @@
 #include "Sprite.h"
 #include "Football.h"
 #include "Footballer.h"
+#include "Car1.h"
+#include "Car2.h"
 
 Football::Football(SDLClass &myC, int x, int y) : Sprite(myC)
 {
@@ -69,6 +71,10 @@ int Football::collisionLoopRect(vector<Sprite*>& enemyVector)
 				i--;
 				return 1; //if footballer hit, return 1
 			}
+                        if (typeid(*ptr)==typeid(Car1) || typeid(*ptr)==typeid(Car2)) 
+                        {
+                                return 1;
+                        }
 		}
 	}
 	return 0; //if no footballer hit, return 0
