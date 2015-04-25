@@ -244,8 +244,8 @@ int main(int argc, const char * argv[]) {
 
 				desiredEnemies.clear();
 
-				//desiredEnemies.push_back(isCar1);
-				//desiredEnemies.push_back(isCar2);
+				desiredEnemies.push_back(isCar1);
+//				desiredEnemies.push_back(isCar2);
 				desiredEnemies.push_back(isFootballer);
 				desiredEnemies.push_back(isSquirrel);
                                 desiredEnemies.push_back(isCan);

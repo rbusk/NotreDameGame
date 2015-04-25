@@ -194,6 +194,12 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 
 			else if (typeid(*ptr)==typeid(Car1))
 			{
+                            dead=1;
+			}
+
+			else if (typeid(*ptr)==typeid(Car2))
+			{
+                            dead=1;
 			}
 
 			//if collide with football guy, player dies

@@ -14,6 +14,7 @@
 #include "Hotdog.h"
 #include "Hamburger.h"
 #include "Car1.h"
+#include "Car2.h"
 #include "Timer.h"
 #include "Footballer.h"
 #include "FootballPowerup.h"
