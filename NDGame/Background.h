@@ -3,6 +3,8 @@
 
 #include "StaticScreen.h"
 #include "FootballPowerup.h"
+#include <string>
+using namespace std;
 
 class Background : public StaticScreen {
 

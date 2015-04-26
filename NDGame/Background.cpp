@@ -1,6 +1,7 @@
 #include "Background.h"
 #include "StaticScreen.h"
 #include "FootballPowerup.h"
+#include <string>
 
 Background::Background(SDLClass &myC)
 	: StaticScreen(myC)

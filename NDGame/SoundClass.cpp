@@ -4,25 +4,23 @@
 #include "SoundClass.h"
 #include <cstdio>
 
-SoundClass::SoundClass(string music, int type)
+
+SoundClass::SoundClass()
 {
+	loaded = 0;
 	effect = NULL;
 	song = NULL;
-	music = "resources/sounds/"+music;
 
-	if (type == 1)
-	{
-		song = Mix_LoadMUS(music.c_str());
-	}
-	if (type == 2)
-	{
-		effect = Mix_LoadWAV(music.c_str());
-	}
+}
 
-	if (song == NULL)
-	{
-		cout << "error loading music " << music << Mix_GetError() << endl;
-	}
+SoundClass::SoundClass(string music, int typeOfSound)
+{
+	loaded = 0;
+	effect = NULL;
+	song = NULL;
+	int type = typeOfSound;
+	load(music, type);
+
 
 }
 
@@ -57,5 +55,28 @@ void SoundClass::pause()
 void SoundClass::stop()
 {
 	Mix_HaltMusic();
+}
+
+void SoundClass::load(string music, int type)
+{
+	music = "resources/sounds/"+music;
+
+	if (loaded == 0)
+	{
+		if (type == 1)
+		{
+			song = Mix_LoadMUS(music.c_str());
+		}
+		if (type == 2)
+		{
+			effect = Mix_LoadWAV(music.c_str());
+		}
+
+		if (song == NULL)
+		{
+			cout << "error loading music " << music << Mix_GetError() << endl;
+		}
+		loaded = 1;
+	}
 }
 		

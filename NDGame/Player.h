@@ -20,6 +20,8 @@
 #include "FootballPowerup.h"
 #include "Squirrel.h"
 #include "Can.h"
+#include "SoundClass.h"
+
 using namespace std;
 
 class Player : public Sprite {
@@ -55,6 +57,8 @@ class Player : public Sprite {
 		Timer burgerTimer; //use to control player's maxHeight
 		int dead; //indicates if player is dead
 		int numFootballs;
+		SoundClass powerUp;
+		SoundClass death;
 
 
 		

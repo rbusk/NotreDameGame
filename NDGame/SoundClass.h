@@ -13,14 +13,17 @@ using namespace std;
 class SoundClass
 {
 	public:
+		SoundClass();
 		SoundClass(string,int);
 		void play();
 		void pause();
 		void stop();
+		void load(string, int);
 	private:
 		string filename;
 		Mix_Chunk *effect;
 		Mix_Music *song;
+		int loaded;
 
 };
 

@@ -329,6 +329,8 @@ int main(int argc, const char * argv[]) {
 				screenState=2;
 				screenPtr->displayGameOver();
 				songVector[song].stop();
+				int i;
+
 				death.play();
 
 			}
