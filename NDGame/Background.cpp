@@ -34,7 +34,6 @@ void Background::displayGameOver()
 
 void Background::displayLevel(int lvl)
 {
-        getTexture(3)->setDraw(1);
         TTF_Font *font=TTF_OpenFont("resources/OpenSans-Bold.ttf", 30);
         SDL_Color textColor={0,0,0};
 
@@ -42,4 +41,5 @@ void Background::displayLevel(int lvl)
         string l = "Level: " + to_string(lvl);
         level = getSDL()->loadFromText(l, textColor, font, getSDL()->getW()-getSDL()->getW()/5, getSDL()->getH()/40);
         setTexture(level,3);
+        getTexture(3)->setDraw(1);
 }
