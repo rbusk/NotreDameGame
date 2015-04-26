@@ -160,7 +160,7 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 {
 	int check = 0;
 
-	death.load("Death.wav",1);
+	death.load("Death.wav",2);
 	powerUp.load("PowerUp.wav",2);
 
 	Sprite* ptr; //use to determine what kind of sprite
