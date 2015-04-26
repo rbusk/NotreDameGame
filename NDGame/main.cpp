@@ -31,12 +31,13 @@ int main(int argc, const char * argv[]) {
 	SDLClass mySDL;
 
 	OpeningScreen myOpening(mySDL);
-//	GraduatingScreen myGraduating(mySDL);
 	Background myScrolling(mySDL);
 	StaticScreen *screenPtr;
 	Player *playerPtr;
 	screenPtr=&myOpening;
 	playerPtr=NULL;
+        StaticScreen *dumbPtr;
+        dumbPtr=&myOpening;
 
 	Player simpleMan(mySDL);
 	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
@@ -51,7 +52,7 @@ int main(int argc, const char * argv[]) {
 	vector<Football> footballs;
 
 	//vector of levels
-	int lengthOfLevel = 2000;
+	int lengthOfLevel = 1500;
 	int level = 0;
 	vector<Level> levelVector;	
 	Level level1(1);
@@ -178,22 +179,31 @@ int main(int argc, const char * argv[]) {
 		screenPtr->draw();
 		if (screenState==1 && playerPtr!=NULL)
 		{
-                        screenPtr->displayLevel(level);
+//                        screenPtr->displayLevel(level);
 			if (levelTimer.getTimeIsUp())
 			{
 				level++;
+                                screenPtr->displayLevel(level);
 				switch (level)
 				{
 					case 1:
 						levelTimer.addTime();
+                                                desiredEnemies.push_back(isCar1);
+                                                desiredEnemies.push_back(isFootballer);
+                                                desiredEnemies.push_back(isSquirrel);
+                                                desiredPowerups.push_back(isHamburger);
+                                                desiredPowerups.push_back(isFootballPowerup);
 						break;
 
 					case 2:
 						levelTimer.addTime();
+                                                desiredEnemies.push_back(isCan);
+                                                desiredPowerups.push_back(isHotdog);
 						break;
 
 					case 3:
 						levelTimer.addTime();
+                                                desiredEnemies.push_back(isCar2);
 						break;
 
 				}
@@ -201,6 +211,9 @@ int main(int argc, const char * argv[]) {
 				powerupFactory.setFrequency(freqPowerUp[0],freqPowerUp[1]);
 				freqEnemy = levelVector[level-1].getFrequencyEnemy();
 				enemyFactory.setFrequency(freqEnemy[0], freqEnemy[1]);
+
+                                enemyFactory.setSprites(desiredEnemies);
+                                powerupFactory.setSprites(desiredPowerups);
 			}
 			
                         if (playerPtr->getState() == isWalking) 
@@ -237,26 +250,9 @@ int main(int argc, const char * argv[]) {
 
 				playerPtr->draw();
 			
-				// probably put in timer based if statements to change these after so long
-				//enemyFactory.setFrequency(200, 300);
-				//powerupFactory.setFrequency(100,200);
 
-				desiredEnemies.clear();
-
-				desiredEnemies.push_back(isCar1);
-				desiredEnemies.push_back(isCar2);
-				desiredEnemies.push_back(isFootballer);
-				desiredEnemies.push_back(isSquirrel);
-                                desiredEnemies.push_back(isCan);
-				desiredPowerups.clear();
-				desiredPowerups.push_back(isHamburger);
-				desiredPowerups.push_back(isHotdog);
-				desiredPowerups.push_back(isFootballPowerup);
-
-				enemyFactory.setSprites(desiredEnemies);
 				enemyFactory.generateSprites(playerPtr);
 				enemyFactory.packageSprites(enemies);
-				powerupFactory.setSprites(desiredPowerups);
 				powerupFactory.generateSprites(playerPtr);
 				powerupFactory.packageSprites(powerups);
 			
@@ -306,7 +302,8 @@ int main(int argc, const char * argv[]) {
 			}
 
 			enemyFactory.destroyPastSprites(playerPtr,enemies);		// dynamically delete sprites too 
-		}															// far off the screen
+		        powerupFactory.destroyPastSprites(playerPtr,powerups);
+                }															// far off the screen
 
 		mySDL.update();		// not included in draw() b/c only need one update at the end
 	}
