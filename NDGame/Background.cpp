@@ -24,6 +24,12 @@ Background::Background(SDLClass &myC)
         loadFromText("Level: ", textColor, font, getSDL()->getW()/20, getSDL()->getH()/20);
 
         getTexture(3)->setDraw(0);
+
+	font=TTF_OpenFont("resources/OpenSans-Regular.ttf", 30);
+
+	loadFromText("Press space to restart", textColor, font, getSDL()->getW()/4, getSDL()->getH()/3);
+
+	getTexture(4)->setDraw(0);
 }	
 
 void Background::displayGameOver(int n)
@@ -32,12 +38,14 @@ void Background::displayGameOver(int n)
 	{
 		//set draw of texture 1 (words displaying "game over") to 1 if n==1
 		getTexture(1)->setDraw(1);
+		getTexture(4)->setDraw(1);
 	}
 
 	else
 	{
 		//else set draw of texture 1 to 0
 		getTexture(1)->setDraw(0);
+		getTexture(4)->setDraw(0);
 	}
 }
 

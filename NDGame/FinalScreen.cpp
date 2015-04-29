@@ -16,5 +16,7 @@ FinalScreen::FinalScreen(SDLClass &myC)
 
 	font=TTF_OpenFont("resources/OpenSans-Regular.ttf", 14);
 
-	loadFromText("Press any key to continue", textColor, font, getSDL()->getW()/30, getSDL()->getH()/4);
+	loadFromText("Study well young grasshopper.", textColor, font, getSDL()->getW()/30, getSDL()->getH()/4);
+
+	loadFromText("Press space to restart", textColor, font, getSDL()->getW()/30, getSDL()->getH()/3);
 }

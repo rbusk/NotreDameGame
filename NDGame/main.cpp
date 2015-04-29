@@ -36,7 +36,6 @@ int main(int argc, const char * argv[]) {
 
 	OpeningScreen myOpening(mySDL);
 	Background myScrolling(mySDL);
-//	GraduatingScreen myGraduation(mySDL);
 	FinalScreen myFinalScreen(mySDL);
 
 	StaticScreen *screenPtr;
@@ -86,8 +85,7 @@ int main(int argc, const char * argv[]) {
 	theme.play(); //play theme song
 
 	//vector of levels
-	//int lengthOfLevel = 1500; //length of each level
-	int lengthOfLevel = 400;
+	int lengthOfLevel = 1500; //length of each level
 	int level = 0; //initial level zero
 	vector<Level> levelVector; //level vector	
 	Level level1(1); // declare levels
@@ -114,8 +112,6 @@ int main(int argc, const char * argv[]) {
 
 	while (!quit)
 	{
-		cout << "Number of footballs: " << footballs.size() << endl;
-		cout << "ScreenState: " << screenState << endl;
 		while (SDL_PollEvent(&e) != 0)
 		{
 			if (e.type==SDL_QUIT)
@@ -302,10 +298,7 @@ int main(int argc, const char * argv[]) {
 			
                         if (playerPtr->getState() == isWalking && playerPtr->getFacingRight()) 
 			    levelTimer.updateTime();
-			cout << "time: " << levelTimer.getTime() << endl;
-			cout << "level: " << level << endl;
 			playerPtr->update();
-
 			playerPtr->collisionLoopRect(enemies);
 			playerPtr->collisionLoopRect(powerups);
 			

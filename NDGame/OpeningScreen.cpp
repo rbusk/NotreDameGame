@@ -11,7 +11,7 @@ OpeningScreen::OpeningScreen(SDLClass &myC)
 	TTF_Font *font=TTF_OpenFont("resources/OpenSans-Bold.ttf", 40);
 	SDL_Color textColor={255, 255, 255};
 
-	loadFromText("Really awesome game", textColor, font, getSDL()->getW()/30, getSDL()->getH()/8);
+	loadFromText("ND Tailgate", textColor, font, getSDL()->getW()/30, getSDL()->getH()/8);
 
 	font=TTF_OpenFont("resources/OpenSans-Regular.ttf", 14);
 
