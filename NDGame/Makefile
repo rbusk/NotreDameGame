@@ -15,7 +15,7 @@ all: $(EXEC)
 
 
 # Compile
-CPP = g++ -c -o $@ $<
+CPP = g++ -std=c++11 -c -o $@ $<
 LINK = ${LIBS}
 CXX = g++ -o $@
 
