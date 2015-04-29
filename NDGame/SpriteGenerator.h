@@ -15,7 +15,7 @@
 #include "Footballer.h"
 #include "Can.h"
 
-enum SpriteType {
+enum SpriteType {       // all possible types of sprites you could create
 	isCar1,
 	isCar2,
 	isFootballer,
@@ -33,7 +33,7 @@ class SpriteGenerator {
 		~SpriteGenerator();
 		void setFrequency(int,int);		// enter range of frequency that determines how long between each sprite spawn
 
-		void setSprites(vector<SpriteType>); 	// send in enemies you wish to generate
+		void setSprites(vector<SpriteType>); 	// send in sprites you wish to generate
 		void generateSprites(Player*); 	        // creates new sprites and puts them in private vector
 		void packageSprites(vector<Sprite*>&);	// will add generated sprites to given sprites vector
 

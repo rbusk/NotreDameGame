@@ -22,12 +22,11 @@ void Car1::setTextureClips(string path1, string path2)
 	setPos(getHalfOfScreen()*3,500); 	// starting position
 }
 
-//if s is 1, then move left, otherwise
 void Car1::draw(int s)
 {
 	int initialSpeedX = getSpeedX();
         
-        setSpeed(s+initialSpeedX,getSpeedY());
+        setSpeed(s+initialSpeedX,getSpeedY());  // set relative speed
         moveLeft();
 
         Sprite::draw(s);
