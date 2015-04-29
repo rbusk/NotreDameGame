@@ -59,9 +59,9 @@ int main(int argc, const char * argv[]) {
 	vector<Football> footballs;
 
 	//Sound loading
-	vector<SoundClass> songVector;
-	SoundClass theme("GOT.wav",1);
-	SoundClass song1("UptownFunk.wav",1);
+	vector<SoundClass> songVector; //Vector of background songs
+	SoundClass theme("GOT.wav",1); // Game of thrones theme
+	SoundClass song1("UptownFunk.wav",1); //List of Songs
 	SoundClass song2("Anaconda.wav",1);
 	SoundClass song3("RatherBe.wav",1);
 	SoundClass song4("TalkDirty.wav",1);
@@ -70,8 +70,8 @@ int main(int argc, const char * argv[]) {
 	SoundClass song7("JessiesGirl.wav",1);
 	SoundClass song8("ShutUpAndDance.wav",1);
 	SoundClass death("NeverGonnaGiveYouUp.wav",1);
-	SoundClass winSong("DontStopBelieving.wav",1);
-	songVector.push_back(song1);
+	SoundClass winSong("DontStopBelieving.wav",1); //winning song
+	songVector.push_back(song1);//push songs into vector
 	songVector.push_back(song2);
 	songVector.push_back(song3);
 	songVector.push_back(song4);
@@ -80,32 +80,28 @@ int main(int argc, const char * argv[]) {
 	songVector.push_back(song7);
 	songVector.push_back(song8);
 
-	int song = rand() % songVector.size();
+	int song = rand() % songVector.size(); //randomize
 
 
-	theme.play();
+	theme.play(); //play theme song
 
 	//vector of levels
-	int lengthOfLevel = 1500;
-	int level = 0;
-	vector<Level> levelVector;	
-	Level level1(1);
+	int lengthOfLevel = 1500; //length of each level
+	int level = 0; //initial level zero
+	vector<Level> levelVector; //level vector	
+	Level level1(1); // declare levels
 	Level level2(2);
 	Level level3(3);
-	levelVector.push_back(level1);
+	levelVector.push_back(level1); //push level
 	levelVector.push_back(level2);
 	levelVector.push_back(level3);
-	Timer levelTimer;
-	levelTimer.setTimeIncrement(2);
-	levelTimer.addTime();
-	levelTimer.setTimeIncrement(lengthOfLevel);
-        levelTimer.updateTime();
-	vector<int> freqPowerUp;
-	vector<int> freqEnemy;
-
-	cout << levelTimer.getTime() << endl;
-	cout << levelTimer.getTimeIsUp() << endl;
-
+	Timer levelTimer; //level timer
+	levelTimer.setTimeIncrement(2); //set increment
+	levelTimer.addTime(); //add time to timer
+	levelTimer.setTimeIncrement(lengthOfLevel); // set increment
+        levelTimer.updateTime(); //update time
+	vector<int> freqPowerUp; //getting frequency
+	vector<int> freqEnemy; //geting freq
 
 	int screenState=0;
 
@@ -135,8 +131,8 @@ int main(int argc, const char * argv[]) {
 							break;
 							
 						case 1:
-							theme.stop();
-							songVector[song].play();
+							theme.stop(); //stop theme when man starts to walk
+							songVector[song].play(); //play random song
 							screenPtr=&myScrolling;
 							playerPtr=&simpleMan;
 							break;
@@ -216,36 +212,36 @@ int main(int argc, const char * argv[]) {
 		screenPtr->draw();
 		if (screenState==1 && playerPtr!=NULL)
 		{
-			if (levelTimer.getTimeIsUp())
+			if (levelTimer.getTimeIsUp()) //if timer is up
 			{
-				level++;
-                                screenPtr->displayLevel(level);
-				switch (level)
+				level++;//increment level
+                                screenPtr->displayLevel(level); //display level in top corner
+				switch (level) //do different things for each level
 				{
 					case 1:
-						levelTimer.addTime();
-                                                desiredEnemies.push_back(isCar1);
-                                                desiredEnemies.push_back(isFootballer);
-                                                desiredEnemies.push_back(isSquirrel);
-                                                desiredPowerups.push_back(isHamburger);
-                                                desiredPowerups.push_back(isFootballPowerup);
+						levelTimer.addTime(); //add time to timer
+                                                desiredEnemies.push_back(isCar1); //add yellow car to level 1 
+                                                desiredEnemies.push_back(isFootballer); // add football player to level one
+                                                desiredEnemies.push_back(isSquirrel); //add squirrel to level one
+                                                desiredPowerups.push_back(isHamburger); //add hamburger to level one
+                                                desiredPowerups.push_back(isFootballPowerup); //add football powerup
 						break;
 
 					case 2:
-						levelTimer.addTime();
-                                                desiredEnemies.push_back(isCan);
-                                                desiredPowerups.push_back(isHotdog);
+						levelTimer.addTime(); //add time
+                                                desiredEnemies.push_back(isCan);//add can
+                                                desiredPowerups.push_back(isHotdog);//add hotdog
 						break;
 
 					case 3:
-						levelTimer.addTime();
-                                                desiredEnemies.push_back(isCar2);
+						levelTimer.addTime();//add time
+                                                desiredEnemies.push_back(isCar2);//add red car
 						break;
 					case 4:
-						songVector[song].stop();
-						winSong.play();
-						win=1;
-						screenState++;
+						songVector[song].stop(); //stop background when player wins 
+						winSong.play(); //play win song
+						win=1; //set win equal to one
+						screenState++; //increment screenstate
 						screenPtr=&myFinalScreen;
 						break;
 
@@ -254,12 +250,12 @@ int main(int argc, const char * argv[]) {
 
 				if (level<=3)
 				{
-					freqPowerUp = levelVector[level-1].getFrequencyPowerUp();
-					powerupFactory.setFrequency(freqPowerUp[0],freqPowerUp[1]);
-					freqEnemy = levelVector[level-1].getFrequencyEnemy();
+					freqPowerUp = levelVector[level-1].getFrequencyPowerUp(); //set frequency of powerup
+					powerupFactory.setFrequency(freqPowerUp[0],freqPowerUp[1]); 
+					freqEnemy = levelVector[level-1].getFrequencyEnemy();//set frequency of enemy
 					enemyFactory.setFrequency(freqEnemy[0], freqEnemy[1]);
-					enemyFactory.setSprites(desiredEnemies);
-					powerupFactory.setSprites(desiredPowerups);
+					enemyFactory.setSprites(desiredEnemies);//set desired enemies
+					powerupFactory.setSprites(desiredPowerups);//set desired powerups
 				}
 			}
 			
@@ -346,10 +342,10 @@ int main(int argc, const char * argv[]) {
 			{
 				screenState=2;
 				screenPtr->displayGameOver();
-				songVector[song].stop();
+				songVector[song].stop(); //stop background song
 				int i;
 
-				death.play();
+				death.play(); //play death song
 
 			}
 
