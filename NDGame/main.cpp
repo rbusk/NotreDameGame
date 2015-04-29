@@ -56,8 +56,8 @@ int main(int argc, const char * argv[]) {
 	vector<Football> footballs;
 
 	//vector of levels
-	int lengthOfLevel = 1500;
-	//int lengthOfLevel = 40;
+	//int lengthOfLevel = 1500;
+	int lengthOfLevel = 40;
 	int level = 0;
 	vector<Level> levelVector;	
 	Level level1(1);
@@ -162,8 +162,8 @@ int main(int argc, const char * argv[]) {
 							//reset time
 							levelTimer.setTime(0);
 							levelTimer.addTime();
-							break;
 						}
+						break;
 
 					case SDLK_UP:
 						if (screenState==1 && playerPtr->getJumpingState()==isNotJumping)
