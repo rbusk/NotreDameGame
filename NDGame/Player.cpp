@@ -160,6 +160,9 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 {
 	int check = 0;
 
+	death.load("Death.wav",2);
+	powerUp.load("PowerUp.wav",2);
+
 	Sprite* ptr; //use to determine what kind of sprite
 
 	for(int i = 0; i < enemyVector.size(); i++)
@@ -184,6 +187,7 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 			if (typeid(*ptr)==typeid(Hotdog))
 			{	
 				incrementSpeed(); //make player faster!
+				powerUp.play();
 				hotdogTimer.addTime();
 
 				//erase hotdog from vector and free memory
@@ -195,23 +199,27 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 			else if (typeid(*ptr)==typeid(Car1))
 			{
                             dead=1;
+			    death.play();
 			}
 
 			else if (typeid(*ptr)==typeid(Car2))
 			{
                             dead=1;
+			    death.play();
 			}
 
 			//if collide with football guy, player dies
 			else if (typeid(*ptr)==typeid(Footballer))
 			{
 				dead=1;
+				death.play();
 			}
 
 			//if collide with FootballPowerup, give guy num of footballs
 			else if (typeid(*ptr)==typeid(FootballPowerup))
 			{
 				numFootballs=1;
+				powerUp.play();
 
 				//erase football powerup from vector and free memory
 				ptr->destroySprite();
@@ -223,15 +231,19 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 			else if (typeid(*ptr)==typeid(Squirrel))
 			{
 				dead=1;
+				death.play();
 			}
                         
                         //if collide with soda can, dead
                         else if (typeid(*ptr)==typeid(Can))
-                            dead = 1;        
-
+			{
+				dead = 1;
+				death.play();	
+			}
 			else if (typeid(*ptr)==typeid(Hamburger))
 			{
 				setMaxHeight(burgerMaxHeight); //make max height higher
+				powerUp.play();
 				burgerTimer.addTime();
 
 				//erase hamburger from vector and free memory

@@ -21,21 +21,15 @@ void Hamburger::setTextureClips(string path1, string path2)
 	
 	setPos(getHalfOfScreen()*1.3,150); 	// starting position
 
-	spriteBox.x = getHalfOfScreen()*1.3;	// spriteBox has to be set here so that it matches starting pos
-	spriteBox.y = 150;
-	spriteBox.w = 57;
-	spriteBox.h = 50;
-
 }
 
-//if s==1, move left, otherwise just draw
 void Hamburger::draw(int s)
 {
 	int initialSpeedX= getSpeedX();
 
-	setSpeed(s, getSpeedY());
+	setSpeed(s, getSpeedY());       // move along with screen if need be
 
-	moveLeft();		// our background scrolls left so this syncs up with it if need be
+	moveLeft();		
 	Sprite::draw(s);
 	setSpeed(initialSpeedX, getSpeedY());
 }

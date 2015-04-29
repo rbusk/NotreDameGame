@@ -5,51 +5,51 @@
 
 Level::Level(int levelNumber)
 {
-	level = levelNumber;
-	setSpeedMult();
-	setFrequencyPowerUp();
+	level = levelNumber; //set level number
+	setSpeedMult(); //set speed mult
+	setFrequencyPowerUp(); //set freqs
 	setFrequencyEnemy();
 }
 
 vector<int> Level::getFrequencyPowerUp()
 {
-	return FPowerUp;
+	return FPowerUp; //return freq
 }
 
 vector<int> Level::getFrequencyEnemy()
 {
-	return FEnemy;
+	return FEnemy; //return freq
 }
 
 int Level::getLevel()
 {
-	return level;
+	return level; //return level
 }
 
 int Level::getSpeedMult()
 {
-	return speedMult;
+	return speedMult; //return level speed mult
 }
 
 void Level::setSpeedMult()
 {
-	speedMult = 0;
+	speedMult = 0; //set speed multiplier
 }
 
 void Level::setFrequencyEnemy()
 {
-	int min = 50 + 100/(level*2);
-	int max = 100 + 100/(level*2);
-	FEnemy.push_back(min);
-	FEnemy.push_back(max);
+	int min = 50 + 100/(level*2); // min range
+	int max = 100 + 100/(level*2);// max range
+	FEnemy.push_back(min);//push min
+	FEnemy.push_back(max);//push max
 }
 
 void Level::setFrequencyPowerUp()
 {
-	int min = 100 + 200 + (level-1)*75;
-	int max = 100 + 300 + (level-1)*75;
-	FPowerUp.push_back(min);
-	FPowerUp.push_back(max);
+	int min = 100 + 200 + (level-1)*75;//min range
+	int max = 100 + 300 + (level-1)*75;//max range
+	FPowerUp.push_back(min);//push min
+	FPowerUp.push_back(max);//push max
 }
 
 
