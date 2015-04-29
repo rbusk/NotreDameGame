@@ -23,7 +23,11 @@
 #include "Squirrel.h"
 #include "Can.h"
 #include "Level.h"
+<<<<<<< HEAD
 #include "SoundClass.h"
+=======
+#include "FinalScreen.h"
+>>>>>>> 99d0cdeaa9ef904c14b5a817a8c414c77fc33481
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -35,6 +39,9 @@ int main(int argc, const char * argv[]) {
 
 	OpeningScreen myOpening(mySDL);
 	Background myScrolling(mySDL);
+	//GraduatingScreen myGraduation(mySDL);
+	FinalScreen myFinalScreen(mySDL);
+
 	StaticScreen *screenPtr;
 	Player *playerPtr;
 	screenPtr=&myOpening;
@@ -97,7 +104,8 @@ int main(int argc, const char * argv[]) {
 
 
 	int screenState=0;
-	
+
+	bool win=0;	
 	bool quit=false;
 
 	SDL_Event e; //event handler
@@ -204,7 +212,6 @@ int main(int argc, const char * argv[]) {
 		screenPtr->draw();
 		if (screenState==1 && playerPtr!=NULL)
 		{
-//                        screenPtr->displayLevel(level);
 			if (levelTimer.getTimeIsUp())
 			{
 				level++;
@@ -230,15 +237,24 @@ int main(int argc, const char * argv[]) {
 						levelTimer.addTime();
                                                 desiredEnemies.push_back(isCar2);
 						break;
+					case 4:
+						win=1;
+						screenState++;
+						screenPtr=&myFinalScreen;
+						break;
+
 
 				}
-				freqPowerUp = levelVector[level-1].getFrequencyPowerUp();
-				powerupFactory.setFrequency(freqPowerUp[0],freqPowerUp[1]);
-				freqEnemy = levelVector[level-1].getFrequencyEnemy();
-				enemyFactory.setFrequency(freqEnemy[0], freqEnemy[1]);
 
-                                enemyFactory.setSprites(desiredEnemies);
-                                powerupFactory.setSprites(desiredPowerups);
+				if (level<=3)
+				{
+					freqPowerUp = levelVector[level-1].getFrequencyPowerUp();
+					powerupFactory.setFrequency(freqPowerUp[0],freqPowerUp[1]);
+					freqEnemy = levelVector[level-1].getFrequencyEnemy();
+					enemyFactory.setFrequency(freqEnemy[0], freqEnemy[1]);
+					enemyFactory.setSprites(desiredEnemies);
+					powerupFactory.setSprites(desiredPowerups);
+				}
 			}
 			
                         if (playerPtr->getState() == isWalking) 
