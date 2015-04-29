@@ -84,7 +84,7 @@ bool SDLClass::init()
     }
     
     //initialize SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
     {
         cout << "SDL could not initialize. Error: " << SDL_GetError();
         success=false;
@@ -117,6 +117,13 @@ bool SDLClass::init()
             }
             
         }
+    }
+
+    //Initialize SDL_mixer
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048))
+    {
+	    cout << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << endl;
+	    success = false;
     }
     
     return success;

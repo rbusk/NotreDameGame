@@ -60,52 +60,52 @@ void SpriteGenerator::generateSprites(Player* man)
 			case isCar1:
 			{
 				created = new Car1(*mySDL);
-				created->setPos(manX+screenW/1.25,430);		// right now they all spawn a screen away
-				break;						// from the man's position
+				created->setPos(manX+screenW/1.25,430);		// spawn on ground off screen in front of man
+				break;					
 			}
 			case isCar2:
 			{
 				created = new Car2(*mySDL);
-				created->setPos(manX-screenW/1.75,415);
+				created->setPos(manX-screenW/1.75,415);         // spawn on ground off screen behind the man
 				break;
 			}
 			case isFootballer:
 			{
 				created = new Footballer(*mySDL);
-				created->setPos(manX+screenW,400);
+				created->setPos(manX+screenW,400);              // spawn on ground off screen in front of man
 				break;
 			}
 			case isHotdog:
 			{
-				created = new Hotdog(*mySDL);                   // some have set y-positions while others have
-				created->setPos(manX+screenW,randY);            // a random one
+				created = new Hotdog(*mySDL);                   
+				created->setPos(manX+screenW,randY);            // spawn off screen in front man at random height
 				break;
 			}
 			case isHamburger:
 			{
 				created = new Hamburger(*mySDL);
-				created->setPos(manX+screenW,randY);
+				created->setPos(manX+screenW,randY);            // spawn off screen in front of man at random height
 				break;
 			}
 			case isFootballPowerup:
 			{
-				created = new FootballPowerup(*mySDL);
-				created->setPos(manX+screenW,randY);
+				created = new FootballPowerup(*mySDL);          
+				created->setPos(manX+screenW,randY);            // spawn off screen in front of man at random height
 				break;
 			}
 
 			case isSquirrel:
 			{
 				created = new Squirrel(*mySDL);
-				created->setPos(manX+screenW/2, randY-300);
-				created->setSpeed(0, randYS+2);
+				created->setPos(manX+screenW/2, randY-300);     // fall from sky at random place in front of man
+				created->setSpeed(0, randYS+2);                 // random Y speed
 				break;
 			}
                         case isCan:
                         {
                             created = new Can(*mySDL);
-                            created->setPos(manX+screenW, randY-300);
-                            created->setSpeed(randXS,randYS+2);
+                            created->setPos(manX+screenW, randY-300);           // flies from random x and y off the screen
+                            created->setSpeed(randXS,randYS+2);                 // also has random x and y speeds
                             break;
                         }
 		}

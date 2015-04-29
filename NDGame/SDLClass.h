@@ -15,6 +15,7 @@
 #include <SDL2/SDL_ttf.h>
 #include "LTexture.h"
 #include <vector>
+#include <SDL2/SDL_mixer.h>
 
 class SDLClass {
     

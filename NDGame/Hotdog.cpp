@@ -27,9 +27,9 @@ void Hotdog::draw(int s)
 {
 	int initialSpeedX = getSpeedX();
 
-	setSpeed(s, getSpeedY());
+	setSpeed(s, getSpeedY());       // move along with screen movement if need be
 
-	moveLeft();		// our background scrolls left so this syncs up with it if need be
+	moveLeft();		
 	Sprite::draw(s);
 	
 	setSpeed(initialSpeedX, getSpeedY());

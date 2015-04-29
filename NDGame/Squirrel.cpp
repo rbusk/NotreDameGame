@@ -27,7 +27,7 @@ void Squirrel::draw(int s)
 
 	if (s!=0)
 	{
-		setSpeed(s+initialSpeedX, getSpeedY());
+		setSpeed(s+initialSpeedX, getSpeedY()); // set speed relative to moving screen
 	}
 
 	moveDown();

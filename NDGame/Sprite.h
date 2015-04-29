@@ -25,12 +25,12 @@ class Sprite {
 	public:
 		Sprite(SDLClass &myC);
 		virtual ~Sprite(); 		// virtual destructor in order to delete derived pointers
-		virtual void setTextureClips(string path1, string path2)=0;
+		virtual void setTextureClips(string path1, string path2)=0;     //sets sheets of derived classes
 		void loadSheetFromFile(string path);
 		void loadFlippedSheetFromFile(string path);
 		void destroySprite();
-		void addClip(int, int, int, int);
-		void addFlippedClip(int, int, int, int);
+		void addClip(int, int, int, int);       // add sprite clips to vector
+		void addFlippedClip(int, int, int, int);        // add flipped sprite clips to vector
 
 		void basicDraw(); //basic drawing functionality that all sprites must use -- not directly used by user but be used in draw function below
 		void checkCurrentClip(); //check if currentClip needs to be set to 0. Also not used directly by user but must be used in draw function
@@ -43,7 +43,7 @@ class Sprite {
 		void moveLeft();
 		void moveRight();
 
-		void incrementCurrentClip(); 
+		void incrementCurrentClip();    // increment to next clip to be used for animation
 
 		//get and set functions
 		int getX();
@@ -65,19 +65,14 @@ class Sprite {
 		int getSpeedY();
 		void setSpeed(int,int);
 		int getCurrentClip();
-		void setIsLoaded(bool);
-		bool getIsLoaded();
 		void incrementSpeed(); //increase speed
 		void setMaxSpeed(int);
 		void setW(int); //set width
 		void setH(int); //set height
 
-		//collision detection
-	
+		//collision detection box	
 		SDL_Rect spriteBox;
 
-		void collisionLoopRect(vector<Sprite*>);
-		int collisionCheck(Sprite*);
 
 	private:
 		LTexture spriteSheet;	
@@ -100,7 +95,6 @@ class Sprite {
 		int maxSpeed;
 		int state; // isResting, isWalking, or isJumping
 		bool facingRight; //1 if walking right, 0 if walking left
-		bool isLoaded;
 		
 };
 

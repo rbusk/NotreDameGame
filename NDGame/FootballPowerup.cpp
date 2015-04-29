@@ -30,7 +30,7 @@ void FootballPowerup::draw(int s)
 {
 	int initialSpeedX = getSpeedX();
 
-	setSpeed(s, getSpeedY());
+	setSpeed(s, getSpeedY());       // move with screen movement
 
 	moveLeft();
 
