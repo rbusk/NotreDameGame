@@ -87,7 +87,7 @@ int main(int argc, const char * argv[]) {
 
 	//vector of levels
 	//int lengthOfLevel = 1500; //length of each level
-	int lengthOfLevel = 200;
+	int lengthOfLevel = 400;
 	int level = 0; //initial level zero
 	vector<Level> levelVector; //level vector	
 	Level level1(1); // declare levels
@@ -114,6 +114,7 @@ int main(int argc, const char * argv[]) {
 
 	while (!quit)
 	{
+		cout << "Number of footballs: " << footballs.size() << endl;
 		cout << "ScreenState: " << screenState << endl;
 		while (SDL_PollEvent(&e) != 0)
 		{
@@ -192,6 +193,7 @@ int main(int argc, const char * argv[]) {
 							song = rand() % songVector.size(); //randomize
 							songVector[song].play(); //start new random song
 							footballs.clear();
+							playerPtr->setNumFootballs(0);
 							desiredEnemies.clear();
 							desiredPowerups.clear();
 							enemyFactory.setSprites(desiredEnemies);

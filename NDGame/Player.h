@@ -45,6 +45,7 @@ class Player : public Sprite {
 		void setNumFootballs(int);
 		void setDead(int);
 
+
 	private:
 		int maxHeight; //max jumping height
 		int burgerMaxHeight; //max height if eat hamburger
