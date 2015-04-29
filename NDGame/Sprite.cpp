@@ -22,20 +22,24 @@ Sprite::~Sprite()
         //A virtual function
 }
 
+//load image from file
 void Sprite::loadSheetFromFile(string path)
 {
 	spriteSheet = mySDL->loadFromFile(path);
 }
 
+//load flipped image from file
 void Sprite::loadFlippedSheetFromFile(string path)
 {
 	flippedSheet = mySDL->loadFromFile(path);
 }
 
+//update will change based on what sprite
 void Sprite::update()
 {
 }
 
+//draw sprite
 void Sprite::draw(int s)
 {
 	basicDraw();
@@ -45,7 +49,6 @@ void Sprite::draw(int s)
 //update screen
 void Sprite::basicDraw()
 {
-
 	//if sprite is facing right
 	if (facingRight==1)
 	{
@@ -67,6 +70,7 @@ void Sprite::basicDraw()
 	spriteBox.y = yPos;             // with the rest of the sprite
 }
 
+//if need be, set currentClip to 0
 void Sprite::checkCurrentClip()
 {
 	if (currentClip / numOfClips >= numOfClips)
@@ -74,6 +78,8 @@ void Sprite::checkCurrentClip()
 		currentClip=0;
 	}
 }
+
+//move functions - move sprite by adjusting x and y positions
 void Sprite::moveUp()
 {
 	yPos-=speedY;
@@ -114,6 +120,7 @@ int Sprite::getY()
 	return yPos;
 }
 
+//set position
 void Sprite::setPos(int x, int y)
 {
 	xPos = x;
@@ -143,6 +150,7 @@ void Sprite::setNumClips(int total)
 	numOfClips = total;
 }
 
+//add clip from sprite sheet to vector of sprite clips
 void Sprite::addClip(int cx, int cy, int cw, int ch)
 {
 	spriteClips.push_back(SDL_Rect());
@@ -153,6 +161,7 @@ void Sprite::addClip(int cx, int cy, int cw, int ch)
 	spriteClips[index].h = ch;
 }
 
+//add clip from flipped sheet to vector of flipped clips
 void Sprite::addFlippedClip(int cx, int cy, int cw, int ch)
 {
 	flippedClips.push_back(SDL_Rect());
@@ -213,7 +222,7 @@ int Sprite::getSpeedY()
 	return speedY;
 }
 
-void Sprite::setSpeed(int xS, int yS)
+void Sprite::setSpeed(int xS, int yS) //set speed in both x and y directions
 {
 	speedX = xS;
 	speedY = yS;
@@ -235,7 +244,7 @@ void Sprite::setMaxSpeed(int n)
 	maxSpeed=n;
 }
 
-void Sprite::incrementSpeed()
+void Sprite::incrementSpeed() //make faster if not so already
 {
 	if (speedX!=maxSpeed)
 	{

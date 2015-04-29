@@ -1,4 +1,4 @@
-// Football derived from Sprite Class
+// Football derived from Sprite Class - this is what player throws at football player
 #ifndef FOOTBALL_H
 #define FOOTBALL_H
 
@@ -25,7 +25,7 @@ class Football : public Sprite {
 		int collisionLoopRect(vector<Sprite*>& enemyVector);
 
 	private:
-		int isInCollision;
+		int isInCollision; //indicates if football is in collision with football player
 
 };
 

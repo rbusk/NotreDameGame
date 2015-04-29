@@ -6,6 +6,7 @@
 Background::Background(SDLClass &myC)
 	: StaticScreen(myC)
 {
+	//load image
 	loadFromFile("resources/bg2.png");
 	setIsScrollingScreen(1);
 	setSpeed(2);
@@ -15,7 +16,7 @@ Background::Background(SDLClass &myC)
 
 	loadFromText("Game Over", textColor, font, getSDL()->getW()/3, getSDL()->getH()/8);
 
-	getTexture(1)->setDraw(0);
+	getTexture(1)->setDraw(0); //do not display game over at first
 
 	loadFromFile("resources/football.png"); //for football in corner indicating if player has a football
 
@@ -29,7 +30,7 @@ Background::Background(SDLClass &myC)
 
 	loadFromText("Press space to restart", textColor, font, getSDL()->getW()/4, getSDL()->getH()/3);
 
-	getTexture(4)->setDraw(0);
+	getTexture(4)->setDraw(0); //do not display at first
 }	
 
 void Background::displayGameOver(int n)
@@ -49,6 +50,7 @@ void Background::displayGameOver(int n)
 	}
 }
 
+//display level in corner of string
 void Background::displayLevel(int lvl)
 {
         TTF_Font *font=TTF_OpenFont("resources/OpenSans-Bold.ttf", 30);

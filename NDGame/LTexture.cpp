@@ -1,10 +1,4 @@
-//
-//  LTexture.m
-//  SDL_Text
-//
-//  Created by Mary Connolly on 3/13/15.
-//  Copyright (c) 2015 Mary. All rights reserved.
-//
+//implementation for LTexture
 
 #include <iostream>
 #include <SDL2/SDL.h>
@@ -13,7 +7,7 @@
 #include <string>
 #include "LTexture.h"
 
-LTexture::LTexture()
+LTexture::LTexture() //constructor
 {
     //Initialize
     mTexture=NULL;
@@ -24,33 +18,34 @@ LTexture::LTexture()
     draw=1;
 }
 
-int LTexture::getX()
+int LTexture::getX() //return x
 {
 	return x;
 }
 
-int LTexture::getY()
+int LTexture::getY() //return y
 {
 	return y;
 }
 
-void LTexture::setX(int n)
+void LTexture::setX(int n) //set x
 {
 	x=n;
 }
 
-void LTexture::setY(int n)
+void LTexture::setY(int n) //set y
 {
 	y=n;
 }
 
+//load from text
 bool LTexture::loadFromRenderedText(string textureText, SDL_Color textColor, TTF_Font*& gFont, SDL_Renderer*& gRenderer, int xIn, int yIn)
 {
     free();
     
     //Render text surface
     SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, textureText.c_str(), textColor);
-    if (textSurface==NULL)
+    if (textSurface==NULL) //display error message if need be
     {
         cout << "Unable to render text surface. SDL_ttf error: " << TTF_GetError() << endl;
     }
@@ -76,9 +71,10 @@ bool LTexture::loadFromRenderedText(string textureText, SDL_Color textColor, TTF
         SDL_FreeSurface(textSurface); //get rid of old surface
     }
     
-    return mTexture!=NULL;
+    return mTexture!=NULL; //return bool to indicate if successful
 }
 
+//load from image
 bool LTexture::loadFromFile(string path, SDL_Renderer*& gRenderer)
 {
     free();
@@ -115,21 +111,10 @@ bool LTexture::loadFromFile(string path, SDL_Renderer*& gRenderer)
     
     mTexture=newTexture;
     
-    return newTexture!=NULL;
+    return newTexture!=NULL; //return bool to indicate if successful
 }
 
-/*bool LTexture::loadFromFile(string path, SDLClass &mySDL)
-{
-	SDL_Texture *newTexture;
-
-	free();
-
-	newTexture=mySDL.loadTexture(path);
-
-	myWidth=new
-*/
-	
-
+//free texture by destroying texture, setting pointer to null, etc
 void LTexture::free()
 {
     if (mTexture!=NULL)
@@ -141,6 +126,7 @@ void LTexture::free()
     }
 }
 
+//render texture
 void LTexture::render(SDL_Renderer*& gRenderer)
 {
     //Set rendering space and render to screen
@@ -148,6 +134,7 @@ void LTexture::render(SDL_Renderer*& gRenderer)
     SDL_RenderCopy(gRenderer, mTexture, NULL, &renderQuad);
 }
 
+//render a clip for a sprite
 void LTexture::renderClip(SDL_Renderer*& gRenderer, int xc, int yc, SDL_Rect* clip)
 {
     SDL_Rect renderQuad = { xc, yc, mWidth, mHeight };
@@ -161,12 +148,12 @@ void LTexture::renderClip(SDL_Renderer*& gRenderer, int xc, int yc, SDL_Rect* cl
     SDL_RenderCopy(gRenderer, mTexture, clip, &renderQuad);
 }
 
-int LTexture::getWidth()
+int LTexture::getWidth() //return width
 {
     return mWidth;
 }
 
-int LTexture::getHeight()
+int LTexture::getHeight() //return height
 {
     return mHeight;
 }

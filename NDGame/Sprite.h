@@ -26,8 +26,8 @@ class Sprite {
 		Sprite(SDLClass &myC);
 		virtual ~Sprite(); 		// virtual destructor in order to delete derived pointers
 		virtual void setTextureClips(string path1, string path2)=0;     //sets sheets of derived classes
-		void loadSheetFromFile(string path);
-		void loadFlippedSheetFromFile(string path);
+		void loadSheetFromFile(string path); //load sprite sheet
+		void loadFlippedSheetFromFile(string path); //load flipped sprite sheet
 		void destroySprite();
 		void addClip(int, int, int, int);       // add sprite clips to vector
 		void addFlippedClip(int, int, int, int);        // add flipped sprite clips to vector
@@ -80,19 +80,19 @@ class Sprite {
 		vector<SDL_Rect> spriteClips;
 		vector<SDL_Rect> flippedClips; //for when character walks the other way
 
-		SDLClass *mySDL;
+		SDLClass *mySDL; //pointer to SDL
 
 		int height;
 		int width;
 
 		string texturePath;	
-		int numOfClips;
-		int currentClip;
-		int xPos;
-		int yPos;
+		int numOfClips; //number of clips
+		int currentClip; //number indicating index of current clip
+		int xPos; //x position
+		int yPos; //y position
 		int speedX;
 		int speedY;
-		int maxSpeed;
+		int maxSpeed; //max speed - use for player since he goes faster when he eats hotdog
 		int state; // isResting, isWalking, or isJumping
 		bool facingRight; //1 if walking right, 0 if walking left
 		

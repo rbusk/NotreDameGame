@@ -31,6 +31,8 @@ class Player : public Sprite {
 		void setTextureClips(string path1, string path2);
 		void draw(); //draw sprite
 		void update(); //use to update if screen should be scrolling
+		
+		//collision detection
 		int collisionCheck(Sprite* enemy);
 		void collisionLoopRect(vector<Sprite*>& enemyVector);
 
@@ -60,12 +62,9 @@ class Player : public Sprite {
 		Timer hotdogTimer; //use to control player's speed
 		Timer burgerTimer; //use to control player's maxHeight
 		int dead; //indicates if player is dead
-		int numFootballs;
+		int numFootballs; //number of footballs
 		SoundClass powerUp;
 		SoundClass death;
-
-
-		
 };
 
 #endif

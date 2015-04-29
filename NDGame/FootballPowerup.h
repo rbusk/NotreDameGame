@@ -1,4 +1,4 @@
-// Football derived from Sprite Class
+// Football powerup derived from Sprite Class
 #ifndef FOOTBALLPOWERUP_H
 #define FOOTBALLPOWERUP_H
 

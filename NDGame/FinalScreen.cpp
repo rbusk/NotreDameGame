@@ -7,11 +7,13 @@ FinalScreen::FinalScreen(SDLClass &myC)
 	setIsScrolling(0);
 	setIsScrollingScreen(0);
 
+	//load image
 	loadFromFile("resources/library.jpg");
 
 	TTF_Font *font=TTF_OpenFont("resources/OpenSans-Bold.ttf", 40);
 	SDL_Color textColor={255, 255, 255};
 
+	//load text
 	loadFromText("You win!", textColor, font, getSDL()->getW()/30, getSDL()->getH()/8);
 
 	font=TTF_OpenFont("resources/OpenSans-Regular.ttf", 14);

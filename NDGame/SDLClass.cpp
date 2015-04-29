@@ -1,11 +1,4 @@
-//
-//  SDLClass.cpp
-//  NotreDameGame
-//
-//  Created by Mary Connolly on 3/23/15.
-//  Copyright (c) 2015 Mary. All rights reserved.
-//
-
+//implementation for SDL wrapper
 #include "SDLClass.h"
 #include "LTexture.h"
 #include <iostream>
@@ -14,35 +7,36 @@
 #include <SDL2/SDL_ttf.h>
 #include <string>
 
-SDLClass :: SDLClass()
+SDLClass :: SDLClass() //constructor
 {
+//set height and width of screen
     w=640;
     h=480;
 
-    init();
+    init(); //initialize
 }
 
-SDLClass::~SDLClass()
+SDLClass::~SDLClass() //destructor
 {
     close();
 }
 
-int SDLClass::getW()
+int SDLClass::getW() //return width of screen
 {
 	return w;
 }
 
-int SDLClass::getH()
+int SDLClass::getH() //return height of screen
 {
 	return h;
 }
 
-void SDLClass::clear()
+void SDLClass::clear() //clear renderer
 {
 	SDL_RenderClear(myRenderer);
 }
 
-void SDLClass::renderTextures(vector<LTexture> textures)
+void SDLClass::renderTextures(vector<LTexture> textures) //render textures
 {
 	for (int i=0; i<textures.size() ; i++)
 	{
@@ -54,19 +48,22 @@ void SDLClass::renderTextures(vector<LTexture> textures)
 	}
 }
 
+//render a sprite by rendering one of its clips
 void SDLClass::renderSprite(LTexture texture, int x, int y, SDL_Rect* clip)
 {
     texture.renderClip(myRenderer,x,y,clip);
 }
 
+//update renderer
 void SDLClass::update()
 {
 	SDL_RenderPresent(myRenderer);
 }
 
+//initialize
 bool SDLClass::init()
 {
-    bool success = true;
+    bool success = true; //indicates if initialization was a success
     
     //Initialize SDL_ttf
     if(TTF_Init()==-1)
@@ -95,7 +92,7 @@ bool SDLClass::init()
         //Create window
         myWindow = SDL_CreateWindow("Notre Dame Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, SDL_WINDOW_SHOWN);
         
-        if (myWindow == NULL)
+        if (myWindow == NULL) //if window not created correctly, display error message
         {
             cout << "Window could not be created. Error: " << SDL_GetError();
             success = false;
@@ -105,7 +102,7 @@ bool SDLClass::init()
         {
             //create renderer for window
             myRenderer = SDL_CreateRenderer(myWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-            if (myRenderer == NULL)
+            if (myRenderer == NULL) //if renderer not created correctly, display error message
             {
                 cout << "Renderer could not be created. SDL Error: " << SDL_GetError();
             }
@@ -130,12 +127,7 @@ bool SDLClass::init()
 
 }
 
-bool SDLClass::loadMedia()
-{
-    
-    return 1;
-}
-
+//return LTexture by creating from file
 LTexture SDLClass::loadFromFile(string path)
 {
 	LTexture newLTexture; //final LTexture
@@ -143,7 +135,7 @@ LTexture SDLClass::loadFromFile(string path)
 
 	SDL_Surface* loadedSurface=IMG_Load(path.c_str());
 
-	if(loadedSurface==NULL)
+	if(loadedSurface==NULL) //print error if not loaded correctly
 	{
 		cout << "Unable to load image! Error: " << IMG_GetError();
 	}
@@ -171,15 +163,16 @@ LTexture SDLClass::loadFromFile(string path)
 
 	newLTexture.setTexture(newTexture);
 
-	return newLTexture;
+	return newLTexture; //return new LTexture
 }
 
+//create new LTexture from text
 LTexture SDLClass::loadFromText(string textureText, SDL_Color textColor, TTF_Font *& gFont, int xIn, int yIn)
 {
-	LTexture newLTexture;
+	LTexture newLTexture; //final LTexture
 	SDL_Texture *newTexture;
 
-	SDL_Surface* textSurface=TTF_RenderText_Solid(gFont, textureText.c_str(), textColor);
+	SDL_Surface* textSurface=TTF_RenderText_Solid(gFont, textureText.c_str(), textColor); //create surface from text
 
 	if (textSurface==NULL)
 	{
@@ -198,6 +191,7 @@ LTexture SDLClass::loadFromText(string textureText, SDL_Color textColor, TTF_Fon
 
 		else
 		{
+			//set x, y, width, and height of LTexture
 			newLTexture.setWidth(textSurface->w);
 			newLTexture.setHeight(textSurface->h);
 			newLTexture.setX(xIn);
@@ -209,9 +203,10 @@ LTexture SDLClass::loadFromText(string textureText, SDL_Color textColor, TTF_Fon
 
 	newLTexture.setTexture(newTexture);
 
-	return newLTexture;
+	return newLTexture; //return new texture
 }
 	
+//return pointer to SDL_Texture by creating one using a path
 SDL_Texture* SDLClass::loadTexture(string path)
 {
     SDL_Texture* newTexture = NULL; //final texture
@@ -239,6 +234,7 @@ SDL_Texture* SDLClass::loadTexture(string path)
     return newTexture;
 }
 
+//close - call in destructor
 void SDLClass::close()
 {
     SDL_DestroyWindow(myWindow);

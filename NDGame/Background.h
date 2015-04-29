@@ -1,3 +1,5 @@
+//derived from Static Screen and used for side scroller game
+
 #ifndef BACKGROUND_H
 #define BACKGROUND_H
 
@@ -12,10 +14,10 @@ class Background : public StaticScreen {
 
 		Background(SDLClass &myC);
 		void displayGameOver(int); //display the words "game over" (or not)
-                void displayLevel(int);
+                void displayLevel(int); //display level in corner of screen
 
 	private:
-		FootballPowerup *football;
+		FootballPowerup *football; //image of football which indicates if player has a football or not
 
 		
 };

@@ -4,6 +4,7 @@
 
 Player::Player(SDLClass &myC) : Sprite(myC)
 {
+	//initialize values
 	maxXPos=getHalfOfScreen()/1.25;
 	setTextureClips("resources/manSpriteSheet.png", "resources/manSpriteSheet2.png");
 	setSpeed(3, 7);
@@ -40,6 +41,7 @@ void Player::setTextureClips(string path1, string path2)
 
 void Player::draw()
 {
+	//update timers
 	hotdogTimer.updateTime();
 	burgerTimer.updateTime();
 
@@ -70,11 +72,13 @@ void Player::draw()
 			break;
 	}
 
+	//if hotdog timer is up, set speed back to normal
 	if (hotdogTimer.getTimeIsUp())
 	{
 		setSpeed(getSpeedX()/2, getSpeedY());
 	}
 
+	//if burger timer is pu, set max height back to normal
 	if (burgerTimer.getTimeIsUp())
 	{
 		setMaxHeight(noBurgerMaxHeight);
@@ -156,10 +160,13 @@ int Player::getStopScreen()
 {
 	return stopScreen;
 }
+
+//check if player has collided with sprites
 void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 {
 	int check = 0;
 
+	//load sound files
 	death.load("Death.wav",2);
 	powerUp.load("PowerUp.wav",2);
 
@@ -168,7 +175,6 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 	for(int i = 0; i < enemyVector.size(); i++)
 	{
 		check = 0;
-		//add is loaded if statement
 		check = collisionCheck(enemyVector[i]);
 		
 		ptr=enemyVector[i];
@@ -186,9 +192,9 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 		{
 			if (typeid(*ptr)==typeid(Hotdog))
 			{	
-				incrementSpeed(); //make player faster!
-				powerUp.play();
-				hotdogTimer.addTime();
+				incrementSpeed(); //make player faster if collided with hotdog
+				powerUp.play(); //play power up sound
+				hotdogTimer.addTime(); //add time to timer
 
 				//erase hotdog from vector and free memory
 				ptr->destroySprite();
@@ -196,6 +202,7 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 				i--;
 			}
 
+			//die if collide with car
 			else if (typeid(*ptr)==typeid(Car1))
 			{
                             dead=1;
@@ -255,6 +262,7 @@ void Player::collisionLoopRect(vector<Sprite*>& enemyVector)
 	}
 }
 
+//check if collided with enemy
 int Player::collisionCheck(Sprite* enemy)
 {
 	SDL_bool value;
@@ -303,6 +311,7 @@ int Player::getMinHeight()
 	return minHeight;
 }
 
+//reset variables in player when game restarts
 void Player::resetPlayer()
 {
 	setSpeed(3, 7);

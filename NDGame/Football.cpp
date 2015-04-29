@@ -14,6 +14,7 @@ Football::Football(SDLClass &myC, int x, int y) : Sprite(myC)
 
 void Football::setTextureClips(string path1, string path2)
 {
+	//load image
 	loadSheetFromFile(path1);
 	loadFlippedSheetFromFile(path2);
 
@@ -62,6 +63,7 @@ int Football::collisionLoopRect(vector<Sprite*>& enemyVector)
 		//check to see what kind of sprite player has collided with
 		if (check)
 		{
+			//if footballer hit, destroy the footballer and remove from enemy vector
 			if (typeid(*ptr)==typeid(Footballer))
 			{
 				ptr->destroySprite();
@@ -78,6 +80,7 @@ int Football::collisionLoopRect(vector<Sprite*>& enemyVector)
 	return 0; //if no footballer hit, return 0
 }
 
+//check if football has collided with enemy
 int Football::collisionCheck(Sprite* enemy)
 {
 	SDL_bool value;

@@ -1,3 +1,5 @@
+//main driver file for ND Tailgate
+
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -7,7 +9,6 @@
 #include "LTexture.h"
 #include "StaticScreen.h"
 #include "OpeningScreen.h"
-#include "GraduatingScreen.h"
 #include "Sprite.h"
 #include "Player.h"
 #include "Background.h"
@@ -30,32 +31,30 @@ using namespace std;
 int main(int argc, const char * argv[]) {
   
 
-	SDLClass mySDL;
+	SDLClass mySDL; //initialize SDL
 
-	srand(time(NULL));
+	srand(time(NULL)); //seed srand
 
+	//instantiate three backgrounds
 	OpeningScreen myOpening(mySDL);
 	Background myScrolling(mySDL);
 	FinalScreen myFinalScreen(mySDL);
 
-	StaticScreen *screenPtr;
-	Player *playerPtr;
-	screenPtr=&myOpening;
-	playerPtr=NULL;
-        StaticScreen *dumbPtr;
-        dumbPtr=&myOpening;
+	StaticScreen *screenPtr; //pointer to current screen
+	Player *playerPtr; //pointer to player
+	screenPtr=&myOpening; //set screen pointer to address of first background
+	playerPtr=NULL; //player pointer is NULL at first
 
-	Player simpleMan(mySDL);
+	Player simpleMan(mySDL); //instantiate player
 	vector<Sprite*> enemies;	//takes in pointers to all enemy objects
-	SpriteGenerator enemyFactory(mySDL);	
-	vector<SpriteType> desiredEnemies;
+	SpriteGenerator enemyFactory(mySDL);	//generates random enemies
+	vector<SpriteType> desiredEnemies; //vector of desired types of enemies, which will change based on the level
 
-	vector<Sprite*> powerups;
-	SpriteGenerator powerupFactory(mySDL);
-	vector<SpriteType> desiredPowerups;
+	vector<Sprite*> powerups; //vector of powerups
+	SpriteGenerator powerupFactory(mySDL); //generates random powerups
+	vector<SpriteType> desiredPowerups; //vector of desired types of powerups, which will change based on the level
 
-	//vector of footballs that player has thrown
-	vector<Football> footballs;
+	vector<Football> footballs; //vector footballs that player has thrown
 
 	//Sound loading
 	vector<SoundClass> songVector; //Vector of background songs
@@ -94,34 +93,35 @@ int main(int argc, const char * argv[]) {
 	levelVector.push_back(level1); //push level
 	levelVector.push_back(level2);
 	levelVector.push_back(level3);
-	Timer levelTimer; //level timer
+	Timer levelTimer; //level timer - counts down - once time is up, progress to next level
 	levelTimer.setTimeIncrement(2); //set increment
 	levelTimer.addTime(); //add time to timer
 	levelTimer.setTimeIncrement(lengthOfLevel); // set increment
         levelTimer.updateTime(); //update time
-	vector<int> freqPowerUp; //getting frequency
-	vector<int> freqEnemy; //geting freq
+	vector<int> freqPowerUp; //getting frequency of powerups - range of iterations
+	vector<int> freqEnemy; //geting frequency of enemies - range of iterations
 
-	int screenState=0;
+	int screenState=0; //keeps track of screen
 
+	//boolean values to keep track of game
 	bool win=0;	
 	bool lose=0;
 	bool quit=false;
 
 	SDL_Event e; //event handler
 
-	while (!quit)
+	while (!quit) //loops while the user does not quit
 	{
 		while (SDL_PollEvent(&e) != 0)
 		{
-			if (e.type==SDL_QUIT)
+			if (e.type==SDL_QUIT) //quit if user hits red 'x'
 			{
 				quit=true;
 			}
 
 			else if (e.type==SDL_KEYDOWN) //user presses a key
 			{
-				//if any key is pressed for first 2 screenStates, go to next screenState and set some pointers
+				//if any key is pressed for first screen state, go to next screenState
 				if (screenState<1)
 				{
 					screenState++;
@@ -134,8 +134,8 @@ int main(int argc, const char * argv[]) {
 						break;
 						
 					case 1:
-						screenPtr=&myScrolling;
-						playerPtr=&simpleMan;
+						screenPtr=&myScrolling; //screen is now background for side scroller
+						playerPtr=&simpleMan; //playerPtr points to player
 						break;
 					default:
 						break;
@@ -143,7 +143,7 @@ int main(int argc, const char * argv[]) {
 
 				switch(e.key.keysym.sym) //case checks which key was pressed
 				{
-					//user presses right -- if screen state is 2, player walks right
+					//user presses right -- if screen state is 1, player walks right
 					case SDLK_d:
 						if (screenState==1)
 						{
@@ -152,52 +152,51 @@ int main(int argc, const char * argv[]) {
 						}
 						break;
 
-						//user presses left -- if screen state is 2, player walks left
+						//user presses left -- if screen state is 1, player walks left
 					case SDLK_a:
 						if (screenState==1)
 						{
 							playerPtr->setState(isWalking);
-							playerPtr->setFacingRight(0);
+							playerPtr->setFacingRight(0); //player should face left
 						}
 						break;
 
-					case SDLK_SPACE:
-						if (screenState==1)
+					case SDLK_SPACE: //user presses space
+						if (screenState==1) //if screen state is 1 and player has a football, instantiate/throw football
 						{
-							if (playerPtr->getNumFootballs())
+							if (playerPtr->getNumFootballs()) //check if player has a football
 							{
-								Football footballSprite(mySDL, playerPtr->getXPos() + playerPtr->getW(), playerPtr->getYPos());
-								footballs.push_back(footballSprite);
-								playerPtr->setNumFootballs(0);
+								Football footballSprite(mySDL, playerPtr->getXPos() + playerPtr->getW(), playerPtr->getYPos()); //instantiate football
+								footballs.push_back(footballSprite); //add to vector of footballs
+								playerPtr->setNumFootballs(0); //set player's number of footballs to 0
 							}
 						}
 
-						if (screenState==2)
+						if (screenState==2) //if screen state is 2, reset different variables so that game can restart
 						{
-							
-							screenState=1;
-							enemies.clear();
-							powerups.clear();
-							playerPtr->resetPlayer();
-							screenPtr=&myScrolling;
-							level=0;
-							screenPtr->displayGameOver(0);
+							screenState=1; //set screen state to 1
+							enemies.clear(); //clear vector of enemies
+							powerups.clear(); //clear vector of powerups
+							playerPtr->resetPlayer(); //reset different member variables in player
+							screenPtr=&myScrolling; //set screen back to scrolling screen
+							level=0; //set level to 0
+							screenPtr->displayGameOver(0); //remove words displaying "game over"
 							winSong.stop(); //stop win song
 							death.stop(); //stop death song
 							song = rand() % songVector.size(); //randomize
 							songVector[song].play(); //start new random song
-							footballs.clear();
-							desiredEnemies.clear();
-							desiredPowerups.clear();
+							footballs.clear(); //clear vector of footballs
+							desiredEnemies.clear(); //clear vector of desired enemies
+							desiredPowerups.clear(); //clear vector of desired powerups
 							enemyFactory.setSprites(desiredEnemies);
 							powerupFactory.setSprites(desiredPowerups);
-							//reset time
+							//reset levelTimer
 							levelTimer.setTime(2);
 							levelTimer.updateTime();
 						}
 						break;
 
-					case SDLK_w:
+					case SDLK_w: //if w is pressed, player jumps
 						if (screenState==1 && playerPtr->getJumpingState()==isNotJumping)
 						{
 							playerPtr->setJumpingState(isJumpingUp);
@@ -213,7 +212,7 @@ int main(int argc, const char * argv[]) {
 			{
 				switch(e.key.keysym.sym)
 				{
-					//stop player moving if player releases right or left button
+					//stop player moving if player releases right or left button (a or d)
 					case SDLK_d:
 						if (screenState==1)
 						{
@@ -233,7 +232,7 @@ int main(int argc, const char * argv[]) {
 
 		}
 
-		screenPtr->draw();
+		screenPtr->draw(); //draw background
 		if (screenState==1 && playerPtr!=NULL)
 		{
 			if (win==1 || lose==1) //if player has just won or lost, display level (1) and set win and lose to 0
@@ -241,8 +240,6 @@ int main(int argc, const char * argv[]) {
 				screenPtr->displayLevel(level);
 				win=0;
 				lose=0;
-				//desiredEnemies.clear();
-				//desiredPowerups.clear();
 			}
 
 			if (levelTimer.getTimeIsUp()) //if timer is up
@@ -275,7 +272,7 @@ int main(int argc, const char * argv[]) {
 						winSong.play(); //play win song
 						win=1; //set win equal to one
 						screenState++; //increment screenstate
-						screenPtr=&myFinalScreen;
+						screenPtr=&myFinalScreen; //set screen pointer to address of final screen
 						break;
 
 
@@ -292,12 +289,14 @@ int main(int argc, const char * argv[]) {
 				}
 			}
 			
+			//update levelTimer only if player is walking to the right
                         if (playerPtr->getState() == isWalking && playerPtr->getFacingRight()) 
 			    levelTimer.updateTime();
-			playerPtr->update();
-			playerPtr->collisionLoopRect(enemies);
-			playerPtr->collisionLoopRect(powerups);
+			playerPtr->update(); //update player
+			playerPtr->collisionLoopRect(enemies); //check if player is colliding with enemies
+			playerPtr->collisionLoopRect(powerups); //check if powerups colliding with player
 			
+			//draw footballs that the player has thrown
 			for (int i=0; i<footballs.size(); i++)
 			{
                                 int ballX = footballs[i].getX();
@@ -313,26 +312,23 @@ int main(int argc, const char * argv[]) {
 				}
 			}
 
-			if (!playerPtr->isDead())
+			if (!playerPtr->isDead()) //if player is not dead
 			{
 				//use stopScreen variable to determine if screen should scroll
 				screenPtr->setIsScrolling(!playerPtr->getStopScreen());
-				screenPtr->setSpeed(playerPtr->getSpeedX());
-				screenPtr->getTexture(2)->setDraw(playerPtr->getNumFootballs());
+				screenPtr->setSpeed(playerPtr->getSpeedX()); //set speed of screen based on speed of player
+				screenPtr->getTexture(2)->setDraw(playerPtr->getNumFootballs()); //if player has football, draw football in corner to let user know
 
+				playerPtr->draw(); //draw player
 
-				playerPtr->draw();
-			
-
-				enemyFactory.generateSprites(playerPtr);
-				enemyFactory.packageSprites(enemies);
-				powerupFactory.generateSprites(playerPtr);
+				enemyFactory.generateSprites(playerPtr); //generate random enemies
+				enemyFactory.packageSprites(enemies); 
+				powerupFactory.generateSprites(playerPtr); //generate random powerups
 				powerupFactory.packageSprites(powerups);
 			
-
+				//draw enemies based on the speed of the player
 				for (int i=0; i < enemies.size(); i++)
 				{
-					//enemies[i]->setSpeed(playerPtr->getSpeedX()/2, enemies[i]->getSpeedY());
 					if (screenPtr->getIsScrolling())
 					{
 						enemies[i]->draw(playerPtr->getSpeedX());	// when standing still, must scroll when screen does
@@ -345,10 +341,9 @@ int main(int argc, const char * argv[]) {
 					}
 				}
 
+				//draw powerups based on the speed of the player
 				for (int i=0; i < powerups.size(); i++)
 				{
-					//powerups[i]->setSpeed(playerPtr->getSpeedX()/2, playerPtr->getSpeedY()/2);
-					//powerups[i]->draw(screenPtr->getIsScrolling());	// when standing still, must scroll when screen does
 					if (screenPtr->getIsScrolling())
 					{
 						powerups[i]->draw(playerPtr->getSpeedX());	// when standing still, must scroll when screen does
@@ -361,6 +356,7 @@ int main(int argc, const char * argv[]) {
 					}
 				}
 
+				//draw footballs that player has thrown
 				for (int i=0; i<footballs.size(); i++)
 				{
 					footballs[i].draw(1);
@@ -377,13 +373,15 @@ int main(int argc, const char * argv[]) {
 				death.play(); //play death song
 			}
 
-			enemyFactory.destroyPastSprites(playerPtr,enemies);		// dynamically delete sprites too 
+			enemyFactory.destroyPastSprites(playerPtr,enemies);		// dynamically delete sprites too  far off the screen
 		        powerupFactory.destroyPastSprites(playerPtr,powerups);
-                }															// far off the screen
+		}
 
 		mySDL.update();		// not included in draw() b/c only need one update at the end
 	}
 
+	//after game loop, destroy footballs, enemies, and powerups
+	
 	for (int i=0; i<footballs.size(); i++)
 	{
 		footballs[i].destroySprite();
