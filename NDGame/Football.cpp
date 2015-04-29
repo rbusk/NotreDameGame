@@ -9,8 +9,6 @@ Football::Football(SDLClass &myC, int x, int y) : Sprite(myC)
 	setTextureClips("resources/football.png", "resources/football.png");
 	setSpeed(5,0);
 	setPos(x, y); //set position
-	//spriteBox.x=x;
-	//spriteBox.y=y;
 	isInCollision=0;
 }
 

@@ -19,6 +19,7 @@ Sprite::Sprite(SDLClass &myC)
 Sprite::~Sprite() 
 {
 	//DESTUCTION IMMINENT
+        //A virtual function
 }
 
 void Sprite::loadSheetFromFile(string path)
@@ -62,8 +63,8 @@ void Sprite::basicDraw()
 		spriteBox.w = thisClip->w;
 		spriteBox.h = thisClip->h;
 	}
-	spriteBox.x = xPos;
-	spriteBox.y = yPos;
+	spriteBox.x = xPos;             // updates spriteBox on every draw so that spriteBox always moves along 
+	spriteBox.y = yPos;             // with the rest of the sprite
 }
 
 void Sprite::checkCurrentClip()
@@ -76,28 +77,24 @@ void Sprite::checkCurrentClip()
 void Sprite::moveUp()
 {
 	yPos-=speedY;
-	//spriteBox.setY(yPos);
 	spriteBox.y = yPos;
 }
 
 void Sprite::moveDown()
 {
 	yPos+=speedY;
-	//spriteBox.setY(yPos);
 	spriteBox.y = yPos;
 }
 
 void Sprite::moveRight()
 {
 	xPos+=speedX;
-	//spriteBox.setX(xPos);
 	spriteBox.x = xPos;
 }
 
 void Sprite::moveLeft()
 {
 	xPos-=speedX;
-	//spriteBox.setX(xPos);
 	spriteBox.x = xPos;
 }
 
@@ -120,8 +117,8 @@ int Sprite::getY()
 void Sprite::setPos(int x, int y)
 {
 	xPos = x;
-	spriteBox.x = x;	// set spriteBoxes here in setPos(). Can remove if 
-	yPos = y;			// makes colliding too inaccurate
+	spriteBox.x = x;	// set spriteBoxes here in case of sudden Position change
+	yPos = y;			
 	spriteBox.y = y;
 }
 
@@ -232,139 +229,6 @@ int Sprite::getCurrentClip()
 	return currentClip;
 }
 
-/*void Sprite::collisionLoop(vector<Sprite*> enemyVector)
-{
-	int check = 0;
-
-	for(int i = 0; i < enemyVector.size(); i++)
-	{
-		//add is loaded if statement
-		check = collision(enemyVector[i]);
-
-		if (check == 1)
-		{
-			if(enemyVector[i]->getXPos() > xPos)
-			{
-				moveLeft();
-			}
-			else
-			{
-				moveRight();
-			}
-			
-		}
-	}
-}
-
-int Sprite::collision(Sprite* enemy)
-{
-	vector<int> leftTopCornerP, leftTopCornerE;
-	vector<int> rightBottomCornerP, rightBottomCornerE;
-
-	leftTopCornerP = spriteBox.getTopLeft();
-	rightBottomCornerP = spriteBox.getBottomRight();
-
-	leftTopCornerE = enemy->spriteBox.getTopLeft();
-	rightBottomCornerE = enemy->spriteBox.getBottomRight();
-
-	if (rightBottomCornerP[2] <= leftTopCornerE[2])
-	{
-		return false;
-	}
-
-	if (leftTopCornerP[2] >= rightBottomCornerE[2])
-	{
-		return false;
-	}
-	
-	if (rightBottomCornerP[1] <= leftTopCornerE[1])
-	{
-		return false;
-	}
-
-	if (leftTopCornerP[1] >= rightBottomCornerE[1])
-	{
-		return false;
-	}
-
-	return true;
-}*/
-
-void Sprite::setIsLoaded(bool l)
-{
-	isLoaded = l;
-}
-
-bool Sprite::getIsLoaded() 
-{
-	return isLoaded;
-}
-
-/*void Sprite::collisionLoopRect(vector<Sprite*> enemyVector)
-{
-	int check = 0;
-
-	Sprite* ptr; //use to determine what kind of sprite
-
-	for(int i = 0; i < enemyVector.size(); i++)
-	{
-		check = 0;
-		//add is loaded if statement
-		check = collisionCheck(enemyVector[i]);
-
-		if (check==1)
-		{
-			if (typeid(*ptr)==typeid(Hotdog))
-			{
-				cout << "collided with hotdog. yum" << endl;
-			}
-
-			else if (typeid(*ptr)==typeid(Car1))
-			{
-				cout << "collided with car. vroom" << endl;
-			}
-		}
-
-
-		if (check == 1 && xPos > enemyVector[i]->getXPos())
-		{
-			cout << "Colliding Left" << endl;
-		}
-		if (check == 1 && xPos < enemyVector[i]->getXPos())
-		{
-			cout << "Colliding Right" << endl;
-		}
-		if (check == 1 && yPos+height == enemyVector[i]->getYPos())
-		{
-			cout << "On Top" << endl;
-		}
-		if (check == 0)
-			cout << "Not Colliding" << endl;
-	}
-}
-
-int Sprite::collisionCheck(Sprite* enemy)
-{
-	SDL_bool value;
-	SDL_Rect enemyRect;
-
-	enemyRect.x = enemy->spriteBox.x;
-	enemyRect.y = enemy->spriteBox.y;
-	enemyRect.h = enemy->spriteBox.h;
-	enemyRect.w = enemy->spriteBox.w;
-
-	value = SDL_HasIntersection(&spriteBox,&enemyRect);
-
-	if (value == SDL_TRUE)
-	{
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}
-
-}*/
 
 void Sprite::setMaxSpeed(int n)
 {

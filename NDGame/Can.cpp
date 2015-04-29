@@ -23,13 +23,12 @@ void Can::setTextureClips(string path1, string path2)
 
 }
 
-//if s==1, move left, otherwise just draw
 void Can::draw(int s)
 {
         int initialSpeedX = getSpeedX();
 	if (s != 0)
 	{
-		setSpeed(s+initialSpeedX,getSpeedY());
+		setSpeed(s+initialSpeedX,getSpeedY());  // set relative speed
 	}
 
 	if (getFacingRight())
@@ -38,11 +37,10 @@ void Can::draw(int s)
             moveLeft();
 
         if (getY() > 450)
-            //setSpeed(getSpeedX()+s,-1);
-	    setSpeed(initialSpeedX+s/2, -1);
+	    setSpeed(initialSpeedX+s/2, -1);    // bounce off ground 
         moveDown();
 
 	Sprite::draw(s);
 
-       setSpeed(initialSpeedX,getSpeedY());
+        setSpeed(initialSpeedX,getSpeedY());
 }
