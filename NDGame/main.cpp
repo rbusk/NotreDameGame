@@ -178,9 +178,7 @@ int main(int argc, const char * argv[]) {
 							screenState=1;
 							enemies.clear();
 							powerups.clear();
-							playerPtr->setSpeed(3, 7);
-							playerPtr->setDead(0);
-							playerPtr->setState(isResting);
+							playerPtr->resetPlayer();
 							screenPtr=&myScrolling;
 							level=0;
 							screenPtr->displayGameOver(0);
@@ -189,7 +187,6 @@ int main(int argc, const char * argv[]) {
 							song = rand() % songVector.size(); //randomize
 							songVector[song].play(); //start new random song
 							footballs.clear();
-							playerPtr->setNumFootballs(0);
 							desiredEnemies.clear();
 							desiredPowerups.clear();
 							enemyFactory.setSprites(desiredEnemies);
@@ -197,7 +194,6 @@ int main(int argc, const char * argv[]) {
 							//reset time
 							levelTimer.setTime(2);
 							levelTimer.updateTime();
-							//levelTimer.addTime();
 						}
 						break;
 

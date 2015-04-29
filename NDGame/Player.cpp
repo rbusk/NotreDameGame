@@ -297,3 +297,17 @@ void Player::setDead(int n)
 {
 	dead=n;
 }
+
+int Player::getMinHeight()
+{
+	return minHeight;
+}
+
+void Player::resetPlayer()
+{
+	setSpeed(3, 7);
+	setDead(0);
+	setState(isResting);
+	setMaxHeight(noBurgerMaxHeight);
+	setNumFootballs(0);
+}

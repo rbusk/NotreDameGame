@@ -37,6 +37,7 @@ class Player : public Sprite {
 		//get and set methods
 		void setMaxHeight(int);
 		void setMinHeight(int);
+		int getMinHeight();
 		int getJumpingState();
 		void setJumpingState(int);
 		int getStopScreen();
@@ -44,6 +45,7 @@ class Player : public Sprite {
 		int getNumFootballs();
 		void setNumFootballs(int);
 		void setDead(int);
+		void resetPlayer();
 
 
 	private:

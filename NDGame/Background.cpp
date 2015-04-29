@@ -25,7 +25,7 @@ Background::Background(SDLClass &myC)
 
         getTexture(3)->setDraw(0);
 
-	font=TTF_OpenFont("resources/OpenSans-Regular.ttf", 30);
+	font=TTF_OpenFont("resources/OpenSans-Regular.ttf", 40);
 
 	loadFromText("Press space to restart", textColor, font, getSDL()->getW()/4, getSDL()->getH()/3);
 
