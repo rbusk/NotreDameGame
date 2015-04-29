@@ -49,3 +49,8 @@ void Timer::setTimeIncrement(int n)
 {
 	timeIncrement = n;
 }
+
+void Timer::setTime(int n)
+{
+	time=n;
+}

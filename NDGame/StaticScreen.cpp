@@ -115,7 +115,7 @@ LTexture* StaticScreen::getTexture(int n)
 	return &textures[n];
 }
 
-void StaticScreen::displayGameOver()
+void StaticScreen::displayGameOver(int)
 {
 }
 

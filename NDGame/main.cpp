@@ -33,7 +33,7 @@ int main(int argc, const char * argv[]) {
 
 	OpeningScreen myOpening(mySDL);
 	Background myScrolling(mySDL);
-	//GraduatingScreen myGraduation(mySDL);
+//	GraduatingScreen myGraduation(mySDL);
 	FinalScreen myFinalScreen(mySDL);
 
 	StaticScreen *screenPtr;
@@ -57,6 +57,7 @@ int main(int argc, const char * argv[]) {
 
 	//vector of levels
 	int lengthOfLevel = 1500;
+	//int lengthOfLevel = 40;
 	int level = 0;
 	vector<Level> levelVector;	
 	Level level1(1);
@@ -80,12 +81,14 @@ int main(int argc, const char * argv[]) {
 	int screenState=0;
 
 	bool win=0;	
+	bool lose=0;
 	bool quit=false;
 
 	SDL_Event e; //event handler
 
 	while (!quit)
 	{
+		cout << "ScreenState: " << screenState << endl;
 		while (SDL_PollEvent(&e) != 0)
 		{
 			if (e.type==SDL_QUIT)
@@ -99,18 +102,18 @@ int main(int argc, const char * argv[]) {
 				if (screenState<1)
 				{
 					screenState++;
+				}
 					
-					switch (screenState) {
-						case 0:
-							break;
-							
-						case 1:
-							screenPtr=&myScrolling;
-							playerPtr=&simpleMan;
-							break;
-						default:
-							break;
-					}
+				switch (screenState) {
+					case 0:
+						break;
+						
+					case 1:
+						screenPtr=&myScrolling;
+						playerPtr=&simpleMan;
+						break;
+					default:
+						break;
 				}
 
 				switch(e.key.keysym.sym) //case checks which key was pressed
@@ -143,7 +146,24 @@ int main(int argc, const char * argv[]) {
 								playerPtr->setNumFootballs(0);
 							}
 						}
-						break;
+
+						if (screenState==2)
+						{
+							
+							screenState=1;
+							enemies.clear();
+							powerups.clear();
+							playerPtr->setSpeed(3, 7);
+							playerPtr->setDead(0);
+							playerPtr->setState(isResting);
+							screenPtr=&myScrolling;
+							level=1;
+							screenPtr->displayGameOver(0);
+							//reset time
+							levelTimer.setTime(0);
+							levelTimer.addTime();
+							break;
+						}
 
 					case SDLK_UP:
 						if (screenState==1 && playerPtr->getJumpingState()==isNotJumping)
@@ -184,6 +204,13 @@ int main(int argc, const char * argv[]) {
 		screenPtr->draw();
 		if (screenState==1 && playerPtr!=NULL)
 		{
+			if (win==1 || lose==1) //if player has just won or lost, display level (1) and set win and lose to 0
+			{
+				screenPtr->displayLevel(level);
+				win=0;
+				lose=0;
+			}
+
 			if (levelTimer.getTimeIsUp())
 			{
 				level++;
@@ -231,8 +258,8 @@ int main(int argc, const char * argv[]) {
 			
                         if (playerPtr->getState() == isWalking) 
 			    levelTimer.updateTime();
-			cout << levelTimer.getTime() << endl;
-			cout << level << endl;
+			cout << "time: " << levelTimer.getTime() << endl;
+			cout << "level: " << level << endl;
 			playerPtr->update();
 
 			playerPtr->collisionLoopRect(enemies);
@@ -311,7 +338,8 @@ int main(int argc, const char * argv[]) {
 			else //if player is dead, destroy sprite and switch screen states
 			{
 				screenState=2;
-				screenPtr->displayGameOver();
+				lose=1;
+				screenPtr->displayGameOver(1);
 			}
 
 			enemyFactory.destroyPastSprites(playerPtr,enemies);		// dynamically delete sprites too 

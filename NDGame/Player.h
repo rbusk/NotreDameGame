@@ -41,6 +41,7 @@ class Player : public Sprite {
 		int isDead(); //returns 1 if player is dead and 0 otherwise
 		int getNumFootballs();
 		void setNumFootballs(int);
+		void setDead(int);
 
 	private:
 		int maxHeight; //max jumping height

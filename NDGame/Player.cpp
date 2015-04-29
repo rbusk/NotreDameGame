@@ -281,4 +281,7 @@ void Player::setNumFootballs(int n)
 	numFootballs=n;
 }
 
-
+void Player::setDead(int n)
+{
+	dead=n;
+}

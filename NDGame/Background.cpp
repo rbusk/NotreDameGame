@@ -25,10 +25,19 @@ Background::Background(SDLClass &myC)
         getTexture(3)->setDraw(0);
 }	
 
-void Background::displayGameOver()
+void Background::displayGameOver(int n)
 {
-	//set draw of texture 1 (words displaying "game over") to 1
-	getTexture(1)->setDraw(1);
+	if (n==1)
+	{
+		//set draw of texture 1 (words displaying "game over") to 1 if n==1
+		getTexture(1)->setDraw(1);
+	}
+
+	else
+	{
+		//else set draw of texture 1 to 0
+		getTexture(1)->setDraw(0);
+	}
 }
 
 void Background::displayLevel(int lvl)
