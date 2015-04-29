@@ -23,11 +23,8 @@
 #include "Squirrel.h"
 #include "Can.h"
 #include "Level.h"
-<<<<<<< HEAD
 #include "SoundClass.h"
-=======
 #include "FinalScreen.h"
->>>>>>> 99d0cdeaa9ef904c14b5a817a8c414c77fc33481
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -69,12 +66,19 @@ int main(int argc, const char * argv[]) {
 	SoundClass song3("RatherBe.wav",1);
 	SoundClass song4("TalkDirty.wav",1);
 	SoundClass song5("DarkHorse.wav",1);
+	SoundClass song6("Geronimo.wav",1);
+	SoundClass song7("JessiesGirl.wav",1);
+	SoundClass song8("ShutUpAndDance.wav",1);
 	SoundClass death("NeverGonnaGiveYouUp.wav",1);
+	SoundClass winSong("DontStopBelieving.wav",1);
 	songVector.push_back(song1);
 	songVector.push_back(song2);
 	songVector.push_back(song3);
 	songVector.push_back(song4);
 	songVector.push_back(song5);
+	songVector.push_back(song6);
+	songVector.push_back(song7);
+	songVector.push_back(song8);
 
 	int song = rand() % songVector.size();
 
@@ -238,6 +242,8 @@ int main(int argc, const char * argv[]) {
                                                 desiredEnemies.push_back(isCar2);
 						break;
 					case 4:
+						songVector[song].stop();
+						winSong.play();
 						win=1;
 						screenState++;
 						screenPtr=&myFinalScreen;

@@ -1,15 +1,8 @@
 #Object files:
-<<<<<<< HEAD
-OBJ =  main.o LTexture.o SDLClass.o OpeningScreen.o StaticScreen.o GraduatingScreen.o Sprite.o Player.o Background.o Hotdog.o Car1.o Hamburger.o Car2.o Footballer.o Timer.o Football.o FootballPowerup.o SpriteGenerator.o Can.o Squirrel.o Level.o SoundClass.o
+OBJ =  main.o LTexture.o SDLClass.o OpeningScreen.o StaticScreen.o GraduatingScreen.o Sprite.o Player.o Background.o Hotdog.o Car1.o Hamburger.o Car2.o Footballer.o Timer.o Football.o FootballPowerup.o SpriteGenerator.o Can.o Squirrel.o Level.o SoundClass.o FinalScreen.o
 
 # Header files:
-HDR = LTexture.h SDLClass.h OpeningScreen.h StaticScreen.h GraduatingScreen.h Sprite.h Player.h Background.h Hotdog.h Car1.h Hamburger.h Car2.h Footballer.h Timer.h Football.h FootballPowerup.h SpriteGenerator.h Can.h Squirrel.h Level.h SoundClass.h
-=======
-OBJ =  main.o LTexture.o SDLClass.o OpeningScreen.o StaticScreen.o GraduatingScreen.o Sprite.o Player.o Background.o Hotdog.o Car1.o Hamburger.o Car2.o Footballer.o Timer.o Football.o FootballPowerup.o SpriteGenerator.o Can.o Squirrel.o Level.o FinalScreen.o
-
-# Header files:
-HDR = LTexture.h SDLClass.h OpeningScreen.h StaticScreen.h GraduatingScreen.h Sprite.h Player.h Background.h Hotdog.h Car1.h Hamburger.h Car2.h Footballer.h Timer.h Football.h FootballPowerup.h SpriteGenerator.h Can.h Squirrel.h Level.h FinalScreen.o
->>>>>>> 99d0cdeaa9ef904c14b5a817a8c414c77fc33481
+HDR = LTexture.h SDLClass.h OpeningScreen.h StaticScreen.h GraduatingScreen.h Sprite.h Player.h Background.h Hotdog.h Car1.h Hamburger.h Car2.h Footballer.h Timer.h Football.h FootballPowerup.h SpriteGenerator.h Can.h Squirrel.h Level.h SoundClass.h FinalScreen.h
 
 # Libraries
 LIBS = `pkg-config --cflags --libs sdl2 SDL2_image SDL2_ttf SDL2_mixer`
