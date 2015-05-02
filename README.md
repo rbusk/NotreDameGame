@@ -9,7 +9,8 @@ ND Tailgate is a side scroller game in which the player, a student dedicated to 
 The program utilizes the functions of the SDL2 library, so it must be installed first. Besides the base library, the program also uses the following SDL2 extensions:
 * SDL2_image - Loads image files of all types for use
 * SDL2_tff - Allows use of TrueType fonts in printing text to screen
-* SDL2_mixer - Loads and integrates sound into program
+* SDL2_mixer - Loads and integrates sound into program     
+     
 Note: the program also uses a couple of function calls exclusive to c++11, and so it is necessary that it also be installed on the system.
 
 ###How to Build/Compile the Program
@@ -23,7 +24,7 @@ Concerning c++11, the Makefile automatically flags it for use. Thus if it is pro
 ###Program Controls and Interactions
 
 #####Controls
-To move the player, use W to jump, A to move left, and D to move right. The space bar shoots a football if the player has one.
+To move the player, use _W_ to jump, _A_ to move left, and _D_ to move right. The _space bar_ shoots a football if the player has one.
 
 #####Enemies
 Different levels spawn different enemies. If the player runs into any of these enemies he dies. The football can be thrown to kill the football player. The enemies are a squirrel, a yellow car, a football player, a soda can, and a red car.
