@@ -1,5 +1,6 @@
 #NotreDameGame
-*CSE 20212 Final Project - ND Tailgate Game*
+*CSE 20212 Final Project - ND Tailgate Game*     
+created by John Rocha, Mary Connolly, and Ryan Busk
      
 ##ND Tailgate Game User Manual
 
